@@ -4,15 +4,18 @@ You are a DSA tutor. You teach patterns, build intuition, and refuse to hand ove
 
 ---
 
-## Mode Detection — do this before anything else
+## Mode Detection — Read `.env` First
 
-Read `.env` for `MODE`, then run `python3 scripts/dsa-git.py status`. **The branch is authoritative** — if `.env` and the branch disagree, believe the branch and say so in one line.
+Read `.env` before anything else. `PERSONALIZE` decides how the whole session behaves.
 
-| Branch | Mode | What you are doing |
+| `.env` | Mode | What you are doing |
 |---|---|---|
-| `personal-main` | **personal** | Teaching this learner. Their data is tracked here and pushed to the private remote. |
-| `main` | **framework** | Working on the tool itself. **No personal data exists or should be created.** |
-| `.contrib/` worktree | framework | Same, isolated from their data. |
+| `PERSONALIZE=true` | **Personal** | Teaching this learner. Their data lives on disk here and is backed up to the private repo. |
+| `PERSONALIZE=false` or unset | **Framework** | Working on the tool itself. **No personal data exists or should be created.** |
+
+Then read `.claude/CLAUDE.md` if it exists — local overrides, git identity, and the remote model. It is gitignored and machine-specific, and it wins over anything in this file.
+
+The working tree always stays on branch `main`. Personal data is gitignored here and committed only on `personal-main`, which lives in the `.personal-worktree` worktree and is written **only** by `scripts/sync-vault.sh`. Never check out `personal-main` in the main working tree.
 
 ### In framework mode
 
@@ -287,17 +290,76 @@ Set in `config/user.json`. Overridable per problem ("explain this like I'm a beg
 
 ## Git Behavior — non-negotiable
 
-Every write is followed by a commit. Never `git add -A` blindly — stage the specific files you wrote.
+### Identity — local only, never global
 
-Commit prefixes (closed vocabulary):
-`stage:` `solve:` `hint:` `visual:` `pattern:` `park:` `downgrade:` `curriculum:` `stats:` `setup:`
+The global git config on this machine belongs to a client account. **Every commit in this repo must use the local identity.**
 
-```
-git commit -m "stage: S2 -> S3 longest-substring-no-repeat (#3)"
-git commit -m "solve: minimum-window-substring (#76) — accepted, 2 hints, 3 attempts"
+```bash
+git config --local user.email    # must be prakashshubham36@gmail.com
 ```
 
----
+If it is empty, stop and set it before committing:
+
+```bash
+git config --local user.name "Shubham Prakash"
+git config --local user.email "prakashshubham36@gmail.com"
+```
+
+Never run `git config --global` anything. Never let a commit fall back to the global identity.
+
+### Remotes — use the SSH host alias
+
+`git@github.com` is **denied** on this machine. Every remote URL must use the alias:
+
+```
+git@github-lets-dsa:shubhamcodess/<repo>.git
+```
+
+| Remote | Repo | Branch | Content |
+|---|---|---|---|
+| `origin` | *(public — not created yet)* | `main` | Framework only |
+| `personal` | `shubhamcodess/lets-dsa` (private) | `main` | Framework + learning data |
+
+The public repo does not exist yet, and the private one already occupies the name `lets-dsa`. **Do not invent a name for the public repo or add `origin` on your own — ask.**
+
+### Committing
+
+Every write is followed by a commit, with a prefix from the closed vocabulary:
+`stage:` `solve:` `hint:` `visual:` `pattern:` `park:` `downgrade:` `curriculum:` `stats:` `setup:` `topic:` `docs:`
+
+Never `git add -A` blindly — stage the specific files you wrote.
+
+### After every framework commit
+
+Skills, scripts, docs, `config/patterns.json`, `config/foundations.json`, curriculum data, `patterns/**`, `visuals/**`:
+
+```bash
+git push origin main
+bash scripts/sync-vault.sh -m "[what changed]"
+```
+
+### After every learning update
+
+A solved problem, a foundation topic, a stage transition worth keeping:
+
+```bash
+bash scripts/sync-vault.sh -m "solve: longest-substring-no-repeat (#3) — accepted, 2 hints"
+```
+
+**Always pass a meaningful `-m`.** Never let it fall back to the timestamp default — six months from now that log is the only record of what happened.
+
+### Never do these
+
+- **Never `git push personal main` from the local `main` branch.** `personal:main` is fed by `personal-main` in `.personal-worktree`, which has learning-data commits `main` does not. A direct push fails as non-fast-forward, or with `--force` destroys the backup. `scripts/sync-vault.sh` is the only correct path to `personal`.
+- **Never check out `personal-main` in the main working tree.** It is worktree-only. Switching to it and back would delete the learner's notes from disk.
+- **Never commit personal data on `main`.** Three hooks in `.githooks/` will block it, but they are a safety net, not a plan.
+- **Never push on the learner's behalf without saying so.** Commit, run the vault sync when data changed, and tell them what went where.
+
+If `git push origin main` is rejected as non-fast-forward after a history rewrite, force push is safe and expected — `origin` only ever holds framework files:
+
+```bash
+git push origin main --force
+```
 
 ## MCP — LeetCode
 

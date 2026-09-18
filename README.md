@@ -73,8 +73,9 @@ This repo is both an open-source tool and your private learning record. They liv
 
 | | Framework mode | Personal mode |
 |---|---|---|
-| Branch | `main` | `personal-main` |
+| `.env` | `PERSONALIZE=false` | `PERSONALIZE=true` |
 | Remote | `origin` (public) | `personal` (private) |
+| Pushed by | `git push origin main` | `bash scripts/sync-vault.sh -m "..."` |
 | You are | improving the tool | learning DSA |
 
 Your profile, progress, notes and solved problems **never reach the public repo**. That's enforced by three git hooks, not by discipline: `.gitignore` blocks a normal add, `pre-commit` blocks `git add -f` on `main`, and `pre-push` inspects the actual commit range and refuses — even if you rename the branch.
@@ -83,10 +84,10 @@ Pattern briefs and animations stay public on purpose. A brief about sliding wind
 
 ```bash
 # learning — create an empty private repo first
-python3 scripts/dsa-git.py init-personal --remote git@github.com:you/lets-dsa-private.git
+python3 scripts/dsa-git.py init-personal --remote git@github-lets-dsa:you/lets-dsa.git
 
-# contributing (from a learner's clone — your notes stay untouched)
-python3 scripts/dsa-git.py contrib
+# back up your data to the private repo (the only correct path to `personal`)
+bash scripts/sync-vault.sh -m "solve: two-sum (#1) — accepted, 0 hints"
 
 # where am I, what's protected, is anything leaking
 python3 scripts/dsa-git.py status

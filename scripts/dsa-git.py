@@ -36,7 +36,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PUBLIC_BRANCH = "main"
 PERSONAL_BRANCH = "personal-main"
-CONTRIB_DIR = ".contrib"
+WORKTREE_DIR = ".personal-worktree"
 HOOKS = ".githooks"
 
 
@@ -82,27 +82,44 @@ def remotes():
     return out
 
 
-def mode():
+def env_val(key):
     env = os.path.join(ROOT, ".env")
     if os.path.exists(env):
         for line in open(env):
-            if line.strip().startswith("MODE="):
-                return line.strip().split("=", 1)[1].strip() or None
+            line = line.strip()
+            if line.startswith(key + "="):
+                return line.split("=", 1)[1].strip() or None
     return None
+
+
+def mode():
+    return "personal" if (env_val("PERSONALIZE") or "").lower() == "true" else "framework"
 
 
 # ---------------------------------------------------------------- status
 
 def cmd_status(_):
     b, rs, m = branch(), remotes(), mode()
-    declared = m or "(unset)"
-    actual = "personal" if b == PERSONAL_BRANCH else "framework"
 
     print(f"branch          {b}")
-    print(f"mode (.env)     {declared}")
-    print(f"mode (actual)   {actual}   <- the branch is what actually decides")
-    if m and m != actual:
-        print(f"  ! .env says {m!r} but you are on {b}. The branch wins; fix .env.")
+    print(f"mode (.env)     {m}   (PERSONALIZE={env_val('PERSONALIZE')})")
+    if b != PUBLIC_BRANCH:
+        print(f"  ! the working tree should stay on '{PUBLIC_BRANCH}'. "
+              f"'{PERSONAL_BRANCH}' is worktree-only — see .claude/CLAUDE.md")
+    print()
+
+    local_email = git("config", "--local", "user.email", check=False)
+    global_email = git("config", "--global", "user.email", check=False)
+    print("identity")
+    if local_email:
+        print(f"  local     {git('config','--local','user.name',check=False)} <{local_email}>")
+    else:
+        print("  local     NOT SET — commits would fall back to the global identity")
+    print(f"  global    <{global_email or 'unset'}>   (must never be used here)")
+    if not local_email:
+        print("\n  Fix before committing:")
+        print('    git config --local user.name "Shubham Prakash"')
+        print('    git config --local user.email "prakashshubham36@gmail.com"')
     print()
     print("remotes")
     for name in ("origin", "personal"):
@@ -127,9 +144,18 @@ def cmd_status(_):
         tracked = bool(listed)
         state = "tracked" if tracked else ("on disk, untracked" if exists else "absent")
         print(f"  {p:26s} {state}")
+    print()
+    print(f"private repo    {env_val('PRIVATE_REPO_URL') or '(PRIVATE_REPO_URL unset in .env)'}")
     wt = git("worktree", "list", check=False)
-    if CONTRIB_DIR in wt:
-        print(f"\ncontrib worktree active at {CONTRIB_DIR}/ — framework work goes there")
+    if WORKTREE_DIR in wt:
+        print(f"vault worktree  {WORKTREE_DIR}/ (branch {PERSONAL_BRANCH}) — "
+              f"written only by scripts/sync-vault.sh")
+    else:
+        print(f"vault worktree  not created yet — first sync-vault.sh run makes it")
+    print()
+    print("push routing")
+    print(f"  framework ->  git push origin {PUBLIC_BRANCH}")
+    print(f"  learning  ->  bash scripts/sync-vault.sh -m \"...\"   (never git push personal)")
     return 0
 
 
@@ -139,91 +165,50 @@ def cmd_init_personal(args):
     git("config", "core.hooksPath", HOOKS)
     print(f"leak guards installed (core.hooksPath={HOOKS})")
 
-    url = args.remote
+    git("config", "--local", "user.name", "Shubham Prakash")
+    git("config", "--local", "user.email", "prakashshubham36@gmail.com")
+    print("local identity set (global config untouched)")
+
+    url = args.remote or env_val("PRIVATE_REPO_URL")
     if not url:
-        print("\nYou need a PRIVATE repository for your learning data.")
-        print("Create an empty private repo, then re-run:")
-        print("    python3 scripts/dsa-git.py init-personal --remote git@github.com:you/lets-dsa-private.git")
-        print("\nNothing else changed. No data has been pushed anywhere.")
+        print("\nNeed the PRIVATE repo URL. Re-run with:")
+        print("    python3 scripts/dsa-git.py init-personal --remote "
+              "git@github-lets-dsa:shubhamcodess/lets-dsa.git")
+        return 1
+    if "@github.com:" in url:
+        print(f"\n! {url} uses plain github.com, which is DENIED on this machine.")
+        print("  Use the alias: git@github-lets-dsa:...  (see .claude/CLAUDE.md)")
         return 1
 
     rs = remotes()
-    if rs.get("personal") and rs["personal"] != url:
-        print(f"remote 'personal' already points at {rs['personal']}")
-        print(f"  updating to {url}")
-        git("remote", "set-url", "personal", url)
-    elif not rs.get("personal"):
-        git("remote", "add", "personal", url)
+    if rs.get("personal") != url:
+        git("remote", "set-url" if rs.get("personal") else "add", "personal", url)
     print(f"remote personal -> {url}")
 
-    existing = git("branch", "--list", PERSONAL_BRANCH, check=False)
-    if not existing:
-        git("switch", "-c", PERSONAL_BRANCH)
-        print(f"created branch {PERSONAL_BRANCH}")
-    elif branch() != PERSONAL_BRANCH:
-        git("switch", PERSONAL_BRANCH)
-        print(f"switched to {PERSONAL_BRANCH}")
-
-    # Bind each branch to its own remote so a bare `git push` can never cross over.
-    git("config", f"branch.{PERSONAL_BRANCH}.remote", "personal")
-    git("config", f"branch.{PERSONAL_BRANCH}.merge", f"refs/heads/{PERSONAL_BRANCH}")
     git("config", f"branch.{PUBLIC_BRANCH}.remote", "origin")
     git("config", f"branch.{PUBLIC_BRANCH}.merge", f"refs/heads/{PUBLIC_BRANCH}")
-    print(f"push routing: {PERSONAL_BRANCH} -> personal, {PUBLIC_BRANCH} -> origin")
-
-    # Personal paths stay in .gitignore so they can never be added by accident on main.
-    # Here we force-add them once; after that git tracks them and .gitignore is moot,
-    # but ONLY on this branch, because main has no such commits.
-    added = []
-    for p in personal_paths():
-        full = os.path.join(ROOT, p.rstrip("/"))
-        if os.path.exists(full) and p != ".env":
-            git("add", "-f", "--", p, check=False)
-            added.append(p)
-    if added:
-        print(f"now tracked on {PERSONAL_BRANCH}: {', '.join(added)}")
-    print("  (.env is never tracked on any branch — it can hold your LeetCode cookie)")
 
     env = os.path.join(ROOT, ".env")
-    lines, seen = [], False
-    if os.path.exists(env):
-        for line in open(env):
-            if line.strip().startswith("MODE="):
-                lines.append("MODE=personal\n"); seen = True
-            else:
-                lines.append(line)
-    if not seen:
-        lines.append("MODE=personal\n")
+    lines = open(env).readlines() if os.path.exists(env) else []
+    def upsert(key, val):
+        for i, l in enumerate(lines):
+            if l.strip().startswith(key + "="):
+                lines[i] = f"{key}={val}\n"
+                return
+        lines.append(f"{key}={val}\n")
+    upsert("PERSONALIZE", "true")
+    upsert("PRIVATE_REPO_URL", url)
     open(env, "w").writelines(lines)
-    print("wrote MODE=personal to .env")
+    os.chmod(env, 0o600)
+    print("wrote PERSONALIZE=true and PRIVATE_REPO_URL to .env")
 
-    print("\nDone. You are in personal mode.")
-    print("  Learn here. `git push` goes to your private repo.")
-    print("  To work on the framework itself: python3 scripts/dsa-git.py contrib")
+    print("\nDone. Personal mode.")
+    print(f"  Stay on branch '{PUBLIC_BRANCH}'. Your data is gitignored here and backed up with:")
+    print('    bash scripts/sync-vault.sh -m "what changed"')
     return 0
 
 
-# ---------------------------------------------------------------- contrib
-
-def cmd_contrib(_):
-    path = os.path.join(ROOT, CONTRIB_DIR)
-    if os.path.exists(path):
-        print(f"contrib worktree already at {CONTRIB_DIR}/")
-    else:
-        git("worktree", "add", CONTRIB_DIR, PUBLIC_BRANCH)
-        print(f"created worktree {CONTRIB_DIR}/ on branch {PUBLIC_BRANCH}")
-    print(f"""
-Framework work happens in {CONTRIB_DIR}/ so your notes here are never touched.
-
-    cd {CONTRIB_DIR}
-    git switch -c fix/whatever
-    ... edit skills, scripts, docs ...
-    git push origin fix/whatever
-
-Your personal data does not exist in that tree — {PUBLIC_BRANCH} never tracked it.
-When you are finished:  git worktree remove {CONTRIB_DIR}""")
-    return 0
-
+# ---------------------------------------------------------------- sync
 
 # ---------------------------------------------------------------- save
 
@@ -257,21 +242,15 @@ def cmd_save(args):
 
 # ---------------------------------------------------------------- sync
 
-def cmd_sync(_):
-    if branch() != PERSONAL_BRANCH:
-        print(f"! run this from {PERSONAL_BRANCH} (you are on {branch()})")
+def cmd_sync(args):
+    """The only correct path to the `personal` remote."""
+    script = os.path.join(ROOT, "scripts", "sync-vault.sh")
+    msg = getattr(args, "message", None)
+    cmd = ["bash", script] + (["-m", msg] if msg else [])
+    if not msg:
+        print("! pass -m with a real message — the timestamp default is useless later")
         return 1
-    if git("status", "--porcelain", check=False):
-        print("! working tree is dirty — commit or stash first")
-        return 1
-    print(f"merging {PUBLIC_BRANCH} into {PERSONAL_BRANCH} (framework updates only)")
-    r = subprocess.run(["git", "-C", ROOT, "merge", "--no-edit", PUBLIC_BRANCH],
-                       capture_output=True, text=True)
-    print(r.stdout.strip() or r.stderr.strip())
-    if r.returncode != 0:
-        print("\nResolve the conflict, then: git merge --continue")
-        print("Your data is not at risk — main never tracked it, so it cannot conflict.")
-    return r.returncode
+    return subprocess.run(cmd, cwd=ROOT).returncode
 
 
 # ---------------------------------------------------------------- check
@@ -305,11 +284,13 @@ def main():
     ip = sub.add_parser("init-personal")
     ip.add_argument("--remote", help="git URL of your PRIVATE repository")
     ip.set_defaults(fn=cmd_init_personal)
-    sub.add_parser("contrib").set_defaults(fn=cmd_contrib)
+
     sv = sub.add_parser("save")
     sv.add_argument("message")
     sv.set_defaults(fn=cmd_save)
-    sub.add_parser("sync").set_defaults(fn=cmd_sync)
+    sy = sub.add_parser("sync")
+    sy.add_argument("-m", "--message", help="what changed (required)")
+    sy.set_defaults(fn=cmd_sync)
     sub.add_parser("check").set_defaults(fn=cmd_check)
     args = ap.parse_args()
     if not getattr(args, "fn", None):

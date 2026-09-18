@@ -9,7 +9,9 @@ This repo is both an open-source tool and your private learning record. Those mu
 | You are | improving the tool | learning DSA |
 | Contains | skills, scripts, curriculum, pattern briefs, visuals | all of that **plus** your profile, progress and notes |
 
-**The branch is what decides.** `MODE` in `.env` is a hint for Claude; if the two disagree, the branch wins and `dsa-git.py status` says so.
+**`PERSONALIZE` in `.env` decides the mode.** The working tree always stays on `main`; `personal-main` is worktree-only and written solely by `scripts/sync-vault.sh`.
+
+**Identity and SSH are local, never global.** The global git config on this machine is a client account, and plain `git@github.com` is denied — only `git@github-lets-dsa:...` authenticates. Both are set up by `init-personal` and documented in `.claude/CLAUDE.md` (gitignored).
 
 ---
 
@@ -49,24 +51,30 @@ Do nothing. A fresh clone is on `main` in framework mode, and no personal data e
 
 ### Both
 
-Learn on `personal-main` in the main working tree. When you want to change the framework:
+You do both from the same tree, because the tree never switches branches.
+
+- **Learning** writes gitignored files in place. Back them up with the vault script.
+- **Framework work** is committed on `main` and pushed to `origin`.
 
 ```bash
-python3 scripts/dsa-git.py contrib
-cd .contrib
-git switch -c fix/whatever
-git push origin fix/whatever
+# learning data -> private repo (the ONLY correct path to `personal`)
+bash scripts/sync-vault.sh -m "solve: two-sum (#1) — accepted, 0 hints"
+
+# framework -> public repo
+git push origin main
 ```
 
-`.contrib/` is a worktree on `main`. Your notes aren't in it, because `main` never tracked them.
+### Why the vault script and not `git push personal main`
 
-**This is the reason for the worktree.** Switching branches deletes files the target branch doesn't track — `git switch main` from `personal-main` would empty `questions/` in front of you. The worktree means you never switch.
+`personal:main` is fed by the `personal-main` branch inside `.personal-worktree`, which carries
+data commits that local `main` does not have. The histories legitimately diverge, so a direct
+push either fails as non-fast-forward or — with `--force` — destroys your backup. The script
+merges `main` into `personal-main`, copies the personal files in, force-adds them, and pushes
+`personal-main:main`.
 
-### Pulling framework updates into your instance
+### Pulling framework updates into the vault
 
-```bash
-python3 scripts/dsa-git.py sync
-```
+Automatic — `sync-vault.sh` merges `main` first on every run.
 
 Merges `main` into `personal-main`. Your data can't conflict, because `main` has never had a commit touching it.
 
