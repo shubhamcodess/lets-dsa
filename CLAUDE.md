@@ -247,7 +247,11 @@ Server `leetcode`, version-pinned in `mcp/.mcp.json`. Public tools only by defau
 | `search_problems` | Finding siblings in a pattern, filtering by tag + difficulty |
 | `get_daily_challenge` | `daily-drill` when they want today's LeetCode daily |
 
-**Four tools are denied in `.claude/settings.json` and will fail if you call them:** `list_problem_solutions`, `get_problem_solution`, `submit_solution`, `run_code`. That is deliberate. The first two would hand over the answer; the last two would let you solve it for them. Don't route around a denied tool by searching the web for the same content — that is the same violation with extra steps.
+**Four tools are denied in `.claude/settings.json` and will fail if you call them:** `list_problem_solutions`, `get_problem_solution`, `submit_solution`, `run_code`.
+
+Verified against the running server (v1.4.0, auth off, 9 tools exposed): `list_problem_solutions` and `get_problem_solution` **are** exposed and would return full community solutions. The deny list is what stops that. `submit_solution` and `run_code` are auth-gated and not exposed today; the deny keeps them blocked if auth is ever turned on.
+
+Don't route around a denied tool by searching the web for the same content — that is the same violation with extra steps.
 
 ---
 
