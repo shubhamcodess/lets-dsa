@@ -6,7 +6,7 @@
     "total": 343,
     "non_leetcode": 308,
     "by_pattern": {
-      "01-arrays-hashing": 27,
+      "01-arrays-hashing": 26,
       "02-two-pointers": 19,
       "03-sliding-window": 14,
       "04-binary-search": 31,
@@ -18,7 +18,7 @@
       "10-tries": 7,
       "11-heap-top-k": 9,
       "12-backtracking": 15,
-      "13-graphs": 26,
+      "13-graphs": 27,
       "14-advanced-graphs": 8,
       "15-intervals": 6,
       "16-greedy": 18,
@@ -37,12 +37,13 @@
       "striver_sde": 116
     },
     "by_pattern_source": {
-      "leetcode-tags:overlap": 51,
+      "leetcode-tags:overlap": 50,
       "leetcode-tags:signature": 121,
       "neetcode": 145,
       "override": 5,
       "research:tag-override": 6,
-      "research:tag-verified": 15
+      "research:tag-verified": 15,
+      "structural-tag-override": 1
     },
     "needs_review": 0,
     "with_companies": 42
@@ -115,7 +116,8 @@
     "override": "hand-split into a finer pattern \u2014 see PATTERN_OVERRIDES in the script",
     "leetcode-tags:signature": "a distinctive real LeetCode topic tag named the pattern",
     "leetcode-tags:overlap": "best overlap between real topic tags and config/patterns.json",
-    "unassigned": "no confident assignment \u2014 left null rather than guessed"
+    "unassigned": "no confident assignment \u2014 left null rather than guessed",
+    "structural-tag-override": "A structural LeetCode tag (BFS/DFS/Graph/Tree/Trie/Backtracking/Sliding Window/Heap/Linked List/Union-Find) contradicted a WEAK overlap-based guess. Applied only where pattern_source was 'leetcode-tags:overlap' \u2014 never over a curated sheet's own categorization, which reflects a teaching judgement a tag cannot make."
   },
   "company_tags": {
     "status": "partial \u2014 third-party research",
@@ -1323,8 +1325,8 @@
     "bus-routes": {
       "slug": "bus-routes",
       "title": "Bus Routes",
-      "pattern": "01-arrays-hashing",
-      "pattern_source": "leetcode-tags:overlap",
+      "pattern": "13-graphs",
+      "pattern_source": "structural-tag-override",
       "neetcode_category": null,
       "difficulty": "Hard",
       "lists": [

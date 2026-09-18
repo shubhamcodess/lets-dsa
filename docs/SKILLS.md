@@ -90,6 +90,7 @@ Nine skills at `skills/<name>/SKILL.md`. Claude reads all of them at session sta
 | `apply-research.py [--dry-run]` | merges model/web research into the curriculum, re-verifying every proposed pattern against real LeetCode tags and discarding any company list with no source URL | `curriculum/merged.json` |
 | `sync-vault.sh -m "..."` | merges main into personal-main in `.personal-worktree`, copies learning data in, commits and pushes `personal-main:main` to the private repo. The only correct path to the `personal` remote | private repo |
 | `dsa-git.py {status,init-personal,save,sync,check}` | dual-mode git: routes personal data to the private remote and framework work to the public one; installs and dry-runs the leak guards | git config, branches, worktree |
+| `build-track.py` | materializes the ladder into `curriculum/track.md`: pattern tiers from the dependency graph, per-tier advancement counts with a required difficulty mix, and problems ordered by ramp then sheet consensus | `curriculum/track.md` |
 | `roll-stats.py` | aggregates question + topic frontmatter into mastery bands and open foundation gates | `state/stats.json` |
 | `status.py` | read-only session-start snapshot, reports failing setup gates | nothing |
 

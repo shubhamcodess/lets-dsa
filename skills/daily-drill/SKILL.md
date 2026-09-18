@@ -49,6 +49,19 @@ than a lecture.
 > 3 hours, and it also unlocks backtracking, graphs and both DP patterns. Do that first,
 > or push ahead and pick it up as we go?
 
+## The three orderings — how "what next" is actually decided
+
+`curriculum/track.md` materializes all of this. Read it rather than re-deriving.
+
+| Question | Decided by | Where |
+|---|---|---|
+| Which pattern next? | dependency graph, topologically sorted into 6 tiers | `depends_on` in `config/patterns.json` |
+| When may I leave a pattern? | 6 problems in tier 1 down to 3 in tier 6, with a required Easy/Medium mix | `TIER_RULES` in `scripts/build-track.py` |
+| Which problem inside it? | difficulty ramp first, then sheet consensus | below |
+| Is it genuinely held? | mastery band from real hint and attempt counts | `skills/progress-report` |
+
+**The count is the floor, not the proof.** Six solved at hint rung 5 is not a pattern held. `progress-report` bands it `exposed`, and you should say so rather than advancing on the count alone.
+
 ## Consensus — which problem inside a pattern
 
 When several problems in a pattern are equally ready to serve, take the one in the most
