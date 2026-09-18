@@ -45,6 +45,45 @@ TIER_RULES = {
 
 DIFF_ORDER = {"Easy": 0, "Medium": 1, "Hard": 2}
 
+# Three readiness levels, not one number. The floor tells you when you may MOVE ON from a
+# pattern; it does not tell you when you are ready to interview. Conflating the two is how
+# someone finishes a tracker and fails a loop.
+READINESS = {
+    "floor":       (None, "Covered the map. You can recognize every pattern. Not interview-ready."),
+    "interview":   (180,  "Realistic target for product-based interviews. Weighted toward the "
+                          "patterns interviewers actually reach for."),
+    "strong":      (250,  "Depth in the high-frequency patterns, plus the Hard tier where it "
+                          "matters. Comfortable rather than surviving."),
+}
+
+
+def allocate(budget, floors, weights, avail):
+    """Split `budget` across patterns proportional to interview frequency, never below a
+    pattern's floor and never above what exists. Clamping redistributes, so iterate."""
+    ids = list(floors)
+    out = {k: floors[k] for k in ids}
+    remaining = budget - sum(out.values())
+    for _ in range(50):
+        if remaining <= 0:
+            break
+        open_ids = [k for k in ids if out[k] < avail[k]]
+        if not open_ids:
+            break
+        tw = sum(weights[k] for k in open_ids) or 1
+        added = 0
+        for k in open_ids:
+            share = weights[k] / tw
+            give = max(1, round(remaining * share)) if remaining > 0 else 0
+            give = min(give, avail[k] - out[k], remaining - added)
+            out[k] += give
+            added += give
+            if added >= remaining:
+                break
+        if added == 0:
+            break
+        remaining -= added
+    return out
+
 
 def tiers(patterns):
     """Topologically sort patterns into dependency tiers."""
@@ -140,6 +179,41 @@ def main():
             if avail > len(shown):
                 w(f"\n_+{avail - len(shown)} more in this pattern once these are done._")
 
+    # ---- readiness targets ----
+    floors, weights, avail_n = {}, {}, {}
+    for tier, ids in tiers(pats):
+        need = TIER_RULES.get(tier, (3,))[0]
+        for pid in ids:
+            n = len(by_pattern.get(pid, []))
+            floors[pid] = min(need, n)
+            weights[pid] = sum(len(p["lists"]) for p in by_pattern.get(pid, []))
+            avail_n[pid] = n
+    interview = allocate(READINESS["interview"][0], floors, weights, avail_n)
+    strong = allocate(READINESS["strong"][0], floors, weights, avail_n)
+
+    w("\n---\n\n## Readiness targets — three levels, not one number\n")
+    w("The floor tells you when you may **move on** from a pattern. It does not tell you when\n"
+      "you are ready to **interview**. Those are different questions, and conflating them is how\n"
+      "someone finishes a tracker and then fails a loop.\n")
+    w(f"| Level | Problems | What it means |")
+    w("|---|---|---|")
+    w(f"| **Floor** | {sum(floors.values())} | {READINESS['floor'][1]} |")
+    w(f"| **Interview-ready** | {sum(interview.values())} | {READINESS['interview'][1]} |")
+    w(f"| **Strong** | {sum(strong.values())} | {READINESS['strong'][1]} |")
+    w("\nBeyond the floor, problems are allocated by **interview frequency** — measured as how\n"
+      "much weight the seven curated sheets put on each pattern, not by my opinion. Trees carries\n"
+      "15% of all sheet weight; fast-slow pointers carries 1%. Spreading effort evenly across\n"
+      "20 patterns would be the wrong shape.\n")
+    w("| Pattern | Available | Floor | Interview-ready | Strong | Share of sheet weight |")
+    w("|---|---|---|---|---|---|")
+    tw = sum(weights.values()) or 1
+    for pid in sorted(weights, key=lambda x: -weights[x]):
+        w(f"| {pmeta[pid]['name']} | {avail_n[pid]} | {floors[pid]} | {interview[pid]} | "
+          f"{strong[pid]} | {weights[pid]/tw*100:.1f}% |")
+    w("\n**None of these numbers is mastery on its own.** 180 solved at hint rung 5 is worse than\n"
+      "120 solved cold. `progress-report` bands each pattern on your real hint and attempt counts,\n"
+      "and a pattern only reaches `solid` after a revisit you passed without help.\n")
+
     w("\n---\n\n## Exit criteria — when a pattern is genuinely done\n")
     w("Solving the count above is the floor, not the proof. A pattern counts as held when:\n")
     w("| Band | Means |")
@@ -150,7 +224,8 @@ def main():
     w("\n`progress-report` computes these from your real hint and attempt counts. "
       "A problem solved at rung 5 after four attempts is exposure, not mastery, and the "
       "report says so rather than counting it.\n")
-    w(f"\n_Floor to complete every pattern in this track: **{total_needed} problems**._")
+    w(f"\n_Floor across the ladder: **{total_needed} problems**. "
+      f"Interview-ready: **{sum(interview.values())}**. Strong: **{sum(strong.values())}**._")
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     open(OUT, "w").write("\n".join(L) + "\n")
