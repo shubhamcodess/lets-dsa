@@ -67,6 +67,34 @@ One file per problem, organized by **pattern** rather than topic — so browsing
 
 After a few months that folder is your own pattern library, written by you, in your language. That's the actual output of this project. The solved count is a side effect.
 
+## Two modes
+
+This repo is both an open-source tool and your private learning record. They live on different branches and push to different remotes.
+
+| | Framework mode | Personal mode |
+|---|---|---|
+| Branch | `main` | `personal-main` |
+| Remote | `origin` (public) | `personal` (private) |
+| You are | improving the tool | learning DSA |
+
+Your profile, progress, notes and solved problems **never reach the public repo**. That's enforced by three git hooks, not by discipline: `.gitignore` blocks a normal add, `pre-commit` blocks `git add -f` on `main`, and `pre-push` inspects the actual commit range and refuses — even if you rename the branch.
+
+Pattern briefs and animations stay public on purpose. A brief about sliding windows is about the pattern, not about you, and it's what makes this repo worth cloning.
+
+```bash
+# learning — create an empty private repo first
+python3 scripts/dsa-git.py init-personal --remote git@github.com:you/lets-dsa-private.git
+
+# contributing (from a learner's clone — your notes stay untouched)
+python3 scripts/dsa-git.py contrib
+
+# where am I, what's protected, is anything leaking
+python3 scripts/dsa-git.py status
+python3 scripts/dsa-git.py check
+```
+
+Full detail, including the honest limits: [`docs/MODES.md`](docs/MODES.md).
+
 ## Quick start
 
 ```bash

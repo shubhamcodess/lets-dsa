@@ -88,6 +88,7 @@ Nine skills at `skills/<name>/SKILL.md`. Claude reads all of them at session sta
 | `build-curriculum.py [--verify] [--refresh]` | fetches 5 curated sheets (NeetCode 150 + Striver A2Z / SDE / Blind 75 / Striver 79), merges them by LeetCode slug, verifies every slug against LeetCode's public GraphQL, and infers a pattern for anything NeetCode didn't already categorize | `curriculum/merged.json` |
 | `build-foundations.py` | builds the 8 prerequisite topics and their gates from Striver A2Z steps 1–2 | `config/foundations.json` |
 | `apply-research.py [--dry-run]` | merges model/web research into the curriculum, re-verifying every proposed pattern against real LeetCode tags and discarding any company list with no source URL | `curriculum/merged.json` |
+| `dsa-git.py {status,init-personal,contrib,save,sync,check}` | dual-mode git: routes personal data to the private remote and framework work to the public one; installs and dry-runs the leak guards | git config, branches, worktree |
 | `roll-stats.py` | aggregates question + topic frontmatter into mastery bands and open foundation gates | `state/stats.json` |
 | `status.py` | read-only session-start snapshot, reports failing setup gates | nothing |
 
