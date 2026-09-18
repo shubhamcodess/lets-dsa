@@ -65,7 +65,19 @@ fi
 cd "$WORKTREE"
 
 # ── Bring in latest framework commits from main ───────────────────────────────
-git merge main --no-edit -m "merge: framework from main — $TIMESTAMP" 2>/dev/null || true
+# Never suppress this. A dirty worktree index makes the merge refuse, and if that is
+# swallowed the vault keeps pushing while framework updates silently stop arriving.
+if ! git diff --quiet || ! git diff --cached --quiet; then
+  echo "❌  $WORKTREE has uncommitted changes — refusing to merge into a dirty tree."
+  echo "    This worktree is written only by this script. Inspect it with:"
+  echo "        git -C \"$WORKTREE\" status"
+  exit 1
+fi
+if ! git merge main --no-edit -m "merge: framework from main — $TIMESTAMP"; then
+  echo "❌  merge of main into personal-main failed — resolve it, then re-run:"
+  echo "        git -C \"$WORKTREE\" status"
+  exit 1
+fi
 
 # ── Copy learning data into worktree ──────────────────────────────────────────
 # .env is deliberately NOT in this list — it may hold your LeetCode session cookie
