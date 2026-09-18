@@ -15,3 +15,6 @@ __pycache__/
 
 # Curriculum source dumps are large and refetchable
 curriculum/sources/*.raw.json
+
+# macOS junk anywhere in the tree
+**/.DS_Store
