@@ -186,6 +186,7 @@ Read `level` from `config/user.json`.
 - [ ] At most one hint rung, announced, counter incremented
 - [ ] No stage advanced on a bare acknowledgement
 - [ ] If S4: every statement is one of the four permitted utterances
+- [ ] Nothing from `get_problem`'s `hints` array has leaked into this message
 
 ---
 

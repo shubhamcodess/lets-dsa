@@ -11,6 +11,8 @@ Read this before your first S4 critique, and any time a stage's behaviour is unc
 
 1. Resolve the slug. From a URL, from a title, or from `curriculum/track.md` if they said "next".
 2. Call `get_problem` with the slug. If it does not resolve, say so and stop. **Never reconstruct a problem statement from memory** — a misremembered constraint poisons every stage after it.
+   - The response includes LeetCode's official **`hints`**. **Do not read them out, paraphrase them, or steer toward them before S5.** They are usually the invariant stated plainly — rung 4 material you would be giving away at rung 0. Having them in context is not permission to use them.
+   - `similarQuestions` in the same response is genuinely useful: use it to name real siblings at S1 instead of guessing.
 3. Read the pattern from `curriculum/merged.json`. If the problem isn't in there, classify it yourself using the `signals` arrays in `config/patterns.json`, and say which signal decided it.
 4. Write the scaffold to `questions/<pattern-id>/<slug>.md` using the template at the bottom of this file.
 5. Initialize `state/current.json` with `stage: "S1_PATTERN"`, `hint_rung: 0`.
