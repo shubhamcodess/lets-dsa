@@ -1,0 +1,206 @@
+{
+  "schema": 1,
+  "note": "The 20-pattern taxonomy. Folder id is the sort order and the dependency order — do not renumber without regenerating curriculum/track.md. 'signals' are what a learner should spot in a problem STATEMENT to select this pattern; they are the raw material for the S1 gate. 'depends_on' gates curriculum sequencing.",
+  "patterns": [
+    {
+      "id": "01-arrays-hashing",
+      "name": "Arrays & Hashing",
+      "depends_on": [],
+      "core_idea": "Trade space for time. A lookup table turns 'have I seen this?' from a scan into a constant-time question.",
+      "signals": ["asks for duplicates, counts, or frequencies", "asks whether two collections contain the same elements", "you catch yourself writing a nested loop whose inner loop only searches", "order does not matter in the answer"],
+      "invariant_shape": "The table always holds every element seen so far, and nothing else.",
+      "leetcode_tags": ["Array", "Hash Table", "Counting"],
+      "common_traps": ["using a list where a set would do, keeping the O(n) lookup", "counting characters but forgetting the alphabet is bounded"]
+    },
+    {
+      "id": "02-two-pointers",
+      "name": "Two Pointers",
+      "depends_on": ["01-arrays-hashing"],
+      "core_idea": "On sorted or symmetric data, two indices moving toward each other examine every useful pair without examining all pairs.",
+      "signals": ["input is sorted, or sorting it loses nothing", "asks for a pair or triplet meeting a condition", "palindrome or mirror structure", "asks to partition or dedupe in place"],
+      "invariant_shape": "Everything outside [left, right] has already been decided and will never need revisiting.",
+      "leetcode_tags": ["Two Pointers", "Sorting", "Array", "String"],
+      "common_traps": ["moving both pointers when only one should move", "forgetting to skip duplicates and emitting the same triplet twice"]
+    },
+    {
+      "id": "03-sliding-window",
+      "name": "Sliding Window",
+      "depends_on": ["02-two-pointers"],
+      "core_idea": "A contiguous range that grows on the right and shrinks on the left, so each element is added once and removed once.",
+      "signals": ["asks for a contiguous subarray or substring", "asks for longest/shortest/max/min subject to a condition", "a condition that can be broken by adding and repaired by removing"],
+      "invariant_shape": "The window always satisfies the condition (or is the smallest violation), and the answer so far is the best window seen.",
+      "leetcode_tags": ["Sliding Window", "Hash Table", "String"],
+      "common_traps": ["shrinking with an if when a while is needed", "recomputing the window's state instead of updating it incrementally"]
+    },
+    {
+      "id": "04-binary-search",
+      "name": "Binary Search",
+      "depends_on": ["01-arrays-hashing"],
+      "core_idea": "Halve a search space that has a monotonic yes/no property. The array need not be the search space.",
+      "signals": ["sorted input", "constraints large enough that O(n) per query is too slow", "asks for the minimum value that works or maximum that still works", "you can write a cheap check(x) that is false then true"],
+      "invariant_shape": "The answer is always inside [lo, hi]; every discarded half provably cannot contain it.",
+      "leetcode_tags": ["Binary Search", "Array", "Divide and Conquer"],
+      "common_traps": ["infinite loop from the wrong mid rounding", "searching on the array when you should search on the answer range"]
+    },
+    {
+      "id": "05-stack",
+      "name": "Stack",
+      "depends_on": ["01-arrays-hashing"],
+      "core_idea": "Last-in-first-out matches any structure where the most recent unresolved thing must resolve first.",
+      "signals": ["nesting, brackets, or matched pairs", "undo, backtrack, or 'most recent'", "expression parsing", "simulating recursion iteratively"],
+      "invariant_shape": "The stack holds exactly the opened-but-not-yet-closed items, innermost on top.",
+      "leetcode_tags": ["Stack", "String", "Design"],
+      "common_traps": ["popping an empty stack", "checking balance only by count, ignoring type and order"]
+    },
+    {
+      "id": "06-monotonic-stack",
+      "name": "Monotonic Stack",
+      "depends_on": ["05-stack"],
+      "core_idea": "A stack kept sorted discards elements that can never be the answer, giving next-greater / previous-smaller in linear time.",
+      "signals": ["asks for next greater, next smaller, or span", "histogram, rainwater, or skyline shapes", "a nested loop scanning forward for the first element bigger than the current"],
+      "invariant_shape": "The stack is monotonic; anything popped was made irrelevant by the element that popped it.",
+      "leetcode_tags": ["Monotonic Stack", "Stack", "Array"],
+      "common_traps": ["storing values when you need indices to compute width", "wrong strictness, so equal elements are handled twice or not at all"]
+    },
+    {
+      "id": "07-linked-list",
+      "name": "Linked List",
+      "depends_on": ["02-two-pointers"],
+      "core_idea": "Pointer surgery. You cannot index, so you keep exactly the references you need and rewire carefully.",
+      "signals": ["input is a linked list", "asks to reverse, merge, reorder, or remove in place", "O(1) space demanded on a list"],
+      "invariant_shape": "At each step the processed prefix is fully rewired and the unprocessed suffix is still intact and reachable.",
+      "leetcode_tags": ["Linked List", "Recursion"],
+      "common_traps": ["losing the rest of the list by reassigning next too early", "no dummy head, so the head case needs special handling"]
+    },
+    {
+      "id": "08-fast-slow-pointers",
+      "name": "Fast & Slow Pointers",
+      "depends_on": ["07-linked-list"],
+      "core_idea": "Two pointers at different speeds meet iff there is a cycle, and their meeting point locates structure.",
+      "signals": ["cycle detection", "find the middle in one pass", "find the nth from the end", "a repeated value hidden in a range, framed as a sequence"],
+      "invariant_shape": "Fast has always travelled exactly twice slow's distance.",
+      "leetcode_tags": ["Two Pointers", "Linked List", "Hash Table"],
+      "common_traps": ["null dereference when checking fast and fast.next in the wrong order", "stopping at detection when the question wants the cycle entry"]
+    },
+    {
+      "id": "09-trees",
+      "name": "Trees (DFS & BFS)",
+      "depends_on": ["05-stack"],
+      "core_idea": "Recursion mirrors the structure. Decide what each node needs from its children, and what it returns to its parent.",
+      "signals": ["input is a binary tree or n-ary tree", "depth, path, ancestor, or level", "asks to validate or compare structure"],
+      "invariant_shape": "Each recursive call returns a correct answer for its whole subtree, assuming its children did.",
+      "leetcode_tags": ["Tree", "Depth-First Search", "Breadth-First Search", "Binary Tree", "Binary Search Tree"],
+      "common_traps": ["validating a BST against the parent instead of a propagated range", "confusing depth with height"]
+    },
+    {
+      "id": "10-tries",
+      "name": "Tries",
+      "depends_on": ["09-trees"],
+      "core_idea": "A tree keyed by character shares prefixes, so prefix questions cost the length of the word, not the size of the dictionary.",
+      "signals": ["prefix search or autocomplete", "many words queried against one dictionary", "wildcard matching over a word set"],
+      "invariant_shape": "Every path from the root spells a prefix of at least one inserted word.",
+      "leetcode_tags": ["Trie", "String", "Design"],
+      "common_traps": ["no end-of-word marker, so prefixes match as whole words", "rebuilding the trie per query"]
+    },
+    {
+      "id": "11-heap-top-k",
+      "name": "Heap / Top-K",
+      "depends_on": ["01-arrays-hashing"],
+      "core_idea": "You rarely need full order. A size-k heap keeps only the candidates that can still win.",
+      "signals": ["asks for k largest, k smallest, k most frequent", "asks for a running median or a stream", "merging many sorted sources"],
+      "invariant_shape": "The heap holds the best k seen so far; its root is the weakest of those k.",
+      "leetcode_tags": ["Heap (Priority Queue)", "Sorting", "Divide and Conquer"],
+      "common_traps": ["min-heap vs max-heap inverted for the question asked", "sorting everything when a size-k heap was enough"]
+    },
+    {
+      "id": "12-backtracking",
+      "name": "Backtracking",
+      "depends_on": ["09-trees"],
+      "core_idea": "Enumerate a decision tree, undoing each choice on the way out so the state is clean for the next branch.",
+      "signals": ["asks for all combinations, permutations, subsets, or valid arrangements", "small n with a factorial or exponential answer space", "constraint satisfaction — sudoku, n-queens, word search"],
+      "invariant_shape": "On entering a node the state reflects exactly the choices on the path from the root; on leaving, it is restored.",
+      "leetcode_tags": ["Backtracking", "Recursion", "Array"],
+      "common_traps": ["appending a reference to the mutable path instead of a copy", "forgetting to undo the choice after recursing"]
+    },
+    {
+      "id": "13-graphs",
+      "name": "Graphs",
+      "depends_on": ["09-trees"],
+      "core_idea": "A tree with cycles. Everything from trees applies, plus you must remember what you have already visited.",
+      "signals": ["grid, matrix, islands, or regions", "nodes and edges, prerequisites, connections", "shortest path in an unweighted graph", "cycle detection or ordering with dependencies"],
+      "invariant_shape": "Every node is enqueued at most once; visited is marked at enqueue time, not dequeue time.",
+      "leetcode_tags": ["Graph", "Breadth-First Search", "Depth-First Search", "Union Find", "Matrix", "Topological Sort"],
+      "common_traps": ["marking visited on dequeue, so a node enters the queue many times", "treating an undirected edge as one-directional"]
+    },
+    {
+      "id": "14-advanced-graphs",
+      "name": "Advanced Graphs",
+      "depends_on": ["13-graphs", "11-heap-top-k"],
+      "core_idea": "Weighted and structured graph algorithms: Dijkstra, MST, union-find with compression, topological order with counts.",
+      "signals": ["edges carry weights or costs", "asks for cheapest path or cheapest way to connect everything", "asks to detect cycles across merges"],
+      "invariant_shape": "Once a node is finalized its distance is optimal and never changes.",
+      "leetcode_tags": ["Graph", "Shortest Path", "Minimum Spanning Tree", "Union Find", "Heap (Priority Queue)"],
+      "common_traps": ["Dijkstra on negative weights", "union-find without rank or path compression, degrading to a linked list"]
+    },
+    {
+      "id": "15-intervals",
+      "name": "Intervals",
+      "depends_on": ["02-two-pointers"],
+      "core_idea": "Sort by one endpoint, then a single sweep decides overlap with only the previous interval in hand.",
+      "signals": ["input is pairs of start and end", "asks to merge, insert, or count overlaps", "meeting rooms, calendars, bookings"],
+      "invariant_shape": "After sorting, everything before the current interval is already merged and final.",
+      "leetcode_tags": ["Array", "Sorting", "Greedy", "Interval"],
+      "common_traps": ["sorting by end when the question needs start (or the reverse)", "off-by-one on whether touching endpoints count as overlapping"]
+    },
+    {
+      "id": "16-greedy",
+      "name": "Greedy",
+      "depends_on": ["15-intervals"],
+      "core_idea": "A locally best choice is globally optimal — but only when you can argue why. The argument is the work.",
+      "signals": ["asks for a minimum number of steps or maximum profit", "jump games, gas stations, scheduling", "an exchange argument works: swapping toward the greedy choice never hurts"],
+      "invariant_shape": "The partial solution is extendable to an optimal one at every step.",
+      "leetcode_tags": ["Greedy", "Array", "Sorting"],
+      "common_traps": ["assuming greedy works without checking a counterexample", "greedy on a problem that needs DP because choices interact"]
+    },
+    {
+      "id": "17-1d-dp",
+      "name": "1-D Dynamic Programming",
+      "depends_on": ["12-backtracking"],
+      "core_idea": "Overlapping subproblems. Define the state, write the recurrence, then stop recomputing.",
+      "signals": ["asks for count of ways, min cost, or max value", "brute force is exponential and recomputes the same subproblem", "the choice at step i depends only on a bounded number of earlier steps"],
+      "invariant_shape": "dp[i] is the answer to the problem restricted to the first i elements, and is computed only from strictly smaller indices.",
+      "leetcode_tags": ["Dynamic Programming", "Array", "Memoization"],
+      "common_traps": ["state that does not capture enough to make the recurrence correct", "base case off by one, or wrong iteration direction"]
+    },
+    {
+      "id": "18-2d-dp",
+      "name": "2-D Dynamic Programming",
+      "depends_on": ["17-1d-dp"],
+      "core_idea": "Two indices in the state — usually two sequences, or one sequence plus a budget.",
+      "signals": ["two strings compared", "a grid with paths", "a knapsack-shaped budget or capacity"],
+      "invariant_shape": "dp[i][j] answers the subproblem on the first i of one dimension and first j of the other.",
+      "leetcode_tags": ["Dynamic Programming", "String", "Matrix"],
+      "common_traps": ["iterating in an order where a needed cell is not yet filled", "rolling to 1-D too early and clobbering a value still needed"]
+    },
+    {
+      "id": "19-bit-manipulation",
+      "name": "Bit Manipulation",
+      "depends_on": ["01-arrays-hashing"],
+      "core_idea": "Integers as fixed-width arrays of bits. XOR cancels, AND masks, shifts move.",
+      "signals": ["asks to do it without extra space or without arithmetic operators", "counting set bits, single number among pairs", "subsets encoded as a bitmask"],
+      "invariant_shape": "Each bit position is independent and can be reasoned about alone.",
+      "leetcode_tags": ["Bit Manipulation", "Math"],
+      "common_traps": ["sign extension on right shift for negative numbers", "assuming 32 bits in a language with arbitrary-precision integers"]
+    },
+    {
+      "id": "20-math-geometry",
+      "name": "Math & Geometry",
+      "depends_on": ["01-arrays-hashing"],
+      "core_idea": "The structure of the numbers or the plane is the shortcut. Find the property, skip the simulation.",
+      "signals": ["matrix rotation or spiral traversal", "digits, primes, gcd, modular arithmetic", "overflow explicitly mentioned in constraints"],
+      "invariant_shape": "A stated mathematical property holds at every step and is what makes the shortcut valid.",
+      "leetcode_tags": ["Math", "Matrix", "Simulation", "Geometry"],
+      "common_traps": ["integer overflow on intermediate products", "in-place rotation applied twice to the same cell"]
+    }
+  ]
+}

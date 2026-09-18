@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "leetcode": {
+      "command": "npx",
+      "args": ["-y", "@jinzcdev/leetcode-mcp-server@1.4.0", "--site", "global"],
+      "description": "LeetCode problem data. Consumed by skills/teach-problem (get_problem at S0), skills/daily-drill (get_daily_challenge), and scripts/build-curriculum.py (slug verification). Version is PINNED — an unpinned npx re-resolves on every cold start and a bad upstream release would silently change the tool surface mid-project."
+    }
+  },
+  "_auth_notes": {
+    "status": "OFF by default. Public tools only.",
+    "how_to_enable": "Add \"--session\", \"<your LEETCODE_SESSION cookie>\" to the args array above. Get the cookie from browser devtools -> Application -> Cookies -> leetcode.com -> LEETCODE_SESSION.",
+    "what_it_unlocks": "get_problem_progress and get_all_submissions — which upgrades 'solved' from self-reported to verified against your real account. See CLAUDE.md > Verification Honesty.",
+    "what_stays_denied": "submit_solution and run_code stay denied in .claude/settings.json even with auth on. You submit on leetcode.com yourself. That is not negotiable and not a limitation — it is the product."
+  },
+  "_removed": {
+    "custom_leetcode_server": "Considered writing one. Didn't. @jinzcdev/leetcode-mcp-server already wraps LeetCode's GraphQL with exactly the tools this needs, is maintained, and supports auth. Reinventing it would have been the first violation of this project's own premise."
+  }
+}

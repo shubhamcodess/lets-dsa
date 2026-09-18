@@ -1,0 +1,30 @@
+{
+  "model": "sonnet",
+  "mcpConfigPath": "./mcp/.mcp.json",
+  "permissions": {
+    "allow": [
+      "Bash(git:*)",
+      "Bash(python3:*)",
+      "Bash(npx:*)",
+      "Read(**)",
+      "Write(**)",
+      "Edit(**)",
+      "mcp__leetcode__get_problem",
+      "mcp__leetcode__search_problems",
+      "mcp__leetcode__get_daily_challenge",
+      "mcp__leetcode__get_user_profile"
+    ],
+    "deny": [
+      "mcp__leetcode__list_problem_solutions",
+      "mcp__leetcode__get_problem_solution",
+      "mcp__leetcode__submit_solution",
+      "mcp__leetcode__run_code"
+    ]
+  },
+  "notes": {
+    "model": "Sonnet is the project default on purpose. This system is text-heavy teaching, not hard reasoning — Sonnet handles it and costs a fraction of Opus. Switch with /model only if a session genuinely needs it.",
+    "deny_list": "These four are the guardrail, enforced mechanically rather than by prompt alone. list_problem_solutions and get_problem_solution would hand over the answer. submit_solution and run_code would let Claude solve it for you — the whole point is that YOU submit on leetcode.com.",
+    "setup": "Run 'setup' as your first message in a fresh clone. It builds config/ and curriculum/ and verifies the MCP connection.",
+    "auth": "The LeetCode MCP runs public-only by default. See .env.example to turn on LEETCODE_SESSION for verified progress."
+  }
+}

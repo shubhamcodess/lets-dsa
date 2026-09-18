@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "level": "intermediate",
+  "language": "python",
+  "target_companies": ["Google", "Atlassian", "Uber"],
+  "timeline_weeks": 12,
+  "daily_budget_problems": 2,
+  "has_leetcode_premium": false,
+  "created": "2026-09-18",
+  "_note": "Copy to config/user.json (gitignored) or let `setup` write it for you. level is one of beginner | intermediate | advanced and controls pace and vocabulary only — never the gates."
+}
