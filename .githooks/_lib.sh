@@ -13,7 +13,10 @@ is_personal() {
   case "$1" in */.gitkeep|.gitkeep) return 1 ;; esac
   while IFS= read -r pat; do
     case "$pat" in ''|'#'*) continue ;; esac
-    case "$1" in $pat*) return 0 ;; esac
+    case "$pat" in
+      */) case "$1" in "$pat"*) return 0 ;; esac ;;   # directory: prefix match
+      *)  [ "$1" = "$pat" ] && return 0 ;;            # file: exact match only
+    esac
   done < "$PERSONAL_LIST"
   return 1
 }

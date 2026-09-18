@@ -47,6 +47,17 @@ def git(*args, check=True, capture=True):
     return (r.stdout or "").strip()
 
 
+def matches_personal(path, pat):
+    """Directory entries (trailing /) match by prefix; file entries match exactly.
+    Without this, the rule `.env` would also catch `.env.example`."""
+    return path.startswith(pat) if pat.endswith("/") else path == pat
+
+
+def is_structural(path):
+    """.gitkeep holds an empty directory open. Structure, not data."""
+    return os.path.basename(path) == ".gitkeep"
+
+
 def personal_paths():
     path = os.path.join(ROOT, HOOKS, "personal-paths")
     out = []
@@ -111,7 +122,9 @@ def cmd_status(_):
     print("protected paths (never reach origin):")
     for p in personal_paths():
         exists = os.path.exists(os.path.join(ROOT, p.rstrip("/")))
-        tracked = bool(git("ls-files", "--", p, check=False))
+        listed = [f for f in git("ls-files", "--", p, check=False).splitlines()
+                  if not is_structural(f)]
+        tracked = bool(listed)
         state = "tracked" if tracked else ("on disk, untracked" if exists else "absent")
         print(f"  {p:26s} {state}")
     wt = git("worktree", "list", check=False)
@@ -229,7 +242,8 @@ def cmd_save(args):
         return 1
     b = branch()
     leaking = [f for f in staged.splitlines()
-               if any(f.startswith(p.rstrip('/')) for p in personal_paths())]
+               if any(matches_personal(f, p) for p in personal_paths())
+               and not is_structural(f)]
     if b != PERSONAL_BRANCH and leaking:
         print(f"BLOCKED — personal paths staged on '{b}':")
         for f in leaking:
@@ -269,7 +283,7 @@ def cmd_check(_):
     for p in personal_paths():
         out = git("ls-tree", "-r", "--name-only", PUBLIC_BRANCH, "--", p, check=False)
         if out:
-            tracked_on_main += out.splitlines()
+            tracked_on_main += [f for f in out.splitlines() if not is_structural(f)]
     if tracked_on_main:
         print(f"LEAK: these personal paths are committed on '{PUBLIC_BRANCH}':")
         for f in tracked_on_main:
