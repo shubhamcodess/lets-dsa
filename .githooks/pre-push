@@ -15,13 +15,20 @@ while read -r local_ref local_sha remote_ref remote_sha; do
       exit 1 ;;
   esac
 
+  # Two questions, and only two:
+  #   1. does the tree being pushed CONTAIN personal data?
+  #   2. do these commits ADD any?
+  # A personal path being DELETED must never block the push — that is the cleanup of a
+  # leak, and blocking it would mean the guard prevents its own remedy.
+  tree_files=$(git ls-tree -r --name-only "$local_sha")
   if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
-    range="$local_sha"                       # new branch: inspect the whole thing
-    files=$(git ls-tree -r --name-only "$local_sha")
+    range="$local_sha"                       # new branch: the tree is the whole story
+    added=""
   else
     range="$remote_sha..$local_sha"
-    files=$(git diff --name-only "$range")
+    added=$(git diff --name-only --diff-filter=ACMR "$range")
   fi
+  files=$(printf '%s\n%s\n' "$tree_files" "$added")
 
   found=$(printf '%s\n' "$files" | filter_personal)
   if [ -n "$found" ]; then
