@@ -91,13 +91,28 @@ Report the real numbers: 8 topics, total minutes, and how many free links. Tell 
 plainly that `01-complexity-analysis` gates every pattern and `05-basic-recursion` gates
 five — those two are the ones that decide whether the rest of the curriculum works.
 
-Then generate `curriculum/track.md` from `merged.json` + `user.json`:
+Then build the ladder:
 
-- Pattern order follows `depends_on` in `config/patterns.json`. Never schedule a pattern before its dependency.
-- Within a pattern: Easy → Medium → Hard, and **never jump a difficulty tier with fewer than 2 problems at the tier below**. That jump is the thing this whole system exists to prevent.
-- **Put the gating foundation topics before the patterns they gate.** The track starts with `01-complexity-analysis`, not with a problem.
-- Size it to `timeline_weeks × 7 × daily_budget_problems`. If the full set doesn't fit, cut by pattern *breadth* last and by *depth within a pattern* first — better to know 12 patterns at 3 problems each than 6 at 6.
-- Flag the paid-only problems (`paid_only: true`). Substitute a free sibling from the same pattern if they don't have Premium.
+```
+python3 scripts/build-track.py
+```
+
+This writes `curriculum/track.md` — the actual order of work. Report the real output: 6 tiers,
+the floor (90), interview-ready (180) and strong (250) totals.
+
+**Say this plainly, because the number misleads otherwise:** 90 is the floor — every pattern
+met once. It is *not* interview-ready. 180 is, and it is weighted toward the patterns the
+curated sheets actually invest in (Trees is 15% of all sheet weight; fast-slow pointers is 1%).
+
+The generated track already encodes:
+- Pattern order from `depends_on` — never a pattern before its prerequisites
+- Foundation gates before the patterns they gate
+- Easy → Medium → Hard inside each pattern, never a raw jump
+- Sheet consensus picking which problem at a given difficulty
+
+If their `timeline_weeks × 7 × daily_budget_problems` is below 180, tell them what that
+actually buys — floor coverage, or depth in fewer patterns — and let them choose. Do not
+silently rescope.
 
 ## Phase 6 — Initialize state
 
