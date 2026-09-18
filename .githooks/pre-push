@@ -1,0 +1,32 @@
+#!/bin/sh
+# Last line of defence: refuse to push personal data or the personal branch
+# to the public remote. Runs even if pre-commit was bypassed.
+. "$(dirname "$0")/_lib.sh"
+
+remote="$1"
+is_public_remote "$remote" || exit 0   # private remote: nothing to guard
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  [ "$local_sha" = "0000000000000000000000000000000000000000" ] && continue
+
+  case "$local_ref" in
+    *"$PERSONAL_BRANCH")
+      die_leak "Refusing to push branch '$PERSONAL_BRANCH' to the public remote '$remote'. That branch tracks your progress, notes and profile." "$local_ref"
+      exit 1 ;;
+  esac
+
+  if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
+    range="$local_sha"                       # new branch: inspect the whole thing
+    files=$(git ls-tree -r --name-only "$local_sha")
+  else
+    range="$remote_sha..$local_sha"
+    files=$(git diff --name-only "$range")
+  fi
+
+  found=$(printf '%s\n' "$files" | filter_personal)
+  if [ -n "$found" ]; then
+    die_leak "Commits in $range carry personal data, and '$remote' is the public remote." "$found"
+    exit 1
+  fi
+done
+exit 0

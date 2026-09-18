@@ -22,3 +22,16 @@ curriculum/sources/*.raw.json
 # Large refetchable source dumps
 curriculum/sources/*.raw.html
 curriculum/sources/_system-roots.pem
+
+# ---- personal data: never on the public branch ----
+# These are tracked on `personal-main` only (force-added there once by
+# scripts/dsa-git.py init-personal). Listing them here means they can never be
+# added by accident while you are on main. See docs/MODES.md.
+config/user.json
+questions/**/*.md
+topics/*.md
+state/current.json
+state/current.md
+state/stats.json
+curriculum/track.md
+.contrib/

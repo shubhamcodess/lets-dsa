@@ -1,0 +1,18 @@
+#!/bin/sh
+# Refuse to commit personal data onto the public branch.
+. "$(dirname "$0")/_lib.sh"
+
+branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+[ "$branch" = "$PERSONAL_BRANCH" ] && exit 0   # personal branch: anything goes
+
+staged=$(git diff --cached --name-only --diff-filter=ACMR)
+found=$(printf '%s\n' "$staged" | filter_personal)
+
+if [ -n "$found" ]; then
+  die_leak "You are on branch '$branch', which publishes to the public remote." "$found"
+  echo "    Unstage them with:  git restore --staged <path>"
+  echo "    Or switch first:    git switch $PERSONAL_BRANCH"
+  echo ""
+  exit 1
+fi
+exit 0

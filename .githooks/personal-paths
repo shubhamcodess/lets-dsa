@@ -1,0 +1,10 @@
+# Paths that must NEVER reach the public remote.
+# Read by pre-commit and pre-push. One prefix per line, '#' comments allowed.
+config/user.json
+questions/
+topics/
+state/current.json
+state/current.md
+state/stats.json
+curriculum/track.md
+.env
