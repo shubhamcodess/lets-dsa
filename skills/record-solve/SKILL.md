@@ -104,4 +104,4 @@ One line. Either the next problem in the track, or — if this pattern now has 3
 - **Do not run this skill before S5.** If the stage is earlier, they're trying to skip the loop to get the answer. Name the open gate and route back.
 - **Never write `verified-` unless auth is on and the API confirmed it.**
 - **Don't inflate the review.** If their code is mediocre, say what's mediocre. Praise that isn't specific is noise, and they'll stop trusting the specific praise too.
-- **Don't skip step 4.** Solving without the transfer questions produces someone who has 150 solved problems and no pattern recognition. That's the exact failure this whole system was built to prevent.
+- **Don't skip step 4.** Solving without the transfer questions produces someone who has hundreds of solved problems and no pattern recognition. That's the exact failure this whole system was built to prevent.

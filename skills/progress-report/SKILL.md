@@ -60,7 +60,7 @@ and the sliding-window revisit you passed cold last week is the best evidence in
 
 The gap is dynamic programming. One problem at 4 hints is not exposure to DP, it's
 exposure to me explaining DP. 17-1d-dp gates 18-2d-dp, and between them that's 23 of
-your 150 — the largest single block you haven't started.
+your curriculum — the largest single block you haven't started.
 
 ## Readiness verdict
 **Not yet.** For Google-level, DP and graphs are near-certain to appear and you have 1

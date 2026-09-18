@@ -4,7 +4,7 @@
   "generated_by": "scripts/roll-stats.py",
   "totals": {
     "solved": 0,
-    "available": 150,
+    "available": 343,
     "patterns_touched": 0,
     "patterns_total": 20,
     "review_only": 0,
@@ -16,12 +16,74 @@
     "exposed": 0,
     "untouched": 20
   },
+  "foundations": {
+    "learned": [],
+    "in_progress": [],
+    "not_started": [
+      "00-language-basics",
+      "01-complexity-analysis",
+      "02-logical-thinking",
+      "03-collections",
+      "04-basic-maths",
+      "05-basic-recursion",
+      "06-basic-hashing",
+      "07-sorting"
+    ],
+    "gates_open": {
+      "*": [
+        "01-complexity-analysis"
+      ],
+      "01-arrays-hashing": [
+        "03-collections",
+        "06-basic-hashing"
+      ],
+      "19-bit-manipulation": [
+        "04-basic-maths"
+      ],
+      "20-math-geometry": [
+        "04-basic-maths"
+      ],
+      "09-trees": [
+        "05-basic-recursion"
+      ],
+      "12-backtracking": [
+        "05-basic-recursion"
+      ],
+      "13-graphs": [
+        "05-basic-recursion"
+      ],
+      "17-1d-dp": [
+        "05-basic-recursion"
+      ],
+      "18-2d-dp": [
+        "05-basic-recursion"
+      ],
+      "03-sliding-window": [
+        "06-basic-hashing"
+      ],
+      "02-two-pointers": [
+        "07-sorting"
+      ],
+      "04-binary-search": [
+        "07-sorting"
+      ],
+      "15-intervals": [
+        "07-sorting"
+      ],
+      "16-greedy": [
+        "07-sorting"
+      ]
+    },
+    "blocks_everything": [
+      "01-complexity-analysis"
+    ]
+  },
   "due_for_revisit": [],
   "patterns": [
     {
       "pattern": "01-arrays-hashing",
       "name": "Arrays & Hashing",
-      "available": 9,
+      "available": 27,
       "solved": 0,
       "in_progress": 0,
       "ramp_overrides": 0,
@@ -36,7 +98,7 @@
     {
       "pattern": "02-two-pointers",
       "name": "Two Pointers",
-      "available": 5,
+      "available": 19,
       "solved": 0,
       "in_progress": 0,
       "ramp_overrides": 0,
@@ -51,7 +113,7 @@
     {
       "pattern": "03-sliding-window",
       "name": "Sliding Window",
-      "available": 6,
+      "available": 14,
       "solved": 0,
       "in_progress": 0,
       "ramp_overrides": 0,
@@ -66,7 +128,7 @@
     {
       "pattern": "04-binary-search",
       "name": "Binary Search",
-      "available": 7,
+      "available": 31,
       "solved": 0,
       "in_progress": 0,
       "ramp_overrides": 0,
@@ -81,7 +143,7 @@
     {
       "pattern": "05-stack",
       "name": "Stack",
-      "available": 3,
+      "available": 13,
       "solved": 0,
       "in_progress": 0,
       "ramp_overrides": 0,
@@ -96,7 +158,7 @@
     {
       "pattern": "06-monotonic-stack",
       "name": "Monotonic Stack",
-      "available": 3,
+      "available": 7,
       "solved": 0,
       "in_progress": 0,
       "ramp_overrides": 0,
@@ -111,7 +173,7 @@
     {
       "pattern": "07-linked-list",
       "name": "Linked List",
-      "available": 9,
+      "available": 22,
       "solved": 0,
       "in_progress": 0,
       "ramp_overrides": 0,
@@ -141,7 +203,7 @@
     {
       "pattern": "09-trees",
       "name": "Trees (DFS & BFS)",
-      "available": 15,
+      "available": 36,
       "solved": 0,
       "in_progress": 0,
       "ramp_overrides": 0,
@@ -156,7 +218,7 @@
     {
       "pattern": "10-tries",
       "name": "Tries",
-      "available": 3,
+      "available": 7,
       "solved": 0,
       "in_progress": 0,
       "ramp_overrides": 0,
@@ -171,7 +233,7 @@
     {
       "pattern": "11-heap-top-k",
       "name": "Heap / Top-K",
-      "available": 7,
+      "available": 9,
       "solved": 0,
       "in_progress": 0,
       "ramp_overrides": 0,
@@ -186,7 +248,7 @@
     {
       "pattern": "12-backtracking",
       "name": "Backtracking",
-      "available": 10,
+      "available": 15,
       "solved": 0,
       "in_progress": 0,
       "ramp_overrides": 0,
@@ -201,7 +263,7 @@
     {
       "pattern": "13-graphs",
       "name": "Graphs",
-      "available": 13,
+      "available": 26,
       "solved": 0,
       "in_progress": 0,
       "ramp_overrides": 0,
@@ -216,7 +278,7 @@
     {
       "pattern": "14-advanced-graphs",
       "name": "Advanced Graphs",
-      "available": 6,
+      "available": 8,
       "solved": 0,
       "in_progress": 0,
       "ramp_overrides": 0,
@@ -246,7 +308,7 @@
     {
       "pattern": "16-greedy",
       "name": "Greedy",
-      "available": 8,
+      "available": 18,
       "solved": 0,
       "in_progress": 0,
       "ramp_overrides": 0,
@@ -261,7 +323,7 @@
     {
       "pattern": "17-1d-dp",
       "name": "1-D Dynamic Programming",
-      "available": 12,
+      "available": 45,
       "solved": 0,
       "in_progress": 0,
       "ramp_overrides": 0,
@@ -291,7 +353,7 @@
     {
       "pattern": "19-bit-manipulation",
       "name": "Bit Manipulation",
-      "available": 7,
+      "available": 14,
       "solved": 0,
       "in_progress": 0,
       "ramp_overrides": 0,
@@ -306,7 +368,7 @@
     {
       "pattern": "20-math-geometry",
       "name": "Math & Geometry",
-      "available": 8,
+      "available": 13,
       "solved": 0,
       "in_progress": 0,
       "ramp_overrides": 0,

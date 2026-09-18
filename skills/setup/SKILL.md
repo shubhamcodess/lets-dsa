@@ -73,20 +73,31 @@ Show it to them and confirm before writing. Commit `setup: config/user.json`.
 python3 scripts/build-curriculum.py --verify
 ```
 
-This takes 2–3 minutes — it verifies every slug against LeetCode's public GraphQL. Report the real numbers it prints: total, per-pattern counts, anything dropped.
+This takes 3–5 minutes — it fetches 7 sheets and verifies every slug against LeetCode's public GraphQL. Behind a corporate TLS proxy it prints a one-line note about falling back to the macOS trust store; that is expected, and verification stays on. Report the real numbers it prints: total, per-pattern counts, anything dropped.
 
 | Result | Do |
 |---|---|
-| 150 verified, 0 dropped | Say so. Continue. |
+| All verified, 0 dropped | Say so, with the real count. Continue. |
 | Some dropped | Name them. They're excluded from the track. That's correct behaviour, not a failure. |
 | Network failure | Report it. Offer to run without `--verify` — the track still works, just without ids and tags. |
+
+Then build the foundations layer:
+
+```
+python3 scripts/build-foundations.py
+```
+
+Report the real numbers: 8 topics, total minutes, and how many free links. Tell them
+plainly that `01-complexity-analysis` gates every pattern and `05-basic-recursion` gates
+five — those two are the ones that decide whether the rest of the curriculum works.
 
 Then generate `curriculum/track.md` from `merged.json` + `user.json`:
 
 - Pattern order follows `depends_on` in `config/patterns.json`. Never schedule a pattern before its dependency.
 - Within a pattern: Easy → Medium → Hard, and **never jump a difficulty tier with fewer than 2 problems at the tier below**. That jump is the thing this whole system exists to prevent.
-- Size it to `timeline_weeks × 7 × daily_budget_problems`. If the full 150 doesn't fit, cut by pattern *breadth* last and by *depth within a pattern* first — better to know 12 patterns at 3 problems each than 6 at 6.
-- Flag the 7 paid-only problems. Substitute a free sibling from the same pattern if they don't have Premium.
+- **Put the gating foundation topics before the patterns they gate.** The track starts with `01-complexity-analysis`, not with a problem.
+- Size it to `timeline_weeks × 7 × daily_budget_problems`. If the full set doesn't fit, cut by pattern *breadth* last and by *depth within a pattern* first — better to know 12 patterns at 3 problems each than 6 at 6.
+- Flag the paid-only problems (`paid_only: true`). Substitute a free sibling from the same pattern if they don't have Premium.
 
 ## Phase 6 — Initialize state
 

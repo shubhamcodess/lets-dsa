@@ -1,0 +1,185 @@
+{
+ "supported": [
+  {
+   "slug": "accounts-merge",
+   "from": "02-two-pointers",
+   "to": "13-graphs"
+  },
+  {
+   "slug": "armstrong-number",
+   "from": "19-bit-manipulation",
+   "to": "20-math-geometry"
+  },
+  {
+   "slug": "asteroid-collision",
+   "from": "06-monotonic-stack",
+   "to": "05-stack"
+  },
+  {
+   "slug": "bus-routes",
+   "from": "01-arrays-hashing",
+   "to": "13-graphs"
+  },
+  {
+   "slug": "construct-binary-tree-from-inorder-and-postorder-traversal",
+   "from": "01-arrays-hashing",
+   "to": "09-trees"
+  },
+  {
+   "slug": "count-good-numbers",
+   "from": "07-linked-list",
+   "to": "20-math-geometry"
+  },
+  {
+   "slug": "count-primes",
+   "from": "01-arrays-hashing",
+   "to": "20-math-geometry"
+  },
+  {
+   "slug": "critical-connections-in-a-network",
+   "from": "09-trees",
+   "to": "13-graphs"
+  },
+  {
+   "slug": "is-graph-bipartite",
+   "from": "09-trees",
+   "to": "13-graphs"
+  },
+  {
+   "slug": "minimum-knight-moves",
+   "from": "09-trees",
+   "to": "13-graphs"
+  },
+  {
+   "slug": "most-stones-removed-with-same-row-or-column",
+   "from": "01-arrays-hashing",
+   "to": "13-graphs"
+  },
+  {
+   "slug": "number-of-operations-to-make-network-connected",
+   "from": "09-trees",
+   "to": "13-graphs"
+  },
+  {
+   "slug": "number-of-provinces",
+   "from": "09-trees",
+   "to": "13-graphs"
+  },
+  {
+   "slug": "palindrome-number",
+   "from": "19-bit-manipulation",
+   "to": "20-math-geometry"
+  },
+  {
+   "slug": "permutation-sequence",
+   "from": "07-linked-list",
+   "to": "20-math-geometry"
+  },
+  {
+   "slug": "roman-to-integer",
+   "from": "03-sliding-window",
+   "to": "20-math-geometry"
+  },
+  {
+   "slug": "rotate-array",
+   "from": "02-two-pointers",
+   "to": "20-math-geometry"
+  }
+ ],
+ "rejected": [
+  {
+   "slug": "count-and-say",
+   "from": "02-two-pointers",
+   "proposed": "17-1d-dp",
+   "tags": [
+    "String"
+   ]
+  },
+  {
+   "slug": "isomorphic-strings",
+   "from": "03-sliding-window",
+   "proposed": "01-arrays-hashing",
+   "tags": [
+    "Hash Table",
+    "String"
+   ]
+  },
+  {
+   "slug": "longest-happy-prefix",
+   "from": "02-two-pointers",
+   "proposed": "03-sliding-window",
+   "tags": [
+    "Hash Function",
+    "Knuth\u2013Morris\u2013Pratt Algorithm",
+    "Rolling Hash",
+    "String",
+    "String Matching",
+    "Z Algorithm"
+   ]
+  },
+  {
+   "slug": "majority-element",
+   "from": "01-arrays-hashing",
+   "proposed": "03-sliding-window",
+   "tags": [
+    "Array",
+    "Boyer\u2013Moore Majority Vote Algorithm",
+    "Counting",
+    "Divide and Conquer",
+    "Hash Table",
+    "Sorting"
+   ]
+  },
+  {
+   "slug": "majority-element-ii",
+   "from": "01-arrays-hashing",
+   "proposed": "03-sliding-window",
+   "tags": [
+    "Array",
+    "Boyer\u2013Moore Majority Vote Algorithm",
+    "Counting",
+    "Hash Table",
+    "Sorting"
+   ]
+  },
+  {
+   "slug": "number-of-islands-ii",
+   "from": "01-arrays-hashing",
+   "proposed": "13-graphs",
+   "tags": [
+    "Array",
+    "Hash Table",
+    "Union-Find"
+   ]
+  },
+  {
+   "slug": "repeated-string-match",
+   "from": "02-two-pointers",
+   "proposed": "03-sliding-window",
+   "tags": [
+    "Boyer\u2013Moore String-Search Algorithm",
+    "Knuth\u2013Morris\u2013Pratt Algorithm",
+    "String",
+    "String Matching",
+    "Z Algorithm"
+   ]
+  },
+  {
+   "slug": "rotate-string",
+   "from": "02-two-pointers",
+   "proposed": "03-sliding-window",
+   "tags": [
+    "String",
+    "String Matching"
+   ]
+  },
+  {
+   "slug": "string-to-integer-atoi",
+   "from": "02-two-pointers",
+   "proposed": "01-arrays-hashing",
+   "tags": [
+    "String"
+   ]
+  }
+ ]
+}

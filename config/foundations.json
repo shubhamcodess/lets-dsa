@@ -1,0 +1,596 @@
+{
+  "schema": 1,
+  "built": "2026-09-18",
+  "what_this_is": "Topics to learn BEFORE attempting problems. The S0-S6 loop assumes these. A learner who cannot reason about loop cost cannot pass the S3 ladder gate, and one who has never traced a call stack cannot pass S2 on a tree problem. Skipping these is the most common reason a learner stalls at the first Medium.",
+  "gating_rule": "A topic with gates_patterns ['*'] must be covered before ANY problem. Otherwise a pattern's gating topics should be covered before its first problem. daily-drill enforces this; it can be overridden on request, and the override is recorded so progress-report tells the truth later.",
+  "counts": {
+    "topics": 8,
+    "total_minutes": 990,
+    "exercises": 61,
+    "resources": 61
+  },
+  "topics": [
+    {
+      "id": "00-language-basics",
+      "name": "Language Basics",
+      "why_first": "You cannot express an algorithm you cannot type. Input/output, loops, functions and pass-by-reference are the vocabulary every later topic assumes.",
+      "gates_patterns": [],
+      "est_minutes": 120,
+      "source": "striver_a2z steps 1-2",
+      "source_substeps": [
+        "Things to Know in C++/Java/Python or any language"
+      ],
+      "exercise_count": 9,
+      "exercises": [
+        "Cpp Basics",
+        "For loops",
+        "Functions (Pass by Reference and Value)",
+        "If ElseIf",
+        "Input Output",
+        "Switch Case",
+        "Theory with examples",
+        "What are arrays, strings?",
+        "While loops"
+      ],
+      "resources": [
+        {
+          "for": "Cpp Basics",
+          "article": "https://takeuforward.org/data-structure/what-are-arrays-strings",
+          "youtube": "https://youtu.be/EAR7De6Goz4?t=2415",
+          "leetcode": null
+        },
+        {
+          "for": "For loops",
+          "article": "https://takeuforward.org/for-loop/understanding-for-loop/",
+          "youtube": "https://youtu.be/EAR7De6Goz4?t=3096",
+          "leetcode": null
+        },
+        {
+          "for": "Functions (Pass by Reference and Value)",
+          "article": "https://takeuforward.org/data-structure/functions-pass-by-reference-and-value",
+          "youtube": "https://youtu.be/EAR7De6Goz4?t=3677",
+          "leetcode": null
+        },
+        {
+          "for": "If ElseIf",
+          "article": "https://takeuforward.org/if-else/if-else-statements/",
+          "youtube": "https://youtu.be/EAR7De6Goz4?t=1259",
+          "leetcode": null
+        },
+        {
+          "for": "Input Output",
+          "article": "https://takeuforward.org/c/c-basic-input-output/",
+          "youtube": "https://youtu.be/EAR7De6Goz4?t=250",
+          "leetcode": null
+        },
+        {
+          "for": "Switch Case",
+          "article": "https://takeuforward.org/switch-case/switch-case-statements/",
+          "youtube": "https://youtu.be/EAR7De6Goz4",
+          "leetcode": null
+        },
+        {
+          "for": "Theory with examples",
+          "article": "https://takeuforward.org/time-complexity/time-and-space-complexity-strivers-a2z-dsa-course/",
+          "youtube": "https://youtu.be/FPu9Uld7W-E",
+          "leetcode": null
+        },
+        {
+          "for": "What are arrays, strings?",
+          "article": "https://takeuforward.org/data-structure/what-are-arrays-strings",
+          "youtube": "https://youtu.be/EAR7De6Goz4?t=2415",
+          "leetcode": null
+        },
+        {
+          "for": "While loops",
+          "article": "https://takeuforward.org/while-loop/while-loops-in-programming/",
+          "youtube": "https://youtu.be/EAR7De6Goz4?t=3459",
+          "leetcode": null
+        }
+      ]
+    },
+    {
+      "id": "01-complexity-analysis",
+      "name": "Complexity Analysis",
+      "why_first": "This gates everything. The S3 ladder asks for time and space on three approaches; without it that gate is unpassable and the learner cannot tell a good solution from a lucky one. It is also the single most common thing interviewers probe.",
+      "gates_patterns": [
+        "*"
+      ],
+      "est_minutes": 90,
+      "source": "authored",
+      "source_substeps": [],
+      "exercise_count": 0,
+      "exercises": [],
+      "resources": [],
+      "covers": [
+        "Counting operations: how many times does this line actually run?",
+        "Big-O, and why constants and lower-order terms are dropped",
+        "Reading constraints to infer the required complexity (n <= 10^5 rules out O(n^2))",
+        "Space complexity, including the recursion stack",
+        "Amortized cost: why a sliding window is O(n) despite two nested-looking pointers"
+      ],
+      "note": "Authored for this curriculum, not taken from a sheet. A2Z folds this into 'Things to Know'; it is split out because it gates every pattern and because the S3 ladder gate is built directly on it."
+    },
+    {
+      "id": "02-logical-thinking",
+      "name": "Loops & Pattern Printing",
+      "why_first": "Nested-loop intuition. Knowing what the inner loop costs, and being able to hold two indices in your head at once, is the prerequisite for every two-pointer and matrix problem later.",
+      "gates_patterns": [],
+      "est_minutes": 150,
+      "source": "striver_a2z steps 1-2",
+      "source_substeps": [
+        "Patterns",
+        "Build-up Logical Thinking"
+      ],
+      "exercise_count": 24,
+      "exercises": [
+        "Easy and Medium",
+        "Hard",
+        "Pattern 1",
+        "Pattern 10",
+        "Pattern 11",
+        "Pattern 12",
+        "Pattern 13",
+        "Pattern 14",
+        "Pattern 15",
+        "Pattern 16",
+        "Pattern 17",
+        "Pattern 18",
+        "Pattern 19",
+        "Pattern 2",
+        "Pattern 20",
+        "Pattern 21",
+        "Pattern 22",
+        "Pattern 3",
+        "Pattern 4",
+        "Pattern 5",
+        "Pattern 6",
+        "Pattern 7",
+        "Pattern 8",
+        "Pattern 9"
+      ],
+      "resources": [
+        {
+          "for": "Pattern 1",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 10",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 11",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 12",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 13",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 14",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 15",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 16",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 17",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 18",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 19",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 2",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 20",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 21",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 22",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 3",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 4",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 5",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 6",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 7",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 8",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Pattern 9",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Easy and Medium",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Hard",
+          "article": "https://takeuforward.org/strivers-a2z-dsa-course/must-do-pattern-problems-before-starting-dsa/",
+          "youtube": "https://www.youtube.com/watch?v=tNm_NNSB3_w&list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz&index=3",
+          "leetcode": null
+        }
+      ]
+    },
+    {
+      "id": "03-collections",
+      "name": "Arrays, Lists, Maps & Sets",
+      "why_first": "The containers you will reach for in every problem, and \u2014 more importantly \u2014 what each operation actually costs. Picking a list where a set was needed is the most common cause of an accidental O(n^2).",
+      "gates_patterns": [
+        "01-arrays-hashing"
+      ],
+      "est_minutes": 120,
+      "source": "striver_a2z steps 1-2",
+      "source_substeps": [
+        "Learn STL/Java-Collections or similar thing in your language"
+      ],
+      "exercise_count": 2,
+      "exercises": [
+        "Java Collections",
+        "STL"
+      ],
+      "resources": [
+        {
+          "for": "Java Collections",
+          "article": "https://takeuforward.org/data-structure/java-collections",
+          "youtube": null,
+          "leetcode": null
+        },
+        {
+          "for": "STL",
+          "article": "https://takeuforward.org/c/c-stl-tutorial-most-frequent-used-stl-containers/",
+          "youtube": "https://www.youtube.com/watch?v=RRVYpIET_RU",
+          "leetcode": null
+        }
+      ]
+    },
+    {
+      "id": "04-basic-maths",
+      "name": "Basic Maths",
+      "why_first": "Digit manipulation, primes, GCD, and where integer overflow bites. Small surface area, and it is the whole of two patterns.",
+      "gates_patterns": [
+        "19-bit-manipulation",
+        "20-math-geometry"
+      ],
+      "est_minutes": 90,
+      "source": "striver_a2z steps 1-2",
+      "source_substeps": [
+        "Know Basic Maths"
+      ],
+      "exercise_count": 7,
+      "exercises": [
+        "Armstrong Number",
+        "Check for Prime Number",
+        "Count all Digits of a Number",
+        "GCD of Two Numbers",
+        "Palindrome Number",
+        "Print all Divisors",
+        "Reverse Integer"
+      ],
+      "resources": [
+        {
+          "for": "Check for Prime Number",
+          "article": "https://takeuforward.org/data-structure/check-if-a-number-is-prime-or-not/",
+          "youtube": "https://youtu.be/1xNbjMdbjug?t=2381",
+          "leetcode": null
+        },
+        {
+          "for": "Count all Digits of a Number",
+          "article": "https://takeuforward.org/data-structure/count-digits-in-a-number/",
+          "youtube": "https://youtu.be/1xNbjMdbjug",
+          "leetcode": null
+        },
+        {
+          "for": "GCD of Two Numbers",
+          "article": "https://takeuforward.org/data-structure/find-gcd-of-two-numbers/",
+          "youtube": "https://youtu.be/1xNbjMdbjug?t=2684",
+          "leetcode": null
+        },
+        {
+          "for": "Print all Divisors",
+          "article": "https://takeuforward.org/data-structure/print-all-divisors-of-a-given-number/",
+          "youtube": "https://youtu.be/1xNbjMdbjug?t=1580",
+          "leetcode": null
+        },
+        {
+          "for": "Armstrong Number",
+          "article": "https://takeuforward.org/maths/check-if-a-number-is-armstrong-number-or-not/",
+          "youtube": "https://youtu.be/1xNbjMdbjug?t=1418",
+          "leetcode": "https://leetcode.com/problems/armstrong-number/"
+        },
+        {
+          "for": "Palindrome Number",
+          "article": "https://takeuforward.org/data-structure/check-if-a-number-is-palindrome-or-not/",
+          "youtube": "https://youtu.be/1xNbjMdbjug?t=1230",
+          "leetcode": "https://leetcode.com/problems/palindrome-number/"
+        },
+        {
+          "for": "Reverse Integer",
+          "article": "https://takeuforward.org/maths/reverse-digits-of-a-number",
+          "youtube": "https://youtu.be/1xNbjMdbjug?t=930",
+          "leetcode": "https://leetcode.com/problems/reverse-integer/"
+        }
+      ]
+    },
+    {
+      "id": "05-basic-recursion",
+      "name": "Recursion & the Call Stack",
+      "why_first": "The hinge of the whole curriculum. Trees, backtracking, graphs and DP are all recursion wearing different hats. A learner who has not traced a call stack by hand will fail the S2 dry run on every one of them.",
+      "gates_patterns": [
+        "09-trees",
+        "12-backtracking",
+        "13-graphs",
+        "17-1d-dp",
+        "18-2d-dp"
+      ],
+      "est_minutes": 180,
+      "source": "striver_a2z steps 1-2",
+      "source_substeps": [
+        "Learn Basic Recursion"
+      ],
+      "exercise_count": 9,
+      "exercises": [
+        "Factorial of a given number",
+        "Fibonacci Number",
+        "Print 1 to N using Recursion",
+        "Print N to 1 using Recursion",
+        "Print name N times using recursion",
+        "Reverse an array",
+        "Sum of First N Numbers",
+        "Understand recursion by print something N times",
+        "Valid Palindrome"
+      ],
+      "resources": [
+        {
+          "for": "Factorial of a given number",
+          "article": "https://takeuforward.org/data-structure/factorial-of-a-number-iterative-and-recursive",
+          "youtube": "https://www.youtube.com/watch?v=69ZCDFy-OUo&list=PLgUwDviBIf0rGlzIn_7rsaR2FQ5e6ZOL9&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Print 1 to N using Recursion",
+          "article": "https://takeuforward.org/recursion/print-1-to-n-using-recursion/",
+          "youtube": "https://www.youtube.com/watch?v=un6PLygfXrA&list=PLgUwDviBIf0rGlzIn_7rsaR2FQ5e6ZOL9&index=2",
+          "leetcode": null
+        },
+        {
+          "for": "Print N to 1 using Recursion",
+          "article": "https://takeuforward.org/recursion/print-n-to-1-using-recursion/",
+          "youtube": "https://www.youtube.com/watch?v=un6PLygfXrA&list=PLgUwDviBIf0rGlzIn_7rsaR2FQ5e6ZOL9&index=2",
+          "leetcode": null
+        },
+        {
+          "for": "Print name N times using recursion",
+          "article": "https://takeuforward.org/recursion/print-name-n-times-using-recursion/",
+          "youtube": "https://www.youtube.com/watch?v=un6PLygfXrA&list=PLgUwDviBIf0rGlzIn_7rsaR2FQ5e6ZOL9&index=2",
+          "leetcode": null
+        },
+        {
+          "for": "Reverse an array",
+          "article": "https://takeuforward.org/data-structure/reverse-a-given-array/",
+          "youtube": "https://www.youtube.com/watch?v=twuC1F6gLI8&list=PLgUwDviBIf0rGlzIn_7rsaR2FQ5e6ZOL9&index=4",
+          "leetcode": null
+        },
+        {
+          "for": "Sum of First N Numbers",
+          "article": "https://takeuforward.org/data-structure/sum-of-first-n-natural-numbers/",
+          "youtube": "https://www.youtube.com/watch?v=69ZCDFy-OUo&list=PLgUwDviBIf0rGlzIn_7rsaR2FQ5e6ZOL9&index=3",
+          "leetcode": null
+        },
+        {
+          "for": "Understand recursion by print something N times",
+          "article": "https://takeuforward.org/recursion/introduction-to-recursion-understand-recursion-by-printing-something-n-times/",
+          "youtube": "https://www.youtube.com/watch?v=yVdKa8dnKiE&list=PLgUwDviBIf0rGlzIn_7rsaR2FQ5e6ZOL9",
+          "leetcode": null
+        },
+        {
+          "for": "Fibonacci Number",
+          "article": "https://takeuforward.org/arrays/print-fibonacci-series-up-to-nth-term/",
+          "youtube": "https://www.youtube.com/watch?v=kvRjNm4rVBE&list=PLgUwDviBIf0rGlzIn_7rsaR2FQ5e6ZOL9&index=5",
+          "leetcode": "https://leetcode.com/problems/fibonacci-number/"
+        },
+        {
+          "for": "Valid Palindrome",
+          "article": "https://takeuforward.org/data-structure/check-if-the-given-string-is-palindrome-or-not/",
+          "youtube": "https://www.youtube.com/watch?v=twuC1F6gLI8&list=PLgUwDviBIf0rGlzIn_7rsaR2FQ5e6ZOL9&index=4",
+          "leetcode": "https://leetcode.com/problems/valid-palindrome/"
+        }
+      ]
+    },
+    {
+      "id": "06-basic-hashing",
+      "name": "Hashing & Frequency Counting",
+      "why_first": "Trading space for time is the first real optimization most learners meet, and the move that turns a nested scan into a single pass.",
+      "gates_patterns": [
+        "01-arrays-hashing",
+        "03-sliding-window"
+      ],
+      "est_minutes": 90,
+      "source": "striver_a2z steps 1-2",
+      "source_substeps": [
+        "Learn Basic Hashing"
+      ],
+      "exercise_count": 3,
+      "exercises": [
+        "Basic Hashing",
+        "Counting Frequencies of Array Elements",
+        "Frequency of the Most Frequent Element"
+      ],
+      "resources": [
+        {
+          "for": "Basic Hashing",
+          "article": "https://takeuforward.org/hashing/hashing-maps-time-complexity-collisions-division-rule-of-hashing-strivers-a2z-dsa-course/",
+          "youtube": "https://www.youtube.com/watch?v=KEs5UyBJ39g",
+          "leetcode": null
+        },
+        {
+          "for": "Counting Frequencies of Array Elements",
+          "article": "https://takeuforward.org/data-structure/count-frequency-of-each-element-in-the-array/",
+          "youtube": null,
+          "leetcode": null
+        },
+        {
+          "for": "Frequency of the Most Frequent Element",
+          "article": "https://takeuforward.org/arrays/find-the-highest-lowest-frequency-element/",
+          "youtube": null,
+          "leetcode": "https://leetcode.com/problems/frequency-of-the-most-frequent-element/"
+        }
+      ]
+    },
+    {
+      "id": "07-sorting",
+      "name": "Sorting",
+      "why_first": "Less about implementing sorts than knowing that sorting costs n log n and what it buys: once data is ordered, two pointers, binary search and interval sweeps all become available.",
+      "gates_patterns": [
+        "02-two-pointers",
+        "04-binary-search",
+        "15-intervals",
+        "16-greedy"
+      ],
+      "est_minutes": 150,
+      "source": "striver_a2z steps 1-2",
+      "source_substeps": [
+        "Sorting-I",
+        "Sorting-II"
+      ],
+      "exercise_count": 7,
+      "exercises": [
+        "Bubble Sort",
+        "Insertion Sorting",
+        "Merge Sorting",
+        "Quick Sorting",
+        "Recursive Bubble Sort",
+        "Recursive Insertion Sort",
+        "Selection Sort"
+      ],
+      "resources": [
+        {
+          "for": "Bubble Sort",
+          "article": "https://takeuforward.org/data-structure/bubble-sort-algorithm/",
+          "youtube": "https://youtu.be/HGk_ypEuS24?t=1061",
+          "leetcode": null
+        },
+        {
+          "for": "Insertion Sorting",
+          "article": "https://takeuforward.org/data-structure/insertion-sort-algorithm/",
+          "youtube": "https://youtu.be/HGk_ypEuS24?t=1900",
+          "leetcode": null
+        },
+        {
+          "for": "Selection Sort",
+          "article": "https://takeuforward.org/sorting/selection-sort-algorithm/",
+          "youtube": "https://youtu.be/HGk_ypEuS24?t=167",
+          "leetcode": null
+        },
+        {
+          "for": "Merge Sorting",
+          "article": "https://takeuforward.org/data-structure/merge-sort-algorithm/",
+          "youtube": "https://youtu.be/ogjf7ORKfd8",
+          "leetcode": null
+        },
+        {
+          "for": "Quick Sorting",
+          "article": "https://takeuforward.org/data-structure/quick-sort-algorithm/",
+          "youtube": "https://youtu.be/WIrA4YexLRQ",
+          "leetcode": null
+        },
+        {
+          "for": "Recursive Bubble Sort",
+          "article": "https://takeuforward.org/arrays/recursive-bubble-sort-algorithm/",
+          "youtube": null,
+          "leetcode": null
+        },
+        {
+          "for": "Recursive Insertion Sort",
+          "article": "https://takeuforward.org/arrays/recursive-insertion-sort-algorithm/",
+          "youtube": null,
+          "leetcode": null
+        }
+      ]
+    }
+  ]
+}

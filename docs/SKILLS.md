@@ -10,6 +10,13 @@ Nine skills at `skills/<name>/SKILL.md`. Claude reads all of them at session sta
 **Writes:** `config/user.json`, `curriculum/track.md`, `state/*`
 **Scripts:** `build-curriculum.py --verify`, `roll-stats.py`
 
+### `foundations`
+**Trigger:** `basics`, `where do I start`, `explain big O`, or any failing foundation gate
+**Does:** teaches the 8 prerequisite topics; comprehension check per topic; gate enforcement
+**Writes:** `topics/<id>.md`
+**Note:** the no-code guardrail does NOT apply here — explaining recursion with code is the point
+**Scripts:** `build-foundations.py`
+
 ### `dsa-command-center`
 **Trigger:** `status`, `help`, `what now`, or an unclear first message
 **Does:** routing only. Resumes an active problem instead of offering a menu
@@ -78,8 +85,35 @@ Nine skills at `skills/<name>/SKILL.md`. Claude reads all of them at session sta
 
 | Script | Does | Writes |
 |---|---|---|
-| `build-curriculum.py [--verify] [--refresh]` | fetches NeetCode 150, maps to the 20-pattern taxonomy, verifies every slug against LeetCode's public GraphQL | `curriculum/merged.json` |
-| `roll-stats.py` | aggregates question frontmatter into mastery bands | `state/stats.json` |
+| `build-curriculum.py [--verify] [--refresh]` | fetches 5 curated sheets (NeetCode 150 + Striver A2Z / SDE / Blind 75 / Striver 79), merges them by LeetCode slug, verifies every slug against LeetCode's public GraphQL, and infers a pattern for anything NeetCode didn't already categorize | `curriculum/merged.json` |
+| `build-foundations.py` | builds the 8 prerequisite topics and their gates from Striver A2Z steps 1–2 | `config/foundations.json` |
+| `apply-research.py [--dry-run]` | merges model/web research into the curriculum, re-verifying every proposed pattern against real LeetCode tags and discarding any company list with no source URL | `curriculum/merged.json` |
+| `roll-stats.py` | aggregates question + topic frontmatter into mastery bands and open foundation gates | `state/stats.json` |
 | `status.py` | read-only session-start snapshot, reports failing setup gates | nothing |
 
 One writer per file. `roll-stats.py` is the only thing that writes `state/stats.json`; `teach-problem` is the only thing that writes `state/current.*`.
+
+
+## Curriculum data model
+
+`curriculum/merged.json` (schema 2) has two collections.
+
+**`problems`** — keyed by LeetCode slug. Every entry is verified; `verified: true` means the
+id, title, difficulty and `topic_tags` came back from LeetCode's public GraphQL, not from a
+guess. Notable fields:
+
+| Field | Meaning |
+|---|---|
+| `lists` | which sheets contain it — `neetcode150`, `striver_a2z`, `striver_sde`, `blind75`, `striver79`. Membership in several is the best free proxy for interview frequency. |
+| `pattern` / `pattern_source` | the assigned pattern and **how** it was assigned. `neetcode` = from the NeetCode category. `override` = hand-split into a finer pattern. `leetcode-tags:*` = inferred from real topic tags. `unassigned` = left null rather than guessed. |
+| `striver` | `{step_no, step, substep}` from the A2Z sheet — the sequencing signal. |
+| `resources` | free `article` and `youtube` links from takeuforward. Used for the refusal's editorial exit and for post-S6 review. **Never read and relayed during S1–S5.** |
+| `companies` | always `[]`. LeetCode gates company tags behind Premium; fabricating them would poison the curriculum. |
+
+**`non_leetcode`** — Striver problems hosted on GeeksforGeeks or Coding Ninjas rather than
+LeetCode. They cannot run through the S0–S6 loop (which ends in a LeetCode submission), so
+they are kept out of `problems` but not discarded: they carry step ordering and free article
+and video links, which is real sequencing value.
+
+`pattern_source` exists so a thin or odd-looking pattern assignment can be audited rather
+than trusted. If a problem lands in the wrong folder, that field says which rule put it there.

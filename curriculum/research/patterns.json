@@ -1,0 +1,578 @@
+[
+ {
+  "slug": "3sum-closest",
+  "pattern": "02-two-pointers",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "two pointer technique",
+  "source": null
+ },
+ {
+  "slug": "4sum",
+  "pattern": "02-two-pointers",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "two pointer technique",
+  "source": null
+ },
+ {
+  "slug": "accounts-merge",
+  "pattern": "13-graphs",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "union-find algorithm",
+  "source": null
+ },
+ {
+  "slug": "all-nodes-distance-k-in-binary-tree",
+  "pattern": "09-trees",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "binary tree operations",
+  "source": null
+ },
+ {
+  "slug": "armstrong-number",
+  "pattern": "20-math-geometry",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "math operations",
+  "source": null
+ },
+ {
+  "slug": "asteroid-collision",
+  "pattern": "05-stack",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "stack data structure",
+  "source": null
+ },
+ {
+  "slug": "backspace-string-compare",
+  "pattern": "02-two-pointers",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "two pointer simulation",
+  "source": null
+ },
+ {
+  "slug": "basic-calculator",
+  "pattern": "05-stack",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "stack data structure",
+  "source": null
+ },
+ {
+  "slug": "basic-calculator-ii",
+  "pattern": "05-stack",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "stack data structure",
+  "source": null
+ },
+ {
+  "slug": "binary-tree-inorder-traversal",
+  "pattern": "09-trees",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "binary tree operations",
+  "source": null
+ },
+ {
+  "slug": "binary-tree-postorder-traversal",
+  "pattern": "09-trees",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "binary tree operations",
+  "source": null
+ },
+ {
+  "slug": "binary-tree-preorder-traversal",
+  "pattern": "09-trees",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "binary tree operations",
+  "source": null
+ },
+ {
+  "slug": "binary-tree-zigzag-level-order-traversal",
+  "pattern": "09-trees",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "binary tree operations",
+  "source": null
+ },
+ {
+  "slug": "boundary-of-binary-tree",
+  "pattern": "09-trees",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "binary tree operations",
+  "source": null
+ },
+ {
+  "slug": "bus-routes",
+  "pattern": "13-graphs",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "bfs/dfs graph",
+  "source": null
+ },
+ {
+  "slug": "check-if-array-is-sorted-and-rotated",
+  "pattern": "01-arrays-hashing",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "array/hashing",
+  "source": null
+ },
+ {
+  "slug": "compare-version-numbers",
+  "pattern": "02-two-pointers",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "two pointer technique",
+  "source": null
+ },
+ {
+  "slug": "construct-binary-tree-from-inorder-and-postorder-traversal",
+  "pattern": "09-trees",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "binary tree operations",
+  "source": null
+ },
+ {
+  "slug": "contiguous-array",
+  "pattern": "01-arrays-hashing",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "prefix sum with hash",
+  "source": null
+ },
+ {
+  "slug": "count-and-say",
+  "pattern": "17-1d-dp",
+  "confidence": "medium",
+  "basis": "tags",
+  "note": "sequence generation dp",
+  "source": null
+ },
+ {
+  "slug": "count-good-numbers",
+  "pattern": "20-math-geometry",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "math operations",
+  "source": null
+ },
+ {
+  "slug": "count-primes",
+  "pattern": "20-math-geometry",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "sieve algorithm",
+  "source": null
+ },
+ {
+  "slug": "critical-connections-in-a-network",
+  "pattern": "13-graphs",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "bfs/dfs graph",
+  "source": null
+ },
+ {
+  "slug": "decode-string",
+  "pattern": "05-stack",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "stack data structure",
+  "source": null
+ },
+ {
+  "slug": "find-the-index-of-the-first-occurrence-in-a-string",
+  "pattern": "02-two-pointers",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "two pointer technique",
+  "source": null
+ },
+ {
+  "slug": "first-missing-positive",
+  "pattern": "01-arrays-hashing",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "array/hashing",
+  "source": null
+ },
+ {
+  "slug": "flood-fill",
+  "pattern": "13-graphs",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "bfs/dfs graph",
+  "source": null
+ },
+ {
+  "slug": "implement-queue-using-stacks",
+  "pattern": "05-stack",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "stack data structure",
+  "source": null
+ },
+ {
+  "slug": "implement-stack-using-queues",
+  "pattern": "05-stack",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "stack data structure",
+  "source": null
+ },
+ {
+  "slug": "insert-delete-getrandom-o1",
+  "pattern": "01-arrays-hashing",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "array + hash design",
+  "source": null
+ },
+ {
+  "slug": "is-graph-bipartite",
+  "pattern": "13-graphs",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "union-find algorithm",
+  "source": null
+ },
+ {
+  "slug": "isomorphic-strings",
+  "pattern": "01-arrays-hashing",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "hash mapping",
+  "source": null
+ },
+ {
+  "slug": "longest-happy-prefix",
+  "pattern": "03-sliding-window",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "string matching kmp",
+  "source": null
+ },
+ {
+  "slug": "lowest-common-ancestor-of-a-binary-tree",
+  "pattern": "09-trees",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "binary tree operations",
+  "source": null
+ },
+ {
+  "slug": "majority-element",
+  "pattern": "03-sliding-window",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "string matching algorithm",
+  "source": null
+ },
+ {
+  "slug": "majority-element-ii",
+  "pattern": "03-sliding-window",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "string matching algorithm",
+  "source": null
+ },
+ {
+  "slug": "making-a-large-island",
+  "pattern": "13-graphs",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "union-find algorithm",
+  "source": null
+ },
+ {
+  "slug": "max-consecutive-ones",
+  "pattern": "01-arrays-hashing",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "array/hashing",
+  "source": null
+ },
+ {
+  "slug": "maximum-frequency-stack",
+  "pattern": "05-stack",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "stack data structure",
+  "source": null
+ },
+ {
+  "slug": "maximum-nesting-depth-of-the-parentheses",
+  "pattern": "05-stack",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "stack data structure",
+  "source": null
+ },
+ {
+  "slug": "maximum-width-of-binary-tree",
+  "pattern": "09-trees",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "binary tree operations",
+  "source": null
+ },
+ {
+  "slug": "merge-sorted-array",
+  "pattern": "02-two-pointers",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "two pointer technique",
+  "source": null
+ },
+ {
+  "slug": "minimum-knight-moves",
+  "pattern": "13-graphs",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "bfs/dfs graph",
+  "source": null
+ },
+ {
+  "slug": "most-stones-removed-with-same-row-or-column",
+  "pattern": "13-graphs",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "union-find algorithm",
+  "source": null
+ },
+ {
+  "slug": "move-zeroes",
+  "pattern": "02-two-pointers",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "two pointer technique",
+  "source": null
+ },
+ {
+  "slug": "next-permutation",
+  "pattern": "02-two-pointers",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "two pointer technique",
+  "source": null
+ },
+ {
+  "slug": "number-of-enclaves",
+  "pattern": "13-graphs",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "union-find algorithm",
+  "source": null
+ },
+ {
+  "slug": "number-of-islands-ii",
+  "pattern": "13-graphs",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "union-find algorithm",
+  "source": null
+ },
+ {
+  "slug": "number-of-operations-to-make-network-connected",
+  "pattern": "13-graphs",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "union-find algorithm",
+  "source": null
+ },
+ {
+  "slug": "number-of-provinces",
+  "pattern": "13-graphs",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "union-find algorithm",
+  "source": null
+ },
+ {
+  "slug": "palindrome-number",
+  "pattern": "20-math-geometry",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "math operations",
+  "source": null
+ },
+ {
+  "slug": "parsing-a-boolean-expression",
+  "pattern": "05-stack",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "stack data structure",
+  "source": null
+ },
+ {
+  "slug": "path-sum-iii",
+  "pattern": "09-trees",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "binary tree operations",
+  "source": null
+ },
+ {
+  "slug": "permutation-sequence",
+  "pattern": "20-math-geometry",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "math operations",
+  "source": null
+ },
+ {
+  "slug": "ransom-note",
+  "pattern": "01-arrays-hashing",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "hash table",
+  "source": null
+ },
+ {
+  "slug": "rearrange-array-elements-by-sign",
+  "pattern": "02-two-pointers",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "two pointer technique",
+  "source": null
+ },
+ {
+  "slug": "remove-duplicates-from-sorted-array",
+  "pattern": "02-two-pointers",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "two pointer technique",
+  "source": null
+ },
+ {
+  "slug": "remove-outermost-parentheses",
+  "pattern": "05-stack",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "stack data structure",
+  "source": null
+ },
+ {
+  "slug": "repeated-string-match",
+  "pattern": "03-sliding-window",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "string matching",
+  "source": null
+ },
+ {
+  "slug": "reverse-words-in-a-string",
+  "pattern": "02-two-pointers",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "two pointer technique",
+  "source": null
+ },
+ {
+  "slug": "roman-to-integer",
+  "pattern": "20-math-geometry",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "numeral conversion",
+  "source": null
+ },
+ {
+  "slug": "rotate-array",
+  "pattern": "20-math-geometry",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "math operations",
+  "source": null
+ },
+ {
+  "slug": "rotate-string",
+  "pattern": "03-sliding-window",
+  "confidence": "medium",
+  "basis": "tags",
+  "note": "string rotation pattern",
+  "source": null
+ },
+ {
+  "slug": "shortest-path-in-binary-matrix",
+  "pattern": "13-graphs",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "bfs/dfs graph",
+  "source": null
+ },
+ {
+  "slug": "shortest-path-to-get-food",
+  "pattern": "13-graphs",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "bfs/dfs graph",
+  "source": null
+ },
+ {
+  "slug": "sort-colors",
+  "pattern": "02-two-pointers",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "two pointer technique",
+  "source": null
+ },
+ {
+  "slug": "squares-of-a-sorted-array",
+  "pattern": "02-two-pointers",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "two pointer technique",
+  "source": null
+ },
+ {
+  "slug": "string-to-integer-atoi",
+  "pattern": "01-arrays-hashing",
+  "confidence": "medium",
+  "basis": "tags",
+  "note": "string parsing",
+  "source": null
+ },
+ {
+  "slug": "subarray-sum-equals-k",
+  "pattern": "01-arrays-hashing",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "prefix sum with hash",
+  "source": null
+ },
+ {
+  "slug": "sum-of-beauty-of-all-substrings",
+  "pattern": "01-arrays-hashing",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "hash table",
+  "source": null
+ },
+ {
+  "slug": "symmetric-tree",
+  "pattern": "09-trees",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "binary tree operations",
+  "source": null
+ },
+ {
+  "slug": "vertical-order-traversal-of-a-binary-tree",
+  "pattern": "09-trees",
+  "confidence": "high",
+  "basis": "tags",
+  "note": "binary tree operations",
+  "source": null
+ }
+]

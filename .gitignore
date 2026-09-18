@@ -18,3 +18,7 @@ curriculum/sources/*.raw.json
 
 # macOS junk anywhere in the tree
 **/.DS_Store
+
+# Large refetchable source dumps
+curriculum/sources/*.raw.html
+curriculum/sources/_system-roots.pem

@@ -90,6 +90,8 @@ One rung per request. Announce it. Never two in one message. **Never reset the r
 | H5 | 3–6 numbered English steps with ≥2 `<you decide: …>` holes | The holes are the decisions that were theirs |
 | — | Refusal script, verbatim from CLAUDE.md | Offer downgrade / park / editorial |
 
+For the editorial exit, read `resources` on the problem in `curriculum/merged.json` — most carry a free Striver article and video. **Paste the links. Never read them and relay the contents.**
+
 After emitting a rung: increment `hint_rung` in `state/current.json` and commit with `hint:`.
 
 **Never name a data structure before rung 3.** Naming it hands over the design decision that was theirs to make.

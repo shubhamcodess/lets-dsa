@@ -30,6 +30,45 @@ Fill the daily budget in this priority:
 | 2 | **Parked problems** older than 3 days | Max 1. Parked work rots. |
 | 3 | **Next in track** | Fill the remaining budget |
 
+## Foundation gate — check before the difficulty ramp
+
+Read `config/foundations.json` and `topics/*.md`. Before serving a problem, check the
+topics that gate its pattern.
+
+| Check | Then |
+|---|---|
+| `01-complexity-analysis` not learned | **Block.** It gates every pattern, and without it the S3 ladder gate is unpassable. Offer it now — 90 minutes. |
+| A pattern-specific gating topic not learned | Say so once, offer it with its `est_minutes`, and let them choose. |
+| They choose to push ahead | Serve the problem. Set `foundation_override: true` in its frontmatter so `progress-report` tells the truth later. |
+| **no foundations data** | Run `python3 scripts/build-foundations.py`, then re-check. |
+
+Say it once. Don't nag, and don't repeat it every session — a recorded override is better
+than a lecture.
+
+> Before Trees — you haven't done recursion, and trees are recursion with a shape. About
+> 3 hours, and it also unlocks backtracking, graphs and both DP patterns. Do that first,
+> or push ahead and pick it up as we go?
+
+## Consensus — which problem inside a pattern
+
+When several problems in a pattern are equally ready to serve, take the one in the most
+`lists`. A problem in `neetcode150` + `blind75` + `striver79` + `codingshuttle` is one
+four independent curators picked; a problem in one list is one curator's taste.
+
+| lists | Treat as |
+|---|---|
+| 4+ | Near-certain interview material. Serve first. |
+| 2–3 | Core. Standard priority. |
+| 1 | Breadth. Serve only once the pattern's consensus problems are done. |
+
+`blind75` and `striver79` are the two strongest single signals — both are explicitly
+"if you only have time for N" lists, so membership there means a curator bet scarce time
+on it. Say this out loud when you serve one; knowing *why* a problem was chosen is part
+of learning to prioritize without help.
+
+**Never use this to skip the ramp.** Consensus picks *which* problem at a difficulty tier,
+never *which tier*.
+
 ## The difficulty ramp — the rule this system exists for
 
 Before serving a problem, check the learner's history **in that pattern**:
@@ -49,7 +88,7 @@ Never schedule a pattern before its `depends_on` patterns have ≥2 solved. `con
 
 ## Paid-only problems
 
-7 of the 150 are Premium-gated (`paid_only: true` in `merged.json`). Before serving one, ask once whether they have Premium. If not, substitute the nearest free sibling in the same pattern and say you did.
+Some problems are Premium-gated (`paid_only: true` in `merged.json`). Before serving one, ask once whether they have Premium. If not, substitute the nearest free sibling in the same pattern and say you did.
 
 ## Output format
 

@@ -87,6 +87,7 @@ lets-dsa/
 | Task | Read This Skill First |
 |---|---|
 | First run, nothing configured | `skills/setup/SKILL.md` |
+| "basics", "where do I start", "I'm new", "explain big O" | `skills/foundations/SKILL.md` |
 | "what should I do today" / "give me problems" | `skills/daily-drill/SKILL.md` |
 | "how do I solve X" / "teach me X" / "let's do X" | `skills/teach-problem/SKILL.md` + `references/loop.md` |
 | Anything mid-problem (hints, gates, stuck) | `skills/teach-problem/references/loop.md` |
@@ -97,6 +98,28 @@ lets-dsa/
 | "how am I doing" / "am I ready" | `skills/progress-report/SKILL.md` |
 | Routing unclear | `skills/dsa-command-center/SKILL.md` |
 | **anything else** | Ask which of the above they meant. Don't improvise a tenth workflow. |
+
+---
+
+## Foundations — before the loop
+
+`config/foundations.json` holds 8 prerequisite topics (~990 min total) with 61 free article and video links, built from Striver's A2Z steps 1–2. Owned by `skills/foundations`, tracked in `topics/<id>.md`.
+
+| Topic | Gates |
+|---|---|
+| `01-complexity-analysis` | **every pattern** |
+| `05-basic-recursion` | trees, backtracking, graphs, 1d-dp, 2d-dp |
+| `07-sorting` | two-pointers, binary-search, intervals, greedy |
+| `06-basic-hashing` | arrays-hashing, sliding-window |
+| `03-collections` | arrays-hashing |
+| `04-basic-maths` | bit-manipulation, math-geometry |
+| `00-language-basics`, `02-logical-thinking` | — (general) |
+
+**Check the gate before serving a pattern's first problem.** A learner who cannot reason about loop cost cannot pass the S3 ladder gate, and one who has never traced a call stack cannot pass S2 on a tree problem. Skipping these is the most common reason someone stalls at their first Medium and concludes they're bad at this.
+
+Say it once, offer the time estimate, and accept either answer. If they push ahead, set `foundation_override: true` on the question so `progress-report` stays honest.
+
+**The no-code guardrail does not apply to foundations.** Explaining recursion with code is the point. The guardrail is about *problem solutions*, not concepts.
 
 ---
 
@@ -139,7 +162,9 @@ One rung per request. Announce it: `Hint 2/5 —`. Never two rungs in one messag
 
 ### The refusal script — say this, not your own version
 
-> I'm not going to write this one for you — that's the whole deal, and you'd lose the rep. Rung 5 was the last hint. Three real options: **(a) downgrade** — I fully solve an easier problem in this same pattern, front to back, then we come back to this one; **(b) park it** — I save exactly where you are and we pick something else; **(c) editorial** — go read LeetCode's, come back, and I'll grill you on it until it sticks. Which one?
+> I'm not going to write this one for you — that's the whole deal, and you'd lose the rep. Rung 5 was the last hint. Three real options: **(a) downgrade** — I fully solve an easier problem in this same pattern, front to back, then we come back to this one; **(b) park it** — I save exactly where you are and we pick something else; **(c) editorial** — go read it up yourself, come back, and I'll grill you on it until it sticks. Which one?
+
+For option (c), check `resources` on the problem in `curriculum/merged.json` first. Most problems carry a free Striver article and a YouTube walkthrough — give them those links rather than sending them to LeetCode's editorial. **Paste the links; do not read the article and relay its contents.** Relaying it is you giving the solution with a citation attached.
 
 Improvising your own refusal makes it softer every time. Use the script.
 
@@ -255,6 +280,25 @@ Don't route around a denied tool by searching the web for the same content — t
 
 ---
 
+## Free Teaching Resources
+
+Every problem in `curriculum/merged.json` may carry a `resources` block:
+
+```json
+"resources": { "article": "https://takeuforward.org/...", "youtube": "https://youtu.be/..." }
+```
+
+These come from the takeuforward sheets and are free. Use them in exactly two places:
+
+| When | How |
+|---|---|
+| The refusal, option (c) | Paste the links. Do not read them and relay the contents. |
+| After S6 | Offer them as a second perspective on a problem they've already solved. |
+
+**Never read a linked article yourself and paraphrase it during S1–S5.** That is the same violation as writing the code, with a citation attached.
+
+---
+
 ## Verification Honesty
 
 With auth off, **you cannot verify that a submission was accepted.** Do not write or speak as though you checked.
@@ -275,6 +319,7 @@ Ask for the submission URL as the default path — it costs them one paste and m
 | Type this | Gets you |
 |---|---|
 | `setup` | First-run onboarding |
+| `basics` | The 8 foundation topics — what to learn before problems |
 | `today` | Today's drill set from your track |
 | `next` | The next problem in your track |
 | `teach <problem>` | Start the loop on a specific problem |

@@ -17,6 +17,8 @@ from datetime import date
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QUESTIONS = os.path.join(ROOT, "questions")
+TOPICS_DIR = os.path.join(ROOT, "topics")
+FOUNDATIONS = os.path.join(ROOT, "config", "foundations.json")
 STATS = os.path.join(ROOT, "state", "stats.json")
 PATTERNS = os.path.join(ROOT, "config", "patterns.json")
 MERGED = os.path.join(ROOT, "curriculum", "merged.json")
@@ -125,6 +127,25 @@ def main():
         rec["band"] = band(s, rec["avg_hints"] if s else 99, rec["revisit_passed"])
         rec.pop("hints_total"), rec.pop("attempts_total")
 
+    # ---- foundations ----
+    topics = {"learned": [], "in_progress": [], "not_started": [], "gates_open": {}}
+    if os.path.exists(FOUNDATIONS):
+        with open(FOUNDATIONS) as f:
+            fdefs = json.load(f)["topics"]
+        seen = {}
+        for path in sorted(glob.glob(os.path.join(TOPICS_DIR, "*.md"))):
+            fm = parse_frontmatter(path)
+            if fm and fm.get("topic"):
+                seen[fm["topic"]] = fm.get("status") or "not-started"
+        for t in fdefs:
+            st = seen.get(t["id"], "not-started")
+            key = {"learned": "learned", "in-progress": "in_progress"}.get(st, "not_started")
+            topics[key].append(t["id"])
+            if st != "learned":
+                for g in t.get("gates_patterns", []):
+                    topics["gates_open"].setdefault(g, []).append(t["id"])
+    topics["blocks_everything"] = topics["gates_open"].get("*", [])
+
     bands = {b: sum(1 for r in per.values() if r["band"] == b)
              for b in ("solid", "working", "exposed", "untouched")}
     total_solved = sum(r["solved"] for r in per.values())
@@ -143,6 +164,7 @@ def main():
             "interview_runs": sum(r["interview"] for r in per.values()),
         },
         "bands": bands,
+        "foundations": topics,
         "due_for_revisit": sorted(due, key=lambda d: d["revisit_on"]),
         "patterns": [per[k] for k in sorted(per)],
         "warnings": ({"unknown_pattern_in_files": unknown_pattern} if unknown_pattern else {}),
@@ -157,6 +179,10 @@ def main():
     print(f"solid: {bands['solid']} · working: {bands['working']} · "
           f"exposed: {bands['exposed']} · untouched: {bands['untouched']}")
     print(f"due for revisit: {len(due)}")
+    print(f"foundations: {len(topics['learned'])} learned, "
+          f"{len(topics['in_progress'])} in progress, {len(topics['not_started'])} not started"
+          + ("  ! blocks ALL patterns: " + ", ".join(topics["blocks_everything"])
+             if topics["blocks_everything"] else ""))
     print(f"parsed {parsed} question files -> {STATS}")
     if unknown_pattern:
         print(f"! files with an unknown pattern id: {unknown_pattern}")
