@@ -42,9 +42,10 @@ Nine skills at `skills/<name>/SKILL.md`. Claude reads all of them at session sta
 **Writes:** nothing
 
 ### `pattern-brief`
-**Trigger:** `explain <pattern>`, `I keep confusing X and Y`
-**Does:** teaches a pattern in the abstract; writes `patterns/<slug>.md`
-**Agents:** `pattern-researcher`
+**Trigger:** `explain <pattern>`, `I keep confusing X and Y`, and automatically before the first problem in any pattern
+**Does:** teaches a pattern in the abstract; owns `patterns/<slug>.md`
+**State:** all 20 briefs are pre-written. The intro gate in `daily-drill` delivers the brief before a pattern's first problem — orientation, not a gate you can fail
+**Agents:** `pattern-researcher` (regenerates or updates a brief)
 
 ### `visual-explainer`
 **Trigger:** `visualize`, `show me`, `I can't picture it`

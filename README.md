@@ -39,6 +39,19 @@ Before any problem, there are **8 foundation topics** — ~16 hours, with 61 fre
 
 This exists because skipping it is the most common reason people stall. If you can't reason about what a loop costs, the ladder gate below is unpassable — and you won't know whether your solution is good or merely accepted. Claude checks the gate before serving a pattern's first problem, says so once, and lets you push ahead if you want. The override is recorded so your progress report stays honest.
 
+## Theory before problems
+
+Every pattern has a written brief in `patterns/` — read before its first problem, about five minutes:
+
+- **The one-sentence idea** and **the invariant**
+- **How to recognize it** — signals visible in a problem *statement*, not in a solution. This is the transferable part.
+- **The shape** — the algorithm skeleton in English, no code
+- **The named algorithms** — Dijkstra, Kruskal, Union-Find, Kadane, Boyer–Moore, Sieve, Floyd's cycle detection: what each computes, the key idea, the cost. Or an honest "this pattern is a technique, not a named algorithm family" where that's true.
+- **A worked micro-example** — one throwaway instance, n ≤ 6, traced in prose so you see the mechanism before meeting it under pressure
+- **Where it breaks**, **confusable with**, and **common traps**
+
+The briefs are code-free by rule — they're read at S1, when the guardrail is fully on.
+
 ## How it works
 
 Every problem runs through seven gated stages:

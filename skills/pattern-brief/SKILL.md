@@ -46,6 +46,21 @@ possible. Phrase each as something visible in a problem STATEMENT, not in a solu
 [The algorithm's skeleton in English. Never in code — a brief is read at S1, when code
 is still forbidden.]
 
+## The named algorithms
+[Algorithms in this family that have names, and what each one actually does. This is the
+theory section — the thing a learner can read cold before touching a problem.
+One short paragraph each: what it computes, the key idea that makes it work, and its cost.
+Still no code. If the pattern has no named algorithms, say so plainly rather than inventing
+names — most patterns are techniques, not algorithms.]
+
+| Algorithm | What it computes | Key idea | Cost |
+|---|---|---|---|
+
+## Worked micro-example
+[ONE tiny instance, n <= 6, traced in prose. Not a problem from the curriculum — a
+throwaway so the mechanism is visible before the learner meets it under pressure.
+This is what turns a definition into something they can picture.]
+
 ## Where it breaks
 [When this pattern does NOT apply, and what it gets confused with. A pattern you can't
 rule out is a pattern you can't rule in.]

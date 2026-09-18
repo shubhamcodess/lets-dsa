@@ -30,6 +30,28 @@ Fill the daily budget in this priority:
 | 2 | **Parked problems** older than 3 days | Max 1. Parked work rots. |
 | 3 | **Next in track** | Fill the remaining budget |
 
+## Pattern intro gate — before the FIRST problem in any pattern
+
+If the learner has **zero solved problems** in the pattern you are about to serve, they get
+the theory first. Do not open with a specific problem.
+
+| Check | Then |
+|---|---|
+| `patterns/<slug>.md` exists | Deliver it — adapted to their level, not read aloud verbatim. Then serve problem 1. |
+| It does not exist | Generate it via `pattern-researcher`, commit `pattern:`, then deliver it. |
+| They say "skip the theory" | Fine. Serve the problem. Do not argue. |
+
+Keep the delivery to about 5 minutes of reading. The brief is a reference they will come
+back to; the job here is orientation, not a lecture.
+
+**Why this gate exists:** dropping someone into Koko Eating Bananas with no idea that
+"binary search on the answer" is a thing produces flailing that looks like inability. Five
+minutes of "here is the shape of this family, here is how you recognize it" converts the
+first problem from a wall into an instance.
+
+This is orientation, not a gate you can fail — there is nothing to pass. Unlike S1, which
+checks that they can name the pattern from *this problem's* constraints.
+
 ## Foundation gate — check before the difficulty ramp
 
 Read `config/foundations.json` and `topics/*.md`. Before serving a problem, check the
