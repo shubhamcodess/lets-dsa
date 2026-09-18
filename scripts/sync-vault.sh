@@ -81,10 +81,20 @@ for path in "${PERSONAL_PATHS[@]}"; do
   fi
 done
 
+# ── Strip macOS junk that cp -r drags along ───────────────────────────────────
+find "$WORKTREE" -name '.DS_Store' -delete 2>/dev/null || true
+
 # ── Stage everything (force-add gitignored personal files) ────────────────────
+# One path at a time, and only if it exists. `git add` is ATOMIC over its pathspec
+# list: a single missing path makes the whole command fail with exit 128 and stage
+# NOTHING. Combined with `|| true` that failure is silent, and the vault quietly
+# pushes framework-only while reporting success.
 git add -A
-git add -f questions topics config/user.json curriculum/track.md \
-           state/current.json state/current.md state/stats.json 2>/dev/null || true
+for path in "${PERSONAL_PATHS[@]}"; do
+  if [ -e "$WORKTREE/$path" ]; then
+    git add -f "$path" || echo "⚠️   could not stage $path"
+  fi
+done
 
 if git diff --cached --quiet; then
   echo "Nothing changed — vault already up to date."
