@@ -1,31 +1,31 @@
 {
   "schema": 2,
-  "built": "2026-09-18",
+  "built": "2026-09-19",
   "verified_against_leetcode": true,
   "counts": {
     "total": 343,
     "non_leetcode": 308,
     "by_pattern": {
-      "01-arrays-hashing": 26,
-      "02-two-pointers": 19,
-      "03-sliding-window": 14,
+      "01-arrays-hashing": 24,
+      "02-two-pointers": 25,
+      "03-sliding-window": 16,
       "04-binary-search": 31,
-      "05-stack": 13,
-      "06-monotonic-stack": 7,
-      "07-linked-list": 22,
+      "05-stack": 12,
+      "06-monotonic-stack": 8,
+      "07-linked-list": 24,
       "08-fast-slow-pointers": 2,
-      "09-trees": 36,
+      "09-trees": 40,
       "10-tries": 7,
       "11-heap-top-k": 9,
       "12-backtracking": 15,
-      "13-graphs": 27,
-      "14-advanced-graphs": 8,
+      "13-graphs": 20,
+      "14-advanced-graphs": 6,
       "15-intervals": 6,
       "16-greedy": 18,
       "17-1d-dp": 45,
       "18-2d-dp": 11,
-      "19-bit-manipulation": 14,
-      "20-math-geometry": 13
+      "19-bit-manipulation": 16,
+      "20-math-geometry": 8
     },
     "by_list": {
       "blind75": 65,
@@ -37,16 +37,11 @@
       "striver_sde": 116
     },
     "by_pattern_source": {
-      "leetcode-tags:overlap": 50,
+      "leetcode-tags:overlap": 72,
       "leetcode-tags:signature": 121,
       "neetcode": 145,
-      "override": 5,
-      "research:tag-override": 6,
-      "research:tag-verified": 15,
-      "structural-tag-override": 1
-    },
-    "needs_review": 0,
-    "with_companies": 42
+      "override": 5
+    }
   },
   "dropped_unresolved": [
     "coin-change-2",
@@ -116,19 +111,11 @@
     "override": "hand-split into a finer pattern \u2014 see PATTERN_OVERRIDES in the script",
     "leetcode-tags:signature": "a distinctive real LeetCode topic tag named the pattern",
     "leetcode-tags:overlap": "best overlap between real topic tags and config/patterns.json",
-    "unassigned": "no confident assignment \u2014 left null rather than guessed",
-    "structural-tag-override": "A structural LeetCode tag (BFS/DFS/Graph/Tree/Trie/Backtracking/Sliding Window/Heap/Linked List/Union-Find) contradicted a WEAK overlap-based guess. Applied only where pattern_source was 'leetcode-tags:overlap' \u2014 never over a curated sheet's own categorization, which reflects a teaching judgement a tag cannot make."
+    "unassigned": "no confident assignment \u2014 left null rather than guessed"
   },
   "company_tags": {
-    "status": "partial \u2014 third-party research",
-    "coverage": {
-      "scope": "159 core problems (those appearing in 3+ curated sheets)",
-      "found": 42,
-      "not_searched": 117,
-      "note": "The research agent exhausted its budget before covering the full 159. An empty `companies` list therefore means NOT SEARCHED, not 'searched and found nothing'. Do not present an empty list as evidence that a problem is rarely asked."
-    },
-    "provenance": "Third-party web research (Glassdoor, LeetCode discuss, interview blogs). NOT LeetCode Premium data, which is gated and unavailable. Every entry carries its source URL in companies_meta; any entry that arrived without a source was discarded.",
-    "confidence": "low to medium, mostly single-source. Treat as a weak prioritization signal, never as fact. Sheet membership (blind75 + striver79 + neetcode150) remains the stronger and better-grounded signal."
+    "status": "unavailable",
+    "note": "LeetCode gates company tags behind Premium and does not expose them on the public GraphQL endpoint. Every 'companies' field is [] rather than guessed. Company targeting in curriculum/track.md is driven by list membership (blind75 and striver79 are the interview-frequency signals) and by config/user.json \u2014 not by fabricated per-problem tags."
   },
   "problems": {
     "01-matrix": {
@@ -185,11 +172,7 @@
         "Two Pointers",
         "Sorting"
       ],
-      "companies": [
-        "Google",
-        "Facebook",
-        "Amazon"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -201,12 +184,7 @@
         "step": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
         "substep": "Hard"
       },
-      "avg_time_mins": 30,
-      "companies_meta": {
-        "source": "https://medium.com/@omthakkar9/leetcode-15-3sum-the-hidden-beast-of-triplets-c52468a86c57",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 30
     },
     "3sum-closest": {
       "slug": "3sum-closest",
@@ -249,9 +227,7 @@
         "Two Pointers",
         "Sorting"
       ],
-      "companies": [
-        "Microsoft"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -262,18 +238,13 @@
         "step_no": 3,
         "step": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
         "substep": "Hard"
-      },
-      "companies_meta": {
-        "source": "https://m.youtube.com/watch?v=fRJ7TitfanE",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
       }
     },
     "accounts-merge": {
       "slug": "accounts-merge",
       "title": "Accounts Merge",
-      "pattern": "14-advanced-graphs",
-      "pattern_source": "research:tag-override",
+      "pattern": "02-two-pointers",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Medium",
       "lists": [
@@ -291,10 +262,7 @@
         "Union-Find",
         "Sorting"
       ],
-      "companies": [
-        "Google",
-        "Meta"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -306,12 +274,7 @@
         "step": "Graphs [Concepts & Problems]",
         "substep": "MinimumSpanningTree/Disjoint Set and Problems"
       },
-      "avg_time_mins": 30,
-      "companies_meta": {
-        "source": "https://medium.com/@techiecontent/day-4-google-interview-preparation-accounts-merge-leetcode-721-9194d05230b1",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 30
     },
     "add-binary": {
       "slug": "add-binary",
@@ -357,9 +320,7 @@
         "Math",
         "Recursion"
       ],
-      "companies": [
-        "AT&T"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -371,12 +332,7 @@
         "step": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
         "substep": "Medium Problems of LL"
       },
-      "avg_time_mins": 25,
-      "companies_meta": {
-        "source": "https://www.glassdoor.com/Interview/Add-two-numbers-LeetCode-problem-QTN_2418220.htm",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 25
     },
     "alien-dictionary": {
       "slug": "alien-dictionary",
@@ -402,10 +358,7 @@
         "Topological Sort",
         "Directed Acyclic Graph"
       ],
-      "companies": [
-        "Microsoft",
-        "Google"
-      ],
+      "companies": [],
       "paid_only": true,
       "verified": true,
       "resources": {
@@ -417,12 +370,7 @@
         "step": "Graphs [Concepts & Problems]",
         "substep": "Topo Sort and Problems"
       },
-      "avg_time_mins": 45,
-      "companies_meta": {
-        "source": "https://leetcode.com/discuss/interview-question/248131/Microsoft-Interview-(round-1)-Alien-Dictionary/",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 45
     },
     "all-nodes-distance-k-in-binary-tree": {
       "slug": "all-nodes-distance-k-in-binary-tree",
@@ -460,8 +408,8 @@
     "armstrong-number": {
       "slug": "armstrong-number",
       "title": "Armstrong Number",
-      "pattern": "20-math-geometry",
-      "pattern_source": "research:tag-verified",
+      "pattern": "19-bit-manipulation",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Easy",
       "lists": [
@@ -504,12 +452,7 @@
         "Sorting",
         "Quicksort"
       ],
-      "companies": [
-        "Amazon",
-        "Meta",
-        "Google",
-        "Microsoft"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -520,18 +463,13 @@
         "step_no": 12,
         "step": "Greedy Algorithms [Easy, Medium/Hard]",
         "substep": "Easy Problems"
-      },
-      "companies_meta": {
-        "source": "https://interviewhandbook.com/assign-cookies-leetcode-455/",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
       }
     },
     "asteroid-collision": {
       "slug": "asteroid-collision",
       "title": "Asteroid Collision",
-      "pattern": "05-stack",
-      "pattern_source": "research:tag-verified",
+      "pattern": "06-monotonic-stack",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Medium",
       "lists": [
@@ -545,10 +483,7 @@
         "Stack",
         "Simulation"
       ],
-      "companies": [
-        "Goldman Sachs",
-        "Meta"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -560,12 +495,7 @@
         "step": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
         "substep": "Monotonic Stack/Queue Problems [VVV. Imp]"
       },
-      "avg_time_mins": 30,
-      "companies_meta": {
-        "source": "https://www.glassdoor.com/Interview/1-https-leetcode-com-problems-asteroid-collision-He-directly-asked-me-to-code-and-explain-while-coding-I-gave-him-the-stack-approach-and-described-to-him-all-the-edge-test-cases-QTN_5548088.htm",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 30
     },
     "backspace-string-compare": {
       "slug": "backspace-string-compare",
@@ -692,14 +622,7 @@
         "Array",
         "Dynamic Programming"
       ],
-      "companies": [
-        "Amazon",
-        "Google",
-        "Apple",
-        "Goldman Sachs",
-        "BlackRock",
-        "Bloomberg"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -711,12 +634,7 @@
         "step": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
         "substep": "Medium"
       },
-      "avg_time_mins": 20,
-      "companies_meta": {
-        "source": "https://www.interviewcoder.co/leetcode-problems/best-time-to-buy-and-sell-stock",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 20
     },
     "best-time-to-buy-and-sell-stock-ii": {
       "slug": "best-time-to-buy-and-sell-stock-ii",
@@ -879,13 +797,7 @@
         "Array",
         "Binary Search"
       ],
-      "companies": [
-        "Google",
-        "Amazon",
-        "Microsoft",
-        "Meta",
-        "Apple"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -897,12 +809,7 @@
         "step": "Binary Search [1D, 2D Arrays, Search Space]",
         "substep": "BS on 1D Arrays"
       },
-      "avg_time_mins": 15,
-      "companies_meta": {
-        "source": "https://spacecomplexity.ai/blog/binary-search-problems-leetcode",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 15
     },
     "binary-search-tree-iterator": {
       "slug": "binary-search-tree-iterator",
@@ -925,11 +832,7 @@
         "Binary Tree",
         "Iterator"
       ],
-      "companies": [
-        "Meta",
-        "Microsoft",
-        "Amazon"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -940,11 +843,6 @@
         "step_no": 14,
         "step": "Binary Search Trees [Concept and Problems]",
         "substep": "Practice Problems"
-      },
-      "companies_meta": {
-        "source": "https://medium.com/@k.manu00005/meta-microsoft-amazon-173-binary-search-tree-iterator-ece2b53cb24",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
       }
     },
     "binary-subarrays-with-sum": {
@@ -997,10 +895,7 @@
         "Depth-First Search",
         "Binary Tree"
       ],
-      "companies": [
-        "Oracle",
-        "Meta"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -1011,11 +906,6 @@
         "step_no": 13,
         "step": "Binary Trees [Traversals, Medium and Hard Problems]",
         "substep": "Traversals"
-      },
-      "companies_meta": {
-        "source": "https://leetcode.com/problems/binary-tree-inorder-traversal/",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
       }
     },
     "binary-tree-level-order-traversal": {
@@ -1039,12 +929,7 @@
         "Breadth-First Search",
         "Binary Tree"
       ],
-      "companies": [
-        "Google",
-        "Amazon",
-        "Meta",
-        "Apple"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -1056,12 +941,7 @@
         "step": "Binary Trees [Traversals, Medium and Hard Problems]",
         "substep": "Traversals"
       },
-      "avg_time_mins": 20,
-      "companies_meta": {
-        "source": "https://blog.seancoughlin.me/mastering-binary-tree-level-order-traversal-for-leetcode-interviews",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 20
     },
     "binary-tree-maximum-path-sum": {
       "slug": "binary-tree-maximum-path-sum",
@@ -1120,12 +1000,7 @@
         "Depth-First Search",
         "Binary Tree"
       ],
-      "companies": [
-        "Meta",
-        "Amazon",
-        "Google",
-        "OpenAI"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -1136,11 +1011,6 @@
         "step_no": 13,
         "step": "Binary Trees [Traversals, Medium and Hard Problems]",
         "substep": "Traversals"
-      },
-      "companies_meta": {
-        "source": "https://leetcode.com/problems/binary-tree-postorder-traversal/",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
       }
     },
     "binary-tree-preorder-traversal": {
@@ -1228,14 +1098,7 @@
         "Breadth-First Search",
         "Binary Tree"
       ],
-      "companies": [
-        "Amazon",
-        "Google",
-        "Microsoft",
-        "Facebook",
-        "Apple",
-        "LinkedIn"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -1247,12 +1110,7 @@
         "step": "Binary Trees [Traversals, Medium and Hard Problems]",
         "substep": "Medium Problems"
       },
-      "avg_time_mins": 25,
-      "companies_meta": {
-        "source": "https://dev.to/akshaymarch7/zigzag-spiral-level-order-traversal-amazon-interview-question-14jp",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 25
     },
     "boundary-of-binary-tree": {
       "slug": "boundary-of-binary-tree",
@@ -1301,10 +1159,7 @@
         "Array",
         "Dynamic Programming"
       ],
-      "companies": [
-        "Citadel Securities",
-        "Google"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -1315,18 +1170,13 @@
         "step_no": 16,
         "step": "Dynamic Programming [Patterns and Problems]",
         "substep": "MCM DP | Partition DP"
-      },
-      "companies_meta": {
-        "source": "https://www.glassdoor.ca/Interview/Leetcode-Hard-312-Burst-Balloons-dynamic-programming-QTN_4088771.htm",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
       }
     },
     "bus-routes": {
       "slug": "bus-routes",
       "title": "Bus Routes",
-      "pattern": "13-graphs",
-      "pattern_source": "structural-tag-override",
+      "pattern": "01-arrays-hashing",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Hard",
       "lists": [
@@ -1446,13 +1296,7 @@
         "Heap (Priority Queue)",
         "Shortest Path"
       ],
-      "companies": [
-        "Airbnb",
-        "Snap",
-        "Stripe",
-        "Meta",
-        "Google"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -1464,12 +1308,7 @@
         "step": "Graphs [Concepts & Problems]",
         "substep": "Shortest Path Algorithms and Problems"
       },
-      "avg_time_mins": 45,
-      "companies_meta": {
-        "source": "https://www.hellointerview.com/community/questions/cheapest-flights-k-stops/cm5eguhac02m9838objaimxxx",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 45
     },
     "check-if-array-is-sorted-and-rotated": {
       "slug": "check-if-array-is-sorted-and-rotated",
@@ -1517,13 +1356,7 @@
         "Dynamic Programming",
         "Memoization"
       ],
-      "companies": [
-        "Google",
-        "Amazon",
-        "Microsoft",
-        "Meta",
-        "Apple"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -1535,12 +1368,7 @@
         "step": "Dynamic Programming [Patterns and Problems]",
         "substep": "1D DP"
       },
-      "avg_time_mins": 20,
-      "companies_meta": {
-        "source": "https://www.interviewcoder.co/leetcode-problems/climbing-stairs",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 20
     },
     "clone-graph": {
       "slug": "clone-graph",
@@ -1563,19 +1391,12 @@
         "Breadth-First Search",
         "Graph Theory"
       ],
-      "companies": [
-        "Amazon"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {},
       "striver": null,
-      "avg_time_mins": 25,
-      "companies_meta": {
-        "source": "https://www.youtube.com/watch?v=e5tNvT1iUXs",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 25
     },
     "coin-change": {
       "slug": "coin-change",
@@ -1599,10 +1420,7 @@
         "Knapsack Problem",
         "Complete Knapsack"
       ],
-      "companies": [
-        "Microsoft",
-        "Google"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -1614,12 +1432,7 @@
         "step": "Dynamic Programming [Patterns and Problems]",
         "substep": "DP on Subsequences"
       },
-      "avg_time_mins": 25,
-      "companies_meta": {
-        "source": "https://www.glassdoor.co.in/Interview/Coin-change-Find-all-combinations-of-coins-https-leetcode-com-problems-coin-change-ii-QTN_6831854.htm",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 25
     },
     "coin-change-ii": {
       "slug": "coin-change-ii",
@@ -1665,11 +1478,7 @@
         "Array",
         "Backtracking"
       ],
-      "companies": [
-        "Amazon",
-        "Microsoft",
-        "Goldman Sachs"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -1681,12 +1490,7 @@
         "step": "Recursion [PatternWise]",
         "substep": "Subsequences Pattern"
       },
-      "avg_time_mins": 30,
-      "companies_meta": {
-        "source": "https://www.scribd.com/document/619647635/Top-FAANG-Interview-Questions-From-LeetCode",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 30
     },
     "combination-sum-ii": {
       "slug": "combination-sum-ii",
@@ -1706,10 +1510,7 @@
         "Array",
         "Backtracking"
       ],
-      "companies": [
-        "MongoDB",
-        "Reddit"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -1720,11 +1521,6 @@
         "step_no": 7,
         "step": "Recursion [PatternWise]",
         "substep": "Subsequences Pattern"
-      },
-      "companies_meta": {
-        "source": "https://www.glassdoor.com/Interview/Combination-Sum-II-Leetcode-Question-QTN_6830085.htm",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
       }
     },
     "combination-sum-iii": {
@@ -1834,8 +1630,8 @@
     "construct-binary-tree-from-inorder-and-postorder-traversal": {
       "slug": "construct-binary-tree-from-inorder-and-postorder-traversal",
       "title": "Construct Binary Tree from Inorder and Postorder Traversal",
-      "pattern": "09-trees",
-      "pattern_source": "research:tag-verified",
+      "pattern": "01-arrays-hashing",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Medium",
       "lists": [
@@ -1888,12 +1684,7 @@
         "Tree",
         "Binary Tree"
       ],
-      "companies": [
-        "Meta",
-        "Amazon",
-        "Google",
-        "OpenAI"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -1905,12 +1696,7 @@
         "step": "Binary Trees [Traversals, Medium and Hard Problems]",
         "substep": "Hard Problems"
       },
-      "avg_time_mins": 25,
-      "companies_meta": {
-        "source": "https://www.hellointerview.com/community/questions/binary-tree-preorder-inorder/cm5eh7nrh04px838oupvw4wa3",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 25
     },
     "container-with-most-water": {
       "slug": "container-with-most-water",
@@ -1930,19 +1716,12 @@
         "Two Pointers",
         "Greedy"
       ],
-      "companies": [
-        "Goldman Sachs"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {},
       "striver": null,
-      "avg_time_mins": 35,
-      "companies_meta": {
-        "source": "https://medium.com/@hch.hkcontact/goldman-sachs-top-50-leetcode-questions-q19-container-with-most-water-75ba0e261392",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 35
     },
     "contains-duplicate": {
       "slug": "contains-duplicate",
@@ -2039,11 +1818,7 @@
         "Hash Table",
         "Linked List"
       ],
-      "companies": [
-        "Meta",
-        "Amazon",
-        "Microsoft"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -2054,18 +1829,13 @@
         "step_no": 6,
         "step": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
         "substep": "Hard Problems of LL"
-      },
-      "companies_meta": {
-        "source": "https://leetcode.com/discuss/interview-question/6422528/Meta-Variant-for-Copy-List-Random-Pointer-(LC138)/",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
       }
     },
     "count-and-say": {
       "slug": "count-and-say",
       "title": "Count and Say",
-      "pattern": "01-arrays-hashing",
-      "pattern_source": "research:tag-override",
+      "pattern": "02-two-pointers",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Medium",
       "lists": [
@@ -2145,8 +1915,8 @@
     "count-good-numbers": {
       "slug": "count-good-numbers",
       "title": "Count Good Numbers",
-      "pattern": "20-math-geometry",
-      "pattern_source": "research:tag-verified",
+      "pattern": "07-linked-list",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Medium",
       "lists": [
@@ -2334,13 +2104,7 @@
         "Topological Sort",
         "Directed Acyclic Graph"
       ],
-      "companies": [
-        "Amazon",
-        "Meta",
-        "Google",
-        "Uber",
-        "Adobe"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -2352,12 +2116,7 @@
         "step": "Graphs [Concepts & Problems]",
         "substep": "Problems on BFS/DFS"
       },
-      "avg_time_mins": 30,
-      "companies_meta": {
-        "source": "https://interviewpilot.dev/blog/leetcode-interview-questions",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 30
     },
     "course-schedule-ii": {
       "slug": "course-schedule-ii",
@@ -2396,8 +2155,8 @@
     "critical-connections-in-a-network": {
       "slug": "critical-connections-in-a-network",
       "title": "Critical Connections in a Network",
-      "pattern": "13-graphs",
-      "pattern_source": "research:tag-verified",
+      "pattern": "09-trees",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Hard",
       "lists": [
@@ -2761,9 +2520,7 @@
         "Binary Tree",
         "DP on Trees"
       ],
-      "companies": [
-        "Meta"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -2775,12 +2532,7 @@
         "step": "Binary Trees [Traversals, Medium and Hard Problems]",
         "substep": "Medium Problems"
       },
-      "avg_time_mins": 30,
-      "companies_meta": {
-        "source": "https://leetcode.com/discuss/interview-question/6430676/Meta-Variant-for-Diameter-of-Binary-Tree-(LC543)/",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 30
     },
     "distinct-subsequences": {
       "slug": "distinct-subsequences",
@@ -2858,10 +2610,7 @@
         "String",
         "Dynamic Programming"
       ],
-      "companies": [
-        "LinkedIn",
-        "Google"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -2872,11 +2621,6 @@
         "step_no": 16,
         "step": "Dynamic Programming [Patterns and Problems]",
         "substep": "DP on Strings"
-      },
-      "companies_meta": {
-        "source": "https://interviewpilot.dev/blog/leetcode-interview-questions",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
       }
     },
     "employee-free-time": {
@@ -3170,11 +2914,7 @@
         "Heap (Priority Queue)",
         "Data Stream"
       ],
-      "companies": [
-        "Amazon",
-        "Niantic",
-        "Oracle"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -3185,12 +2925,7 @@
         "step": "Heaps [Learning, Medium, Hard Problems]",
         "substep": "Hard Problems"
       },
-      "avg_time_mins": 30,
-      "companies_meta": {
-        "source": "https://www.glassdoor.com/Interview/Leetcode-hard-Find-median-from-data-stream-QTN_7789595.htm",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 30
     },
     "find-minimum-in-rotated-sorted-array": {
       "slug": "find-minimum-in-rotated-sorted-array",
@@ -3308,9 +3043,7 @@
         "Pigeonhole Principle",
         "Floyd's Cycle Finding Algorithm"
       ],
-      "companies": [
-        "Microsoft"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -3318,12 +3051,7 @@
         "youtube": "https://www.youtube.com/watch?v=32Ll35mhWg0&list=PLgUwDviBIf0rPG3Ictpu74YWBQ1CaBkm2&index=1"
       },
       "striver": null,
-      "avg_time_mins": 20,
-      "companies_meta": {
-        "source": "https://www.youtube.com/watch?v=P5Knc5OmL2o",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 20
     },
     "find-the-index-of-the-first-occurrence-in-a-string": {
       "slug": "find-the-index-of-the-first-occurrence-in-a-string",
@@ -3725,11 +3453,7 @@
         "Array",
         "Dynamic Programming"
       ],
-      "companies": [
-        "Amazon",
-        "Google",
-        "Facebook"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -3741,12 +3465,7 @@
         "step": "Dynamic Programming [Patterns and Problems]",
         "substep": "1D DP"
       },
-      "avg_time_mins": 25,
-      "companies_meta": {
-        "source": "https://www.youtube.com/watch?v=MQI9poawccU",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 25
     },
     "house-robber-ii": {
       "slug": "house-robber-ii",
@@ -3953,9 +3672,7 @@
       "topic_tags": [
         "Array"
       ],
-      "companies": [
-        "Google"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -3967,12 +3684,7 @@
         "step": "Greedy Algorithms [Easy, Medium/Hard]",
         "substep": "Medium/Hard"
       },
-      "avg_time_mins": 25,
-      "companies_meta": {
-        "source": "https://www.glassdoor.com/Interview/merge-intervals-Leetcode-QTN_766618.htm",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 25
     },
     "insert-into-a-binary-search-tree": {
       "slug": "insert-into-a-binary-search-tree",
@@ -4086,8 +3798,8 @@
     "is-graph-bipartite": {
       "slug": "is-graph-bipartite",
       "title": "Is Graph Bipartite?",
-      "pattern": "13-graphs",
-      "pattern_source": "research:tag-verified",
+      "pattern": "09-trees",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Medium",
       "lists": [
@@ -4120,8 +3832,8 @@
     "isomorphic-strings": {
       "slug": "isomorphic-strings",
       "title": "Isomorphic Strings",
-      "pattern": "01-arrays-hashing",
-      "pattern_source": "research:tag-verified",
+      "pattern": "03-sliding-window",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Easy",
       "lists": [
@@ -4163,9 +3875,7 @@
         "Dynamic Programming",
         "Greedy"
       ],
-      "companies": [
-        "Amazon"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -4177,12 +3887,7 @@
         "step": "Greedy Algorithms [Easy, Medium/Hard]",
         "substep": "Medium/Hard"
       },
-      "avg_time_mins": 20,
-      "companies_meta": {
-        "source": "https://www.glassdoor.com/Interview/Leetcode-question-Jump-Game-II-QTN_8421857.htm",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 20
     },
     "jump-game-ii": {
       "slug": "jump-game-ii",
@@ -4295,11 +4000,7 @@
         "Binary Tree",
         "Data Stream"
       ],
-      "companies": [
-        "Amazon",
-        "Microsoft",
-        "Tesla"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -4309,11 +4010,6 @@
         "step_no": 11,
         "step": "Heaps [Learning, Medium, Hard Problems]",
         "substep": "Hard Problems"
-      },
-      "companies_meta": {
-        "source": "https://www.youtube.com/watch?v=i7Mt70QERw4",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
       }
     },
     "kth-largest-element-in-an-array": {
@@ -4512,11 +4208,7 @@
         "Monotonic Stack",
         "Range Minimum/Maximum Query"
       ],
-      "companies": [
-        "Google",
-        "Facebook",
-        "Amazon"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -4528,12 +4220,7 @@
         "step": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
         "substep": "Monotonic Stack/Queue Problems [VVV. Imp]"
       },
-      "avg_time_mins": 35,
-      "companies_meta": {
-        "source": "https://www.youtube.com/watch?v=Roe5p47BaBU",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 35
     },
     "last-stone-weight": {
       "slug": "last-stone-weight",
@@ -4602,10 +4289,7 @@
         "String",
         "Backtracking"
       ],
-      "companies": [
-        "Expedia",
-        "Facebook"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -4616,12 +4300,7 @@
         "step": "Recursion [PatternWise]",
         "substep": "Subsequences Pattern"
       },
-      "avg_time_mins": 30,
-      "companies_meta": {
-        "source": "https://www.glassdoor.com/Interview/Leetcode-Letter-Combinations-of-a-Phone-Number-QTN_880549.htm",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 30
     },
     "lfu-cache": {
       "slug": "lfu-cache",
@@ -4678,10 +4357,7 @@
         "Two Pointers",
         "Floyd's Cycle Finding Algorithm"
       ],
-      "companies": [
-        "Meta",
-        "Google"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -4693,12 +4369,7 @@
         "step": "Learn LinkedList [Single LL, Double LL, Medium, Hard Problems]",
         "substep": "Medium Problems of LL"
       },
-      "avg_time_mins": 20,
-      "companies_meta": {
-        "source": "https://medium.com/@DharunRaju/142-linked-list-cycle-ii-leetcode-medium-6770982510a7",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 20
     },
     "linked-list-cycle-ii": {
       "slug": "linked-list-cycle-ii",
@@ -4808,11 +4479,7 @@
         "Hash Table",
         "Union-Find"
       ],
-      "companies": [
-        "Google",
-        "Amazon",
-        "Facebook"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -4824,18 +4491,13 @@
         "step": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
         "substep": "Medium"
       },
-      "avg_time_mins": 30,
-      "companies_meta": {
-        "source": "https://dev.to/soham0047/the-ultimate-guide-to-top-150-leetcode-problems-your-path-to-acing-technical-interviews-30h1",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 30
     },
     "longest-happy-prefix": {
       "slug": "longest-happy-prefix",
       "title": "Longest Happy Prefix",
-      "pattern": "01-arrays-hashing",
-      "pattern_source": "research:tag-override",
+      "pattern": "02-two-pointers",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Hard",
       "lists": [
@@ -5118,10 +4780,7 @@
         "String",
         "Sliding Window"
       ],
-      "companies": [
-        "Amazon",
-        "Facebook"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -5133,12 +4792,7 @@
         "step": "Sliding Window & Two Pointer Combined Problems",
         "substep": "Medium Problems"
       },
-      "avg_time_mins": 30,
-      "companies_meta": {
-        "source": "https://medium.com/@poojasanika01/amazon-interview-question-leetcode-longest-substring-without-repeating-characters-27bd93db3a67",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 30
     },
     "longest-valid-parentheses": {
       "slug": "longest-valid-parentheses",
@@ -5984,9 +5638,7 @@
         "Sorting",
         "Quicksort"
       ],
-      "companies": [
-        "Google"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -5998,12 +5650,7 @@
         "step": "Solve Problems on Arrays [Easy -> Medium -> Hard]",
         "substep": "Hard"
       },
-      "avg_time_mins": 30,
-      "companies_meta": {
-        "source": "https://www.glassdoor.com/Interview/merge-intervals-Leetcode-QTN_766618.htm",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 30
     },
     "merge-k-sorted-lists": {
       "slug": "merge-k-sorted-lists",
@@ -6109,10 +5756,7 @@
         "Linked List",
         "Recursion"
       ],
-      "companies": [
-        "Meta",
-        "Facebook"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -6120,12 +5764,7 @@
         "youtube": "https://www.youtube.com/watch?v=Xb4slcp1U38&list=PLgUwDviBIf0p4ozDR_kJJkONnb1wdx2Ma&index=29"
       },
       "striver": null,
-      "avg_time_mins": 20,
-      "companies_meta": {
-        "source": "https://leetcode.com/discuss/interview-question/6322267/Meta-Variant-Merge-3-Sorted-Lists-(LC21)/",
-        "confidence": "low",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 20
     },
     "middle-of-the-linked-list": {
       "slug": "middle-of-the-linked-list",
@@ -6226,11 +5865,7 @@
         "Stack",
         "Design"
       ],
-      "companies": [
-        "Snowflake",
-        "Expedia",
-        "Amazon"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -6242,12 +5877,7 @@
         "step": "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
         "substep": "Learning"
       },
-      "avg_time_mins": 20,
-      "companies_meta": {
-        "source": "https://www.youtube.com/watch?v=qkLl7nAwDPo",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 20
     },
     "minimize-max-distance-to-gas-station": {
       "slug": "minimize-max-distance-to-gas-station",
@@ -6445,8 +6075,8 @@
     "minimum-knight-moves": {
       "slug": "minimum-knight-moves",
       "title": "Minimum Knight Moves",
-      "pattern": "13-graphs",
-      "pattern_source": "research:tag-verified",
+      "pattern": "09-trees",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Medium",
       "lists": [
@@ -6571,14 +6201,7 @@
         "String",
         "Sliding Window"
       ],
-      "companies": [
-        "Airbnb",
-        "TikTok",
-        "Snap",
-        "Facebook",
-        "Amazon",
-        "Uber"
-      ],
+      "companies": [],
       "paid_only": false,
       "verified": true,
       "resources": {
@@ -6589,12 +6212,7 @@
         "step": "Sliding Window & Two Pointer Combined Problems",
         "substep": "Hard Problems"
       },
-      "avg_time_mins": 30,
-      "companies_meta": {
-        "source": "https://www.youtube.com/watch?v=jSto0O4AJbM",
-        "confidence": "medium",
-        "provenance": "third-party web research, not LeetCode Premium data"
-      }
+      "avg_time_mins": 30
     },
     "missing-number": {
       "slug": "missing-number",
@@ -6626,8 +6244,8 @@
     "most-stones-removed-with-same-row-or-column": {
       "slug": "most-stones-removed-with-same-row-or-column",
       "title": "Most Stones Removed with Same Row or Column",
-      "pattern": "13-graphs",
-      "pattern_source": "research:tag-verified",
+      "pattern": "01-arrays-hashing",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Medium",
       "lists": [
@@ -7023,8 +6641,8 @@
     "number-of-islands-ii": {
       "slug": "number-of-islands-ii",
       "title": "Number of Islands II",
-      "pattern": "14-advanced-graphs",
-      "pattern_source": "research:tag-override",
+      "pattern": "01-arrays-hashing",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Hard",
       "lists": [
@@ -7083,8 +6701,8 @@
     "number-of-operations-to-make-network-connected": {
       "slug": "number-of-operations-to-make-network-connected",
       "title": "Number of Operations to Make Network Connected",
-      "pattern": "13-graphs",
-      "pattern_source": "research:tag-verified",
+      "pattern": "09-trees",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Medium",
       "lists": [
@@ -7113,8 +6731,8 @@
     "number-of-provinces": {
       "slug": "number-of-provinces",
       "title": "Number of Provinces",
-      "pattern": "13-graphs",
-      "pattern_source": "research:tag-verified",
+      "pattern": "09-trees",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Medium",
       "lists": [
@@ -7349,8 +6967,8 @@
     "palindrome-number": {
       "slug": "palindrome-number",
       "title": "Palindrome Number",
-      "pattern": "20-math-geometry",
-      "pattern_source": "research:tag-verified",
+      "pattern": "19-bit-manipulation",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Easy",
       "lists": [
@@ -7761,8 +7379,8 @@
     "permutation-sequence": {
       "slug": "permutation-sequence",
       "title": "Permutation Sequence",
-      "pattern": "20-math-geometry",
-      "pattern_source": "research:tag-verified",
+      "pattern": "07-linked-list",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Hard",
       "lists": [
@@ -8276,8 +7894,8 @@
     "repeated-string-match": {
       "slug": "repeated-string-match",
       "title": "Repeated String Match",
-      "pattern": "01-arrays-hashing",
-      "pattern_source": "research:tag-override",
+      "pattern": "02-two-pointers",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Medium",
       "lists": [
@@ -8493,8 +8111,8 @@
     "roman-to-integer": {
       "slug": "roman-to-integer",
       "title": "Roman to Integer",
-      "pattern": "20-math-geometry",
-      "pattern_source": "research:tag-verified",
+      "pattern": "03-sliding-window",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Easy",
       "lists": [
@@ -8623,8 +8241,8 @@
     "rotate-string": {
       "slug": "rotate-string",
       "title": "Rotate String",
-      "pattern": "01-arrays-hashing",
-      "pattern_source": "research:tag-override",
+      "pattern": "02-two-pointers",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Easy",
       "lists": [
@@ -9394,8 +9012,8 @@
     "string-to-integer-atoi": {
       "slug": "string-to-integer-atoi",
       "title": "String to Integer (atoi)",
-      "pattern": "01-arrays-hashing",
-      "pattern_source": "research:tag-verified",
+      "pattern": "02-two-pointers",
+      "pattern_source": "leetcode-tags:overlap",
       "neetcode_category": null,
       "difficulty": "Medium",
       "lists": [
@@ -13735,18 +13353,5 @@
       "article": "https://takeuforward.org/data-structure/implement-trie-ii/",
       "youtube": null
     }
-  ],
-  "research": {
-    "applied": {
-      "applied": 15,
-      "rejected": 5,
-      "reassigned": 6,
-      "flagged": 0,
-      "companies_set": 42,
-      "companies_dropped": 0,
-      "companies_empty": 117
-    },
-    "how_patterns_were_checked": "Every model-proposed pattern change was re-verified against the problem's real LeetCode topic tags. Applied only on strong evidence (a signature tag, or 2+ overlapping tags). Anything weaker was rejected or reassigned by tags, and the problem carries needs_review: true.",
-    "company_tag_caveat": "Third-party web research (Glassdoor, LeetCode discuss, interview blogs). NOT LeetCode Premium data, which is gated and unavailable. Every entry carries its source URL in companies_meta; any entry that arrived without a source was discarded."
-  }
+  ]
 }

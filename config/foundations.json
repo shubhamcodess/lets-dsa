@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "built": "2026-09-18",
+  "built": "2026-09-19",
   "what_this_is": "Topics to learn BEFORE attempting problems. The S0-S6 loop assumes these. A learner who cannot reason about loop cost cannot pass the S3 ladder gate, and one who has never traced a call stack cannot pass S2 on a tree problem. Skipping these is the most common reason a learner stalls at the first Medium.",
   "gating_rule": "A topic with gates_patterns ['*'] must be covered before ANY problem. Otherwise a pattern's gating topics should be covered before its first problem. daily-drill enforces this; it can be overridden on request, and the override is recorded so progress-report tells the truth later.",
   "counts": {
