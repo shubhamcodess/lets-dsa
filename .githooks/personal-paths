@@ -9,4 +9,5 @@ state/stats.json
 state/oa-attempts.json
 state/confusion.json
 curriculum/track.md
+.claude/CLAUDE.md
 .env

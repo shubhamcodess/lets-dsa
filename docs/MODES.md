@@ -27,7 +27,13 @@ state/current.*       where you are right now
 state/stats.json      your mastery numbers
 curriculum/track.md   your personalized ordering
 .env                  never tracked on any branch — may hold your LeetCode cookie
+.claude/CLAUDE.md     machine-specific instructions — private repo only
 ```
+
+`.claude/CLAUDE.md` is worth calling out. It holds your git identity, any SSH host alias,
+and which remote is which — so it must never reach the public repo, but losing it with the
+machine would be a real loss. It lives in the **private** repo: backed up, never published.
+Keep credentials out of it; `.env` is for those, and `.env` is backed up nowhere.
 
 **Public, deliberately:** `patterns/*.md` and `visuals/*.html`. A brief about sliding windows and an animation of a heap sift are about the *pattern*, not about you — they're what makes the open-source repo worth cloning. Anything specific to your mistakes goes in your question files instead, which are private.
 

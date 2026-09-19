@@ -84,7 +84,8 @@ fi
 # and is gitignored on every branch.
 PERSONAL_PATHS=("questions" "topics" "config/user.json" "curriculum/track.md" \
                 "state/current.json" "state/current.md" "state/stats.json" \
-                "state/oa-attempts.json" "state/confusion.json")
+                "state/oa-attempts.json" "state/confusion.json" \
+                ".claude/CLAUDE.md")
 for path in "${PERSONAL_PATHS[@]}"; do
   src="$REPO_ROOT/$path"
   dst_dir="$(dirname "$WORKTREE/$path")"
