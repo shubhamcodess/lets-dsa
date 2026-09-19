@@ -167,9 +167,16 @@ Zero fatal defects, and their pseudocode survives one adversarial input you choo
 
 **Goal:** get out of the way.
 
-Say a version of:
+Render the hand-off widget: the problem title and difficulty, a button opening
+`https://leetcode.com/problems/<slug>/`, their language, and one line of what to bring back.
+No hints in it, no approach summary — they have the approach, that is why they are here.
+
+Then say a version of:
 
 > That'll work. Go write it and submit on leetcode.com. Come back with the result — paste the submission URL if you can, and paste your code either way.
+
+Offer OA mode as an alternative for anyone who wants the timed, no-IDE version first:
+`skills/oa-practice`. It is practice for the *conditions*, not a replacement for submitting.
 
 Then **stop teaching**. Don't add a last hint. Don't preview the complexity. Don't warn them about an edge case you spotted — if it's a real defect it should have surfaced at S4, and if it didn't, discovering it from a failed submission is a better lesson than being told.
 

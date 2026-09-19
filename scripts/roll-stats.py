@@ -22,6 +22,10 @@ FOUNDATIONS = os.path.join(ROOT, "config", "foundations.json")
 STATS = os.path.join(ROOT, "state", "stats.json")
 PATTERNS = os.path.join(ROOT, "config", "patterns.json")
 MERGED = os.path.join(ROOT, "curriculum", "merged.json")
+LEDGER = os.path.join(ROOT, "state", "oa-attempts.json")
+# Advancement floors per dependency tier, mirroring TIER_RULES in build-track.py.
+TIER_FLOOR = {1: 6, 2: 5, 3: 5, 4: 4, 5: 4, 6: 3}
+READINESS = {"floor": 90, "interview": 180, "strong": 250}
 
 
 def parse_frontmatter(path):
@@ -54,6 +58,48 @@ def parse_frontmatter(path):
     return fm
 
 
+def slug_of(fm, path):
+    return fm.get("problem") or os.path.basename(path)[:-3]
+
+
+def read_oa():
+    """OA attempts are evidence of coding under pressure. They were being written and
+    read by nothing, so four submissions counted toward no metric at all."""
+    if not os.path.exists(LEDGER):
+        return None
+    try:
+        rows = json.load(open(LEDGER)).get("attempts", [])
+    except (json.JSONDecodeError, OSError):
+        return None
+    if not rows:
+        return None
+    by_problem = {}
+    for a in rows:
+        by_problem.setdefault(a["problem"], []).append(a)
+    firsts = [sorted(v, key=lambda x: x.get("attempt", 0))[0] for v in by_problem.values()]
+    accepted = [v for v in by_problem.values()
+                if any(a.get("verdict") == "accepted" for a in v)]
+    times = [min((a.get("elapsed_s") or 0) for a in v
+                 if a.get("verdict") == "accepted") for v in accepted] or [0]
+    langs = {}
+    for a in rows:
+        langs[a.get("lang")] = langs.get(a.get("lang"), 0) + 1
+    return {
+        "attempts": len(rows),
+        "problems_attempted": len(by_problem),
+        "problems_accepted": len(accepted),
+        "compiled_first_try": sum(1 for a in firsts if a.get("compiled")),
+        "compile_first_try_rate": round(
+            sum(1 for a in firsts if a.get("compiled")) / len(firsts), 2),
+        "accepted_first_submit": sum(
+            1 for a in firsts if a.get("verdict") == "accepted"),
+        "avg_attempts_to_accept": round(
+            sum(len(v) for v in accepted) / len(accepted), 2) if accepted else None,
+        "median_time_to_accept_s": sorted(times)[len(times) // 2] if accepted else None,
+        "languages": langs,
+    }
+
+
 def band(solved, avg_hints, revisit_passed):
     if solved == 0:
         return "untouched"
@@ -68,11 +114,12 @@ def main():
     with open(PATTERNS) as f:
         patterns = {p["id"]: p["name"] for p in json.load(f)["patterns"]}
 
-    available = {}
+    available, meta = {}, {}
     if os.path.exists(MERGED):
         with open(MERGED) as f:
             for p in json.load(f)["problems"].values():
                 available[p["pattern"]] = available.get(p["pattern"], 0) + 1
+                meta[p["slug"]] = p
 
     today = date.today().isoformat()
     per = {pid: {"pattern": pid, "name": name, "available": available.get(pid, 0),
@@ -83,6 +130,8 @@ def main():
 
     unknown_pattern = []
     due, parsed = [], 0
+    by_difficulty = {"Easy": 0, "Medium": 0, "Hard": 0}
+    companies_solved, solved_slugs = {}, []
 
     for path in sorted(glob.glob(os.path.join(QUESTIONS, "*", "*.md"))):
         fm = parse_frontmatter(path)
@@ -106,6 +155,13 @@ def main():
 
         if status == "solved":
             rec["solved"] += 1
+            m = meta.get(slug_of(fm, path))
+            if m:
+                solved_slugs.append(m["slug"])
+                if m.get("difficulty") in by_difficulty:
+                    by_difficulty[m["difficulty"]] += 1
+                for c in (m.get("companies") or []):
+                    companies_solved[c] = companies_solved.get(c, 0) + 1
             rec["hints_total"] += fm.get("hints_used") or 0
             rec["attempts_total"] += fm.get("attempts") or 0
             if fm.get("ramp_override"):
@@ -169,6 +225,21 @@ def main():
         },
         "bands": bands,
         "foundations": topics,
+        "by_difficulty": by_difficulty,
+        "companies_solved": dict(sorted(companies_solved.items(),
+                                        key=lambda kv: -kv[1])),
+        "oa": read_oa(),
+        "position": {
+            "solved": total_solved,
+            "floor": READINESS["floor"],
+            "interview_ready": READINESS["interview"],
+            "strong": READINESS["strong"],
+            "pct_to_floor": min(100, round(total_solved / READINESS["floor"] * 100)),
+            "pct_to_interview": min(100, round(
+                total_solved / READINESS["interview"] * 100)),
+            "note": "A count is position, not readiness. Pair it with the bands: "
+                    "180 solved at hint rung 5 is worse than 120 solved cold.",
+        },
         "due_for_revisit": sorted(due, key=lambda d: d["revisit_on"]),
         "patterns": [per[k] for k in sorted(per)],
         "warnings": ({"unknown_pattern_in_files": unknown_pattern} if unknown_pattern else {}),
@@ -182,6 +253,11 @@ def main():
     print(f"solved: {total_solved} · patterns touched: {touched}/{len(patterns)}")
     print(f"solid: {bands['solid']} · working: {bands['working']} · "
           f"exposed: {bands['exposed']} · untouched: {bands['untouched']}")
+    print(f"difficulty: " + " · ".join(f"{k} {v}" for k, v in by_difficulty.items()))
+    oa = read_oa()
+    if oa:
+        print(f"OA: {oa['attempts']} attempts over {oa['problems_attempted']} problems · "
+              f"compiled first try {int(oa['compile_first_try_rate']*100)}%")
     print(f"due for revisit: {len(due)}")
     print(f"foundations: {len(topics['learned'])} learned, "
           f"{len(topics['in_progress'])} in progress, {len(topics['not_started'])} not started"
