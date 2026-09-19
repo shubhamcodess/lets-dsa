@@ -428,7 +428,7 @@ GENERATORS = {"java": gen_java, "cpp": gen_cpp, "typescript": gen_ts, "python3":
 _ERR_LINE = re.compile(r"(?:^|[\s(])(/[^\s:\"]+?\.(?:java|cpp|ts|py))[:\"]?(?:,\s*line\s+|:)(\d+)")
 
 
-def remap_errors(text, offset):
+def remap_errors(text, offset, user_lines=None):
     """Compile errors point into the GENERATED file. The learner never saw it, so a
     raw 'Main.java:7' is not just unhelpful -- it implies they wrote something they
     did not. Rewrite every file:line to their own line numbering, and drop the path."""
@@ -438,15 +438,22 @@ def remap_errors(text, offset):
     for line in text.split("\n"):
         def sub(m):
             n = int(m.group(2)) - offset
-            return (f" your code line {n}" if n >= 1
-                    else " [test harness, not your code]")
+            if n < 1:
+                return " [test harness, not your code]"
+            if user_lines and n > user_lines:
+                # The compiler ran off the end of their code into the harness -- which is
+                # what an unclosed brace does. Reporting a harness line number as "your
+                # line 88" for a 12-line file is worse than useless.
+                return " [past the end of your code]"
+            return f" your code line {n}"
         line = _ERR_LINE.sub(sub, line)
         # compilers echo the source with a line-number gutter ("  52 | return nums").
         # That number is the harness's; shift it to the learner's file.
         g = re.match(r"^(\s*)(\d+)(\s*\|)", line)
         if g:
             n = int(g.group(2)) - offset
-            line = f"{g.group(1)}{n if n >= 1 else '?'}{g.group(3)}" + line[g.end():]
+            ok = 1 <= n <= (user_lines or n)
+            line = f"{g.group(1)}{n if ok else '?'}{g.group(3)}" + line[g.end():]
         out.append(line)
     return "\n".join(out)
 
@@ -517,8 +524,9 @@ def main():
             shutil.rmtree(work, ignore_errors=True)
     elapsed = round(time.time() - t0, 2)
 
-    cerr = remap_errors(cerr, user_offset)
-    err = remap_errors(err, user_offset)
+    user_lines = user_code.count("\n") + 1
+    cerr = remap_errors(cerr, user_offset, user_lines)
+    err = remap_errors(err, user_offset, user_lines)
 
     if not compiled:
         res = {"ok": False, "compiled": False, "compile_error": cerr, "slug": a.slug,

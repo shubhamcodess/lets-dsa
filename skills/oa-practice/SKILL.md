@@ -24,6 +24,22 @@ This is structural, not willpower — the widget holds no compiler and makes no 
 |---|---|
 | 1 | `get_problem` the slug. Pull `codeSnippets` for all four languages and the statement. |
 | 2 | Render the editor widget — statement, timer, language selector, stub pre-filled. |
+
+**The timer must persist across re-renders.** A widget's script restarts whenever the chat
+re-renders it, so a `t0 = Date.now()` set at load resets to zero and every attempt after the
+first records a meaningless duration — silently corrupting the time-to-first-correct metric.
+Store the start time in `localStorage` beside the draft and read it back:
+
+```js
+var t0; try { t0 = +localStorage.getItem('oa:t0:' + SLUG); } catch(e) {}
+if (!t0) { t0 = Date.now(); try { localStorage.setItem('oa:t0:' + SLUG, t0); } catch(e) {} }
+```
+
+Clear that key only when the problem is finished, not on submit — a retry is the same sitting.
+
+**Check whether a resubmission actually changed.** If the code is byte-identical to the
+previous attempt, say so and report the same verdict without pretending it is new
+information. Resubmitting unchanged code is itself a habit worth naming.
 | 3 | **Say nothing** until they submit. If they ask how it's going, that is the answer above. |
 | 4 | They submit → the widget sends `OA SUBMIT <slug> lang=<l> elapsed=<n>s` plus their code. |
 | 5 | Write their code to a scratch file. Run the command below. |
