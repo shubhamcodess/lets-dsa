@@ -1,18 +1,25 @@
 <div align="center">
 
-# lets-dsa
+# 🪜 lets-dsa
 
 ### A DSA tutor that refuses to give you the answer.
 
-**343 verified problems** · **20 patterns** · **8 foundation topics** · **4 languages**
+[![problems](https://img.shields.io/badge/problems-343%20verified-2ea44f?style=flat-square)](curriculum/merged.json)
+[![patterns](https://img.shields.io/badge/patterns-20-1f6feb?style=flat-square)](patterns/)
+[![foundations](https://img.shields.io/badge/foundations-8%20topics-8957e5?style=flat-square)](config/foundations.json)
+[![languages](https://img.shields.io/badge/oa%20languages-java%20%7C%20c%2B%2B%20%7C%20ts%20%7C%20py-db6d28?style=flat-square)](skills/oa-practice/)
+[![built for Claude Code](https://img.shields.io/badge/built%20for-Claude%20Code-d97757?style=flat-square)](https://claude.com/claude-code)
+[![license](https://img.shields.io/badge/license-MIT-8b949e?style=flat-square)](LICENSE)
 
-Built on Claude Code. Learn the pattern, derive the approach, solve it on LeetCode yourself.
+**Learn the pattern → derive the approach → solve it on LeetCode yourself.**
+
+*Five hints, then it stops helping.*
 
 </div>
 
 ---
 
-## What this is
+## 💡 What this is
 
 There's no shortage of DSA material — NeetCode 150, Striver's A2Z, Blind 75 are all good.
 
@@ -34,7 +41,7 @@ Reading a solution feels like learning and isn't. The person who reads the answe
 
 ---
 
-## Quick start
+## 🚀 Quick start
 
 ### 1. Get Claude Code
 
@@ -105,7 +112,17 @@ Using a different GitHub account than your machine default? Pass `--name` and `-
 
 ---
 
-## How a problem goes
+## 🪜 How a problem goes
+
+```
+ S0 · select
+  └─ S1 · pattern ........... name it, and the signal that selects it
+      └─ S2 · intuition ..... trace 6 characters correctly   ← the gate that matters
+          └─ S3 · ladder .... brute → better → optimal, with costs
+              └─ S4 · pseudocode ... survive an adversarial input
+                  └─ S5 · submit ....... on leetcode.com, for real
+                      └─ S6 · record ....... reviewed, compared, written down
+```
 
 Seven stages. You can't skip one, and **nothing advances because you said "got it"** — only a produced artifact passes a gate.
 
@@ -127,7 +144,7 @@ Seven stages. You can't skip one, and **nothing advances because you said "got i
 
 ---
 
-## What you get
+## ✨ What you get
 
 | | |
 |---|---|
@@ -154,7 +171,7 @@ Problem 1 in a new pattern is fully worked by Claude, problem 2 partially, probl
 
 ---
 
-## What accumulates
+## 📁 What accumulates
 
 ```
 questions/03-sliding-window/longest-substring-without-repeating-characters.md
@@ -168,7 +185,7 @@ After a few months that folder is your own pattern library. That's the actual ou
 
 ---
 
-## Commands
+## ⌨️ Commands
 
 | | |
 |---|---|
@@ -185,7 +202,7 @@ After a few months that folder is your own pattern library. That's the actual ou
 
 ---
 
-## Your data stays yours
+## 🔒 Your data stays yours
 
 Progress, notes and profile are gitignored from the public branch and backed up to **your** private repo. Three layers, because `.gitignore` alone isn't enough:
 
@@ -201,7 +218,7 @@ Full detail and the honest limits: [`docs/MODES.md`](docs/MODES.md)
 
 ---
 
-## Where the content comes from
+## 📚 Where the content comes from
 
 Seven curated sheets, merged by LeetCode slug into **343 unique problems** — 73 Easy · 209 Medium · 61 Hard.
 
@@ -223,7 +240,7 @@ Every slug is verified against LeetCode's public GraphQL. Live problem data come
 
 ---
 
-## Honest limitations
+## ⚠️ Honest limitations
 
 - **Claude can't verify you got Accepted.** Auth is off by default, so "solved" is what you say it is. Turn on `LEETCODE_SESSION` and it becomes a real check.
 - **Company tags cover 42 of 343**, from third-party research, each with its source URL. An empty list means *not searched*, not *nobody asks it* — and the data says so.
@@ -233,7 +250,7 @@ Every slug is verified against LeetCode's public GraphQL. Live problem data come
 
 ---
 
-## Under the hood
+## 🔧 Under the hood
 
 **11 skills · 7 subagents · 11 scripts.** Every file is markdown or JSON. Every change is git-committed. Nothing lives in a black box — including your progress, which is plain text you can read without this tool.
 
@@ -245,7 +262,7 @@ Defaults to Sonnet — this is text-heavy teaching, not hard reasoning, and it c
 
 ---
 
-## Licence
+## 📄 Licence
 
 [MIT](LICENSE) — fork it, change it, make it yours.
 
@@ -255,7 +272,7 @@ links — never statements, editorials or solutions. See [`NOTICE.md`](NOTICE.md
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
 Wanted — especially `ListNode`/`TreeNode` harnesses for `oa` mode, which unlock ~67 currently-refused problems.
 
