@@ -46,10 +46,14 @@ Claude Code needs a model behind it. Two ways:
 
 | | |
 |---|---|
-| **Claude subscription** *(recommended)* | Pro or Max — [claude.com/pricing](https://www.claude.com/pricing). This is a long-running project; Max is worth it if you'll practise daily. |
-| **Local models via Ollama** *(free)* | Ollama speaks the Anthropic API natively since v0.14 — no proxy. Setup: [docs.ollama.com/integrations/claude-code](https://docs.ollama.com/integrations/claude-code) |
+| **Claude subscription** *(recommended)* | Pro is enough — [claude.com/pricing](https://www.claude.com/pricing) |
+| **Local models via Ollama** *(free)* | [Claude Desktop + Ollama](https://docs.ollama.com/integrations/claude-desktop) · macOS |
 
-> **Honest note on local models.** This project's whole value is the tutor *refusing* under pressure, holding a seven-stage state machine, and following long instruction files exactly. That is demanding, and small local models tend to leak the answer when you push. It will run — it may not hold the line. Use a 64k+ context model and expect to re-state the rules more often.
+> **Honest note on local models.** Two things to know before you rely on it.
+>
+> Ollama's guide covers **Claude Desktop**. This project runs in Claude Code, and the docs don't state whether the Code tab picks up the local model — check that before committing to it.
+>
+> And the harder problem: this project's whole value is the tutor *refusing* under pressure, holding a seven-stage state machine, and following long instruction files exactly. Small local models tend to leak the answer when you push. It will run — it may not hold the line.
 
 ### 2. Clone this repo
 
