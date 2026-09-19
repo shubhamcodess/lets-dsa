@@ -245,6 +245,16 @@ Defaults to Sonnet — this is text-heavy teaching, not hard reasoning, and it c
 
 ---
 
+## Licence
+
+[MIT](LICENSE) — fork it, change it, make it yours.
+
+That covers the framework: skills, scripts, pattern briefs, taxonomy, docs. The curated
+problem lists it builds on belong to their authors, and this repo stores only facts and
+links — never statements, editorials or solutions. See [`NOTICE.md`](NOTICE.md).
+
+---
+
 ## Contributing
 
 Wanted — especially `ListNode`/`TreeNode` harnesses for `oa` mode, which unlock ~67 currently-refused problems.

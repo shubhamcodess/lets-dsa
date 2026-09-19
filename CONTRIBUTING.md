@@ -162,3 +162,13 @@ There is no test suite yet. Adding one is itself a welcome contribution — star
 The tutor is allowed to be blunt. "Not ready" is a real answer; so is "you break invariants and you under-explain". What it is never allowed to be is *encouraging in a way that isn't true* — a soft progress report costs someone a real interview.
 
 Keep that voice in anything you write for it.
+
+---
+
+## Licence
+
+By contributing you agree your work is released under the [MIT licence](LICENSE), the same
+terms as the rest of the project.
+
+Do not contribute problem statements, editorials or solutions from any source. This repo
+stores facts and links only — see [`NOTICE.md`](NOTICE.md) for why that boundary matters.
