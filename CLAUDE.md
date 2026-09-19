@@ -99,7 +99,7 @@ lets-dsa/
 ├── .claude/
 │   ├── settings.json           ← model: sonnet + the MCP deny list (the hard guardrail)
 │   └── agents/                 ← 7 subagents, non-interactive work only
-├── mcp/.mcp.json               ← leetcode MCP, version-pinned
+├── .mcp.json               ← leetcode MCP, version-pinned
 ├── config/
 │   ├── user.json               ← level, targets, timeline, budget  (gitignored)
 │   └── patterns.json           ← the 20-pattern taxonomy — signals, siblings, deps
@@ -400,7 +400,9 @@ git push origin main --force
 
 ## MCP — LeetCode
 
-Server `leetcode`, version-pinned in `mcp/.mcp.json`. Public tools only by default.
+Server `leetcode`, version-pinned in **`.mcp.json` at the project root**. Public tools only by default.
+
+**If the leetcode tools are missing, do not tell the learner to restart.** A restart costs them tokens and fixes nothing when the cause is configuration. Check, in order: `.mcp.json` is at the project root (Claude Code reads nowhere else — there is no setting that redirects it); the project's MCP servers have been approved (`/mcp` shows this); and `npx -y @jinzcdev/leetcode-mcp-server@1.4.0 --site global` launches. A server absent from the session entirely — rather than failed or pending — means the config was never read.
 
 | Tool | Use it for |
 |---|---|

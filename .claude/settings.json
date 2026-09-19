@@ -1,6 +1,5 @@
 {
   "model": "sonnet",
-  "mcpConfigPath": "./mcp/.mcp.json",
   "permissions": {
     "allow": [
       "Bash(git:*)",
@@ -22,9 +21,10 @@
     ]
   },
   "notes": {
-    "model": "Sonnet is the project default on purpose. This system is text-heavy teaching, not hard reasoning — Sonnet handles it and costs a fraction of Opus. Switch with /model only if a session genuinely needs it.",
-    "deny_list": "These four are the guardrail, enforced mechanically rather than by prompt alone. list_problem_solutions and get_problem_solution would hand over the answer. submit_solution and run_code would let Claude solve it for you — the whole point is that YOU submit on leetcode.com.",
+    "model": "Sonnet is the project default on purpose. This system is text-heavy teaching, not hard reasoning \u2014 Sonnet handles it and costs a fraction of Opus. Switch with /model only if a session genuinely needs it.",
+    "deny_list": "These four are the guardrail, enforced mechanically rather than by prompt alone. list_problem_solutions and get_problem_solution would hand over the answer. submit_solution and run_code would let Claude solve it for you \u2014 the whole point is that YOU submit on leetcode.com.",
     "setup": "Run 'setup' as your first message in a fresh clone. It builds config/ and curriculum/ and verifies the MCP connection.",
-    "auth": "The LeetCode MCP runs public-only by default. See .env.example to turn on LEETCODE_SESSION for verified progress."
+    "auth": "The LeetCode MCP runs public-only by default. See .env.example to turn on LEETCODE_SESSION for verified progress.",
+    "mcp": "Project MCP servers are read from .mcp.json at the PROJECT ROOT. Claude Code has no setting that points elsewhere -- an earlier 'mcpConfigPath' key here was silently ignored, so the leetcode server never loaded. On first use Claude Code asks you to approve the project's MCP servers; approve it once and it persists."
   }
 }

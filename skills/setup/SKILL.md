@@ -37,7 +37,18 @@ Call `get_daily_challenge`. It takes no arguments and needs no auth.
 | Result | Do |
 |---|---|
 | Returns a problem | Say which one. That is the proof it works. Continue. |
-| Fails | Report the actual error. Check `mcp/.mcp.json` exists and the server name is `leetcode`. Do not continue pretending it works — S0 depends on `get_problem`. |
+| Fails | Report the actual error, then run the checks below. **Do not tell them to restart the session** until you have confirmed the config is actually loadable — a restart on a broken config wastes their tokens and changes nothing. |
+
+**If `get_daily_challenge` fails, check these in order — the first two are silent failures:**
+
+1. **Is `.mcp.json` at the PROJECT ROOT?** Claude Code reads project MCP servers only from `<project>/.mcp.json`. There is no setting that points elsewhere. A config in a subfolder is never read and the server simply never appears — not failed, not pending, absent.
+2. **Have the project's MCP servers been approved?** Claude Code asks once per project before starting servers from `.mcp.json`. If it was declined, the server stays absent. `/mcp` shows the current state.
+3. **Does the server actually launch?** From the project root:
+   ```
+   npx -y @jinzcdev/leetcode-mcp-server@1.4.0 --site global
+   ```
+   It should start and wait. Ctrl-C to exit. If npx fails, it is Node or network, not Claude Code.
+4. Only after 1–3 are confirmed is a restart worth spending.
 
 **Do not claim the MCP works because the config file exists.** Configuration is not connection.
 
