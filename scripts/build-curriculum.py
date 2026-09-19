@@ -596,6 +596,10 @@ def main():
         f.write("\n")
 
     print(f"\nWrote {MERGED}")
+    if os.path.exists(os.path.join(SOURCES, "..", "research", "patterns.json")):
+        print("\n  !! This rebuild REPLACED merged.json from source and dropped any applied")
+        print("     research (company tags, pattern corrections). Re-apply it now:")
+        print("         python3 scripts/apply-research.py")
     for k, v in sorted(out["counts"]["by_pattern"].items()):
         print(f"  {v:4d}  {k}")
     print("  lists:", out["counts"]["by_list"])

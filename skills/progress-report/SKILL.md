@@ -31,6 +31,8 @@ Mastery is not a solve count. A problem solved at hint rung 5 after four attempt
 | Solved with 4–5 hints, or after a downgrade | Exposure only, not mastery |
 | `ramp_override: true` | Discount it and say why |
 | `mode: review-only` | Doesn't count toward mastery — they didn't go through the loop |
+| `teach_mode: demonstrate` | **Does not count as solved.** It was a worked example they read. Report it as study, not evidence. |
+| `explanation: weak` | Flag it. Silent-solving is the most common way strong coders fail interviews. |
 | Revisit passed cold | **Strongest signal available.** Weight it above a first solve. |
 
 | Band | Meaning |
@@ -73,6 +75,28 @@ Earliest realistic: 6-7 weeks at 2/day, if the next 3 weeks are DP and graphs.
 2. Revisit due: Two Sum (#1), Valid Anagram (#242)
 3. Then interview mode on sliding window — it's ready to be tested under pressure.
 ```
+
+## Their error profile — the section nobody else can write
+
+From `state/confusion.json` (regenerate with `python3 scripts/confusion.py`):
+
+```
+## What you specifically get wrong
+Most frequent defect: INVARIANT-BROKEN (6x) — the invariant is decoration, not something
+you are holding. Drill: at S2, do not advance until you can say what breaks if violated.
+
+Confusion: you have called sliding-window problems "two pointers" 4 times. Both move
+indices; only one keeps a contiguous range with a maintained property.
+
+Explanation quality: weak on 5 of your last 8. You state complexity only when asked.
+```
+
+Lead the report with this once there is enough data. A generic "practice more DP" is
+available anywhere; "you break invariants and you under-explain" is not, and it is built
+entirely from their own sessions.
+
+**Say nothing here when the data is thin.** An error profile invented from two problems is
+worse than no error profile.
 
 ## Honesty rules
 

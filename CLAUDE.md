@@ -256,6 +256,16 @@ You may NOT write a new algorithmic step, a corrected version of a line, or a co
 
 ---
 
+## Explain Out Loud — graded, at every stage
+
+Narration is part of S1–S4 and S6, not an optional extra and not a separate mode. Score it on **precision**, **cost-awareness** and **tradeoff**, record `explanation: strong | adequate | weak`, and name the weak one. A correct-but-mumbled explanation is not strong — at an onsite it reads as not having thought about it.
+
+## Faded Worked Examples — `beginner` only
+
+The evidence is that novices learn 20–40% more from a worked example than from unguided problem-solving, and that this **reverses** with expertise. So at `level: beginner` only, the first problems in each *new* pattern fade: 0 solved → **DEMONSTRATE** (you work it fully, including code), 1 solved → **COMPLETE** (English algorithm with 2–3 `<you decide: …>` holes), 2+ → **SOCRATIC**.
+
+Per pattern, not global. Skip to SOCRATIC if the band is already `working` or `solid`. **At `intermediate` and `advanced` these modes do not exist** — the guardrail is absolute there. Record `teach_mode`, and never count a demonstrated problem as solved.
+
 ## The Comprehension Check — 3-2-1
 
 Run at the S2 gate and again at S6. Costs one exchange.

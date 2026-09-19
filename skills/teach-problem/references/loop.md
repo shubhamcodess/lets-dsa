@@ -46,7 +46,7 @@ Both parts, in their own words, unprompted.
 | Names the pattern AND points at a real signal in the constraints | **Pass** → S2 |
 | Names the pattern, no signal | Fail. Ask only for the signal. Don't re-teach the pattern. |
 | Echoes your sentence verbatim | Fail. "That's my sentence. Say it as if you were explaining it to someone who hasn't read it." |
-| Names the wrong pattern but gives a coherent reason | Fail, but engage the reason — it's usually a near-miss worth naming. Then re-ask. |
+| Names the wrong pattern but gives a coherent reason | Fail, but engage the reason — it's usually a near-miss worth naming. Then re-ask. **Append the wrong pattern id to `s1_wrong_guesses` in the question file.** |
 | "Got it" / "yes" / "makes sense" | **Not a pass.** Ask the gate question again. |
 
 ---
@@ -63,6 +63,19 @@ A workable sequence:
 3. "Where is that cost being wasted?" — this is the pivot. Point at the redundant work without naming the fix.
 4. "What would you need to already know to avoid redoing that?" — this question produces the invariant more often than any other.
 5. Let them state the invariant. Repair it with questions, not corrections.
+
+### Record what they called it
+
+Every wrong pattern name at S1 goes into `s1_wrong_guesses` in the question file:
+
+```yaml
+s1_wrong_guesses: [02-two-pointers]
+```
+
+`scripts/confusion.py` turns that list into a personal confusion profile — "you have called
+sliding-window problems two-pointers four times". That is the one signal a curriculum built
+for a general audience cannot have about a specific learner, so do not skip recording it
+even when the near-miss feels obvious in the moment.
 
 ### The dry-run gate
 
@@ -224,7 +237,16 @@ solved_on: null
 accepted_verified: null
 hints_used: 0
 attempts: null
-revisit_on: null
+teach_mode: socratic          # socratic | complete | demonstrate  (beginner fading only)
+explanation: null             # strong | adequate | weak
+s1_wrong_guesses: []          # patterns they named before the right one
+srs_grade: null               # again | hard | good | easy  — derived, never self-reported
+srs_stability: null           # days
+srs_difficulty: null          # 1-10
+srs_reps: 0
+srs_lapses: 0
+srs_due: null
+revisit_on: null              # mirror of srs_due
 ---
 
 # Longest Substring Without Repeating Characters (#3)

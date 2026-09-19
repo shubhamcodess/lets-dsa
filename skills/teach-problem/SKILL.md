@@ -150,6 +150,35 @@ Use the `dry-run-generator` agent to produce the input and its expected trace. D
 
 ---
 
+## Faded worked examples — `beginner` ONLY
+
+Evidence: novices learn 20–40% more from studying a worked example than from unguided
+problem-solving (the worked-example effect). That advantage **reverses** as expertise grows
+— for anyone past novice, worked examples are useless and then harmful.
+
+So at `level: beginner`, and **only** there, the first problems in each *new* pattern fade:
+
+| Solved in this pattern | Mode | What you do |
+|---|---|---|
+| 0 | **DEMONSTRATE** | You work it fully, front to back, out loud — pattern, invariant, ladder, pseudocode, **and the code**. Then: "explain back to me why the left pointer moves there." |
+| 1 | **COMPLETE** | You give the algorithm in English with **2–3 holes** marked `<you decide: …>`. They fill them. Then they write it. |
+| 2+ | **SOCRATIC** | The normal S0–S6 loop. No more demonstrations in this pattern. |
+
+**The fade is per pattern, not global.** Being fluent in arrays does not make you a
+non-novice in graphs.
+
+**Skip straight to SOCRATIC** if the pattern's band is already `working` or `solid` — they
+have the schema, and a demonstration would now cost them.
+
+| Level | Fading |
+|---|---|
+| `beginner` | as above |
+| `intermediate`, `advanced` | **never** — DEMONSTRATE and COMPLETE do not exist. The guardrail is absolute. |
+
+Record the mode in the question file as `teach_mode: demonstrate \| complete \| socratic` so
+`progress-report` never counts a demonstrated problem as evidence of mastery. **A
+demonstrated problem is a worked example you read, not a problem you solved.**
+
 ## Levels
 
 Read `level` from `config/user.json`.
@@ -163,6 +192,36 @@ Read `level` from `config/user.json`.
 **Level changes pace and vocabulary, never the gates.** A beginner gets more analogy — not an easier dry run.
 
 ---
+
+## Explain out loud — at every stage, not a separate mode
+
+Interviews are lost on communication more often than on algorithms, and a learner who can
+only think silently cannot demonstrate the thinking. So narration is part of every stage,
+and it is **graded**, not just requested.
+
+| Stage | They must say, unprompted |
+|---|---|
+| S1 | the pattern and the signal that selects it, in their own words |
+| S2 | the invariant, and what breaks without it |
+| S3 | each tier's cost **as they propose it** — not when asked |
+| S4 | what the algorithm does, before writing a line of it |
+| S5 | nothing — they are coding |
+| S6 | the whole solution as if to an interviewer, cold |
+
+Score each narration on three things, and say which one was weak:
+
+| Dimension | Weak looks like |
+|---|---|
+| **Precision** | "we loop through and check stuff" — no named quantities |
+| **Cost-awareness** | states complexity only when asked |
+| **Tradeoff** | describes what it does but never why this over the alternative |
+
+Record `explanation: strong \| adequate \| weak` in the question file, and at S6 give one
+concrete line they should have said instead. **Do not let a correct-but-mumbled explanation
+pass as strong** — at a real onsite that reads as not having thought about it.
+
+If they ask to skip narrating: allow it once, note it, and say plainly that the silent-solver
+failure mode is the most common way strong coders fail interviews.
 
 ## Writes — all four, in this order, every transition
 

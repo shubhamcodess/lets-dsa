@@ -123,6 +123,16 @@ def main():
     pattern_tags = {p["id"]: p.get("leetcode_tags", []) for p in pj}
     valid = set(pattern_tags)
 
+    # Every decision here is made from real LeetCode topic tags. An unverified build has
+    # none, so scores would all be 0 and the whole run would flag everything as unsupported
+    # while silently rewriting patterns. Refuse rather than produce confident garbage.
+    if not merged.get("verified_against_leetcode"):
+        print("REFUSING: curriculum/merged.json was built without --verify, so topic_tags")
+        print("are empty and no pattern decision can be evidence-based.")
+        print("    python3 scripts/build-curriculum.py --verify")
+        print("    python3 scripts/apply-research.py")
+        return 1
+
     stats = {"applied": 0, "rejected": 0, "reassigned": 0, "flagged": 0,
              "companies_set": 0, "companies_dropped": 0, "companies_empty": 0}
     log = []
@@ -180,6 +190,41 @@ def main():
                     f"Model proposed {prop}. Taxonomy fit is loose — say so when serving it.")
                 stats["flagged"] += 1
 
+    # ---------- structural-tag override ----------
+    # A structural tag (BFS/DFS/Graph/Tree/Trie/...) beats a WEAK overlap guess, because
+    # generic tags like Array and Hash Table appear on nearly everything and turn
+    # 01-arrays-hashing into a magnet. Applied ONLY where pattern_source is
+    # 'leetcode-tags:overlap' -- never over a curated sheet's own categorization, which
+    # reflects a teaching judgement a tag cannot make (NeetCode files
+    # best-time-to-buy-and-sell-stock under sliding-window though it is tagged DP, and
+    # NeetCode is right about how to teach it).
+    # Stated explicitly rather than derived from SIGNATURE: SIGNATURE omits BFS/DFS
+    # (they are not unique enough to name a pattern alone), but for THIS narrow job --
+    # rescuing a weak overlap guess -- a BFS tag is decisive. Excludes DP/Greedy/Math,
+    # whose tags cannot distinguish 1d from 2d or technique from topic.
+    STRUCTURAL = {
+        "Breadth-First Search": "13-graphs", "Depth-First Search": "13-graphs",
+        "Graph": "13-graphs", "Graph Theory": "13-graphs", "Topological Sort": "13-graphs",
+        "Union Find": "14-advanced-graphs", "Union-Find": "14-advanced-graphs",
+        "Shortest Path": "14-advanced-graphs", "Minimum Spanning Tree": "14-advanced-graphs",
+        "Tree": "09-trees", "Binary Tree": "09-trees", "Binary Search Tree": "09-trees",
+        "Trie": "10-tries", "Backtracking": "12-backtracking",
+        "Monotonic Stack": "06-monotonic-stack", "Sliding Window": "03-sliding-window",
+        "Heap (Priority Queue)": "11-heap-top-k", "Linked List": "07-linked-list",
+    }
+    for pr in problems.values():
+        if pr.get("pattern_source") != "leetcode-tags:overlap":
+            continue
+        hits = {STRUCTURAL[t] for t in pr["topic_tags"] if t in STRUCTURAL}
+        if hits and pr["pattern"] not in hits:
+            # On a tie prefer the more foundational pattern: a grid flood fill tagged
+            # both DFS and Union-Find is a graphs problem that CAN be done with
+            # union-find, not an advanced-graphs problem.
+            new = sorted(hits)[0]
+            log.append(f"  structural {pr['pattern']:20s} -> {new:20s} {pr['slug']}")
+            pr["pattern"], pr["pattern_source"] = new, "structural-tag-override"
+            stats["reassigned"] += 1
+
     # ---------- companies ----------
     cfile = os.path.join(RES, "companies.json")
     if os.path.exists(cfile):
@@ -216,6 +261,32 @@ def main():
     for p in problems.values():
         src[p["pattern_source"]] = src.get(p["pattern_source"], 0) + 1
     merged["counts"]["by_pattern_source"] = dict(sorted(src.items()))
+    # The coverage caveat was previously hand-patched into merged.json and was therefore
+    # destroyed by the next rebuild -- the same failure that lost the structural override.
+    # Codified here so it survives every rebuild.
+    if os.path.exists(cfile):
+        scope = len(json.load(open(cfile)))
+        found = stats["companies_set"]
+        merged["company_tags"] = {
+            "status": "partial — third-party research",
+            "coverage": {
+                "scope": f"{scope} core problems (those appearing in 3+ curated sheets)",
+                "found": found,
+                "not_searched": scope - found,
+                "note": "The research agent exhausted its budget before covering the full "
+                        "scope. An empty `companies` list therefore means NOT SEARCHED, not "
+                        "'searched and found nothing'. Never present an empty list as "
+                        "evidence that a problem is rarely asked.",
+            },
+            "provenance": "Third-party web research (Glassdoor, LeetCode discuss, interview "
+                          "blogs). NOT LeetCode Premium data, which is gated and unavailable. "
+                          "Every entry carries its source URL in companies_meta; any entry "
+                          "that arrived without a source was discarded.",
+            "confidence": "low to medium, mostly single-source. A weak prioritization signal, "
+                          "never fact. Sheet membership remains the stronger, better-grounded "
+                          "signal.",
+        }
+
     merged["research"] = {
         "applied": stats,
         "how_patterns_were_checked":

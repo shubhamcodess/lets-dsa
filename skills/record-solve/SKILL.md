@@ -78,13 +78,32 @@ attempts: 3
 revisit_on: 2026-09-25
 ```
 
-`revisit_on` — spaced repetition, scaled by how hard it was:
+**Scheduling — use the scheduler, do not pick a date yourself.**
 
-| Condition | revisit_on |
-|---|---|
-| 0–1 hints, 1 attempt | +21 days |
-| 2–3 hints, or 2–3 attempts | +10 days |
-| 4–5 hints, or downgraded, or 4+ attempts | +5 days |
+```
+python3 scripts/schedule.py grade --hints <n> --attempts <n> [--downgraded]
+python3 scripts/schedule.py next --grade <g> [--stability S --difficulty D --reps R --lapses L]
+```
+
+The first call derives the grade from what actually happened — never from "that felt easy".
+The second returns the interval. Write all of it to frontmatter:
+
+```yaml
+srs_grade: good
+srs_stability: 7.74
+srs_difficulty: 4.9
+srs_reps: 2
+srs_lapses: 0
+srs_due: 2026-09-27
+revisit_on: 2026-09-27     # kept as a mirror for anything still reading it
+```
+
+On a **revisit**, pass the previous `srs_*` values in. A clean run grows the interval
+(5 → 8 → 12 → 19 → 29 days); a failed recall collapses it to within a week, because
+scheduling a forgotten problem weeks out just repeats the forgetting.
+
+**Never hand-pick an interval.** The whole point is that the schedule is driven by evidence
+rather than by how the session felt at the end.
 
 ## Step 6 — Update state and commit
 

@@ -26,9 +26,22 @@ Fill the daily budget in this priority:
 
 | Priority | Take | Cap |
 |---|---|---|
-| 1 | **Revisits due** (`revisit_on <= today`, `status: solved`) | Max 1 per day. More and it becomes revision instead of progress. |
+| 1 | **Revisits due** — from `python3 scripts/schedule.py due` | Max 1 per day. More and it becomes revision instead of progress. A lapsed problem (`lapses > 0`) outranks a first revisit. |
 | 2 | **Parked problems** older than 3 days | Max 1. Parked work rots. |
 | 3 | **Next in track** | Fill the remaining budget |
+
+## Your own error profile
+
+Run `python3 scripts/confusion.py` and read `state/confusion.json` before choosing.
+
+| Signal | Use it for |
+|---|---|
+| `pattern_confusions` | They keep calling X a Y. Serve a problem from X and say nothing — see if they name it right this time. |
+| `defect_signature` | Their top defect class. Name the drill from `state/confusion.json` when starting S4. |
+| `weakest_by_hints` | Where hints are highest — candidates for depth, not new breadth. |
+
+This is built only from their own recorded sessions, so it is empty early and gets sharper
+over time. **Do not present a general list of common mistakes as if it were theirs.**
 
 ## Pattern intro gate — before the FIRST problem in any pattern
 
