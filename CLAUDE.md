@@ -331,37 +331,33 @@ Two scripts turn past sessions into what happens next. Neither is optional.
 
 ## Git Behavior — non-negotiable
 
-### Identity — local only, never global
+### Identity — check it before the first commit
 
-The global git config on this machine belongs to a client account. **Every commit in this repo must use the local identity.**
-
-```bash
-git config --local user.email    # must be prakashshubham36@gmail.com
-```
-
-If it is empty, stop and set it before committing:
+**Never assume the global git config is the right account for this repo.** On many machines it belongs to a work or client account, and a commit that falls back to it is attributed to the wrong person.
 
 ```bash
-git config --local user.name "Shubham Prakash"
-git config --local user.email "prakashshubham36@gmail.com"
+git config --local user.email    # is this the account that should own these commits?
 ```
 
-Never run `git config --global` anything. Never let a commit fall back to the global identity.
+If it is empty and the global identity is wrong for this repo, set a local one:
 
-### Remotes — use the SSH host alias
-
-`git@github.com` is **denied** on this machine. Every remote URL must use the alias:
-
-```
-git@github-lets-dsa:shubhamcodess/<repo>.git
+```bash
+git config --local user.name "Your Name"
+git config --local user.email "you@example.com"
 ```
 
-| Remote | Repo | Branch | Content |
-|---|---|---|---|
-| `origin` | `shubhamcodess/lets-dsa` (public) | `main` | Framework only |
-| `personal` | `shubhamcodess/lets-dsa-sp` (private) | `main` | Framework + learning data |
+Never run `git config --global` anything — that changes the identity for every repo on the machine.
 
-Naming mirrors career-os: public is the plain name, private carries the `-sp` suffix.
+**Machine-specific identity, SSH aliases and remote URLs belong in `.claude/CLAUDE.md`**, which is gitignored. If that file exists it is authoritative and overrides anything here.
+
+### Remotes
+
+| Remote | Holds | Branch |
+|---|---|---|
+| `origin` | framework only — public | `main` |
+| `personal` | framework + learning data — **private** | `main`, fed from `personal-main` |
+
+Set up with `python3 scripts/dsa-git.py init-personal --remote <your private repo>`. If this machine needs an SSH host alias to reach the right account, `.claude/CLAUDE.md` records it.
 
 ### Committing
 

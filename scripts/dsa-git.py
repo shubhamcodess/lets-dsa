@@ -118,8 +118,8 @@ def cmd_status(_):
     print(f"  global    <{global_email or 'unset'}>   (must never be used here)")
     if not local_email:
         print("\n  Fix before committing:")
-        print('    git config --local user.name "Shubham Prakash"')
-        print('    git config --local user.email "prakashshubham36@gmail.com"')
+        print('    git config --local user.name "Your Name"')
+        print('    git config --local user.email "you@example.com"')
     print()
     print("remotes")
     for name in ("origin", "personal"):
@@ -165,9 +165,22 @@ def cmd_init_personal(args):
     git("config", "core.hooksPath", HOOKS)
     print(f"leak guards installed (core.hooksPath={HOOKS})")
 
-    git("config", "--local", "user.name", "Shubham Prakash")
-    git("config", "--local", "user.email", "prakashshubham36@gmail.com")
-    print("local identity set (global config untouched)")
+    # NEVER hardcode an identity here. This script ships in a public repo, and a
+    # hardcoded name would silently attribute a stranger's commits to someone else.
+    name = args.name or git("config", "--local", "user.name", check=False)
+    email = args.email or git("config", "--local", "user.email", check=False)
+    if name and email:
+        git("config", "--local", "user.name", name)
+        git("config", "--local", "user.email", email)
+        print(f"local identity: {name} <{email}>")
+    else:
+        g_name = git("config", "--global", "user.name", check=False)
+        g_email = git("config", "--global", "user.email", check=False)
+        print("local identity: NOT SET — commits will fall back to your global config")
+        print(f"  global is: {g_name or '(unset)'} <{g_email or '(unset)'}>")
+        print("  If that is the wrong account for this repo, set a local one:")
+        print('    python3 scripts/dsa-git.py init-personal --name "You" --email you@example.com')
+        print("  (or pass nothing and keep using your global identity)")
 
     url = args.remote or env_val("PRIVATE_REPO_URL")
     if not url:
@@ -175,10 +188,10 @@ def cmd_init_personal(args):
         print("    python3 scripts/dsa-git.py init-personal --remote "
               "git@github-lets-dsa:shubhamcodess/lets-dsa.git")
         return 1
-    if "@github.com:" in url:
-        print(f"\n! {url} uses plain github.com, which is DENIED on this machine.")
-        print("  Use the alias: git@github-lets-dsa:...  (see .claude/CLAUDE.md)")
-        return 1
+    if "@github.com:" in url and os.path.exists(os.path.join(ROOT, ".claude", "CLAUDE.md")):
+        # Only relevant on a machine that uses an SSH host alias; see .claude/CLAUDE.md.
+        print(f"\n! {url} uses plain github.com. If your default SSH key is not the account")
+        print("  that owns this repo, use a host alias instead. Continuing anyway.")
 
     rs = remotes()
     if rs.get("personal") != url:
@@ -283,6 +296,8 @@ def main():
     sub.add_parser("status").set_defaults(fn=cmd_status)
     ip = sub.add_parser("init-personal")
     ip.add_argument("--remote", help="git URL of your PRIVATE repository")
+    ip.add_argument("--name", help="git author name for THIS repo only (optional)")
+    ip.add_argument("--email", help="git author email for THIS repo only (optional)")
     ip.set_defaults(fn=cmd_init_personal)
 
     sv = sub.add_parser("save")

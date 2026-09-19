@@ -120,28 +120,94 @@ After a few months that folder is your own pattern library, written by you, in y
 
 ## Setup
 
-**You need:** [Claude Code](https://claude.com/claude-code), Python 3, git. Optionally `javac`, `clang++`, `node` for OA mode.
+### What you need
+
+| | |
+|---|---|
+| **Claude Code** | [claude.com/claude-code](https://claude.com/claude-code) · needs a [Claude account](https://claude.ai) (Pro or Max recommended — this is a long-running project) |
+| **Python 3** | `python3 --version` |
+| **git** | `git --version` |
+| *Optional* | `javac`, `clang++`, `node` — only for `oa` mode (write real code, compiled and run) |
+
+### 1. Install Claude Code
 
 ```bash
-git clone <this repo> && cd lets-dsa
+npm install -g @anthropic-ai/claude-code
 ```
 
-Open the folder in Claude Code and paste the contents of [`INIT_PROMPT.md`](INIT_PROMPT.md).
+Other install options and troubleshooting: [claude.com/claude-code](https://claude.com/claude-code)
 
-That's it. Setup runs six verified phases — environment check, LeetCode connection test, an interview about your level and targets, then it builds the curriculum, the foundations and your ladder.
-
-### Learning privately
-
-Your progress, notes and profile are **gitignored from the public branch** and backed up to a private repo of your own:
+### 2. Clone this repo
 
 ```bash
-python3 scripts/dsa-git.py init-personal --remote git@github.com:you/lets-dsa-private.git
+git clone https://github.com/shubhamcodess/lets-dsa.git
+cd lets-dsa
+```
+
+### 3. Choose why you're here
+
+| | **Learning DSA** | **Improving the framework** |
+|---|---|---|
+| `.env` | `PERSONALIZE=true` | `PERSONALIZE=false` |
+| Your data | private repo of your own | none is created |
+| Next step | step 4 below | step 5 below |
+
+You can switch later. Claude reads `.env` at the start of every session and behaves accordingly.
+
+### 4. Learning DSA — set up your private repo
+
+Your progress, notes and profile must never land in a public repo. So you point this at a private one of your own.
+
+**4a.** Create an **empty private repository** on GitHub. Any name — `lets-dsa-private` works.
+
+**4b.** Wire it up:
+
+```bash
+python3 scripts/dsa-git.py init-personal --remote git@github.com:YOUR_USERNAME/lets-dsa-private.git
+```
+
+That command creates `.env` with `PERSONALIZE=true`, adds your private repo as the `personal` remote, and installs three git hooks that block a leak. It pushes nothing.
+
+**4c.** Confirm:
+
+```bash
+python3 scripts/dsa-git.py status     # mode, remotes, identity, what's protected
+python3 scripts/dsa-git.py check      # fails loudly if anything personal is on the public branch
+```
+
+**4d.** Back up your work whenever you finish something:
+
+```bash
 bash scripts/sync-vault.sh -m "solve: two-sum (#1) — accepted, 0 hints"
 ```
 
-Three git hooks stop a leak: `.gitignore` blocks a normal add, `pre-commit` blocks `git add -f`, and `pre-push` inspects the actual commit range — **even if you rename the branch.** Check any time with `python3 scripts/dsa-git.py check`. Detail in [`docs/MODES.md`](docs/MODES.md).
+> **Using a different GitHub account for this than your machine default?** Pass `--name` and `--email` to `init-personal` and it sets a git identity for this repo only, leaving your global config alone.
 
-Pattern briefs and animations stay public on purpose. A brief about sliding windows is about the pattern, not about you, and it's what makes this repo worth cloning.
+### 5. Start
+
+Open the folder in Claude Code:
+
+```bash
+claude
+```
+
+Then paste the contents of [`INIT_PROMPT.md`](INIT_PROMPT.md) as your first message.
+
+Setup runs six verified phases — environment check, LeetCode connection test, an interview about your level and targets, then it builds the curriculum, the 8 foundation topics and your personal ladder. It reports what actually worked at each phase rather than assuming.
+
+After that, type `basics` to begin.
+
+### How your data stays private
+
+Three hooks, because `.gitignore` alone is not enough:
+
+| Layer | Stops |
+|---|---|
+| `.gitignore` | a normal `git add` of a personal path |
+| `pre-commit` | `git add -f` followed by a commit on `main` |
+| `pre-push` | pushing personal data to the public remote — **even on a renamed branch** |
+
+Pattern briefs and animations stay public on purpose. A brief about sliding windows is about the pattern, not about you, and it's what makes this repo worth cloning. Full detail and the honest limits: [`docs/MODES.md`](docs/MODES.md).
 
 ---
 
@@ -204,3 +270,7 @@ The project defaults to Sonnet. This is text-heavy teaching, not hard reasoning,
 **11 skills · 7 subagents · 11 scripts.** Nothing per-problem is pre-generated: the repo holds the index, and statements, briefs, harnesses and visuals are constructed when you ask for them.
 
 See [`CLAUDE.md`](CLAUDE.md) for the operating manual and [`docs/SKILLS.md`](docs/SKILLS.md) for what each skill does.
+
+## Contributing
+
+Wanted, especially `ListNode`/`TreeNode` harnesses for `oa` mode (unlocks ~67 more problems) and pattern-brief improvements. One rule above all others: **never make it easier to leak a solution.** See [`CONTRIBUTING.md`](CONTRIBUTING.md).
