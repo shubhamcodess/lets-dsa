@@ -358,10 +358,10 @@ git@github-lets-dsa:shubhamcodess/<repo>.git
 
 | Remote | Repo | Branch | Content |
 |---|---|---|---|
-| `origin` | *(public — not created yet)* | `main` | Framework only |
-| `personal` | `shubhamcodess/lets-dsa` (private) | `main` | Framework + learning data |
+| `origin` | `shubhamcodess/lets-dsa` (public) | `main` | Framework only |
+| `personal` | `shubhamcodess/lets-dsa-sp` (private) | `main` | Framework + learning data |
 
-The public repo does not exist yet, and the private one already occupies the name `lets-dsa`. **Do not invent a name for the public repo or add `origin` on your own — ask.**
+Naming mirrors career-os: public is the plain name, private carries the `-sp` suffix.
 
 ### Committing
 
