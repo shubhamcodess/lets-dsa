@@ -294,6 +294,21 @@ Set in `config/user.json`. Overridable per problem ("explain this like I'm a beg
 
 ---
 
+## Spaced Repetition & Your Error Profile
+
+Two scripts turn past sessions into what happens next. Neither is optional.
+
+| Script | Owns | Run it |
+|---|---|---|
+| `scripts/schedule.py` | `srs_*` fields in the question file | at S6, and whenever picking revisits |
+| `scripts/confusion.py` | `state/confusion.json` | before `daily-drill` picks, and before a progress report |
+
+**Scheduling.** Derive the grade from hints and attempts — `schedule.py grade --hints N --attempts M` — **never from "that felt easy"**. Then `schedule.py next` for the interval. A clean recall grows it 5→8→12→19→29 days; a lapse collapses it to a week or less, because re-showing a forgotten problem a month later just repeats the forgetting. Never hand-pick a date.
+
+**Error profile.** `confusion.py` reads their own `## Defects Found` tables, their `s1_wrong_guesses`, and hints per pattern. It produces things no general curriculum can know — "you have called sliding-window problems two-pointers four times", "your most frequent defect is INVARIANT-BROKEN". Lead a progress report with it **once there is enough data, and say nothing when there isn't.** An error profile invented from two problems is worse than none.
+
+---
+
 ## State Files
 
 `state/current.json` is authoritative and machine-owned. `state/current.md` is the human mirror and is never parsed for control flow.

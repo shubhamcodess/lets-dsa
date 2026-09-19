@@ -112,11 +112,15 @@ def main():
                 rec["ramp_overrides"] += 1
             if fm.get("revisit_passed_cold"):
                 rec["revisit_passed"] = True
-            r = fm.get("revisit_on")
+            # srs_due is authoritative (scripts/schedule.py). revisit_on is kept only as a
+            # mirror for anything written before the scheduler existed.
+            r = fm.get("srs_due") or fm.get("revisit_on")
             if r and r <= today:
                 rec["due_now"].append(fm.get("problem") or os.path.basename(path))
                 due.append({"problem": fm.get("problem"), "pattern": pid,
-                            "revisit_on": r, "path": os.path.relpath(path, ROOT)})
+                            "revisit_on": r, "lapses": fm.get("srs_lapses") or 0,
+                            "stability": fm.get("srs_stability"),
+                            "path": os.path.relpath(path, ROOT)})
         elif status in ("in-progress", "parked"):
             rec["in_progress"] += 1
 

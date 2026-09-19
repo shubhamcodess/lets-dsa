@@ -52,6 +52,7 @@ It runs four scripts and reports their real output:
 | `build-foundations.py` | 8 prerequisite topics, ~16 hours, 61 free article/video links |
 | `build-track.py` | `curriculum/track.md` — your ladder: 6 tiers, with floor / interview-ready / strong targets |
 | `roll-stats.py` | your (empty) mastery stats |
+| `confusion.py` | your error profile — empty on day one, sharpens as you go |
 
 ## How the learning is shaped
 
@@ -70,6 +71,23 @@ not a test.
 **Then the loop, per problem** — S0 select · S1 pattern · S2 intuition (you trace an input
 Claude gives you) · S3 brute→better→optimal · S4 your pseudocode critiqued · S5 you solve on
 LeetCode · S6 review and record.
+
+**If you're a beginner, the first problems are demonstrated, not interrogated** — Claude
+fully works problem 1 in each new pattern, partially works problem 2, and from problem 3
+you're on your own. Per pattern, fading automatically. The evidence is that novices retain
+20–40% more this way; the advantage disappears with expertise, so at intermediate or
+advanced this never happens and the guardrail is absolute.
+
+**You explain out loud at every stage** — and it's graded on precision, cost-awareness and
+tradeoff, not just correctness. Strong coders fail interviews by solving silently.
+
+**Revisits are scheduled from how the solve went**, not a fixed calendar. Hints and attempts
+set the interval: solved cold comes back in weeks, needed four hints comes back in days, and
+a failed revisit collapses back to within a week.
+
+**Claude builds a profile of your specific mistakes** from your own defect tables and the
+patterns you misname — "you've called sliding-window problems two-pointers four times".
+That's the one thing a curriculum written for everyone can't know about you.
 
 **Targets** — floor **90** (every pattern met once, *not* ready), interview-ready **180**,
 strong **250**. Weighted by what the curated sheets actually invest in, not spread evenly.

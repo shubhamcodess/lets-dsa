@@ -52,6 +52,28 @@ Every pattern has a written brief in `patterns/` — read before its first probl
 
 The briefs are code-free by rule — they're read at S1, when the guardrail is fully on.
 
+## It adapts to you, from your own history
+
+**Faded worked examples (beginners only).** Problem 1 in a new pattern is fully worked by
+Claude, problem 2 is partially worked, problem 3 onward is pure Socratic — per pattern,
+fading automatically. This exists because the evidence says novices retain 20–40% more from
+a worked example than from unguided struggle, and that reverses with expertise. At
+intermediate and advanced it never happens.
+
+**Spaced repetition driven by evidence.** Revisit intervals come from hints used and
+attempts, never from self-report. Clean recall grows 5→8→12→19→29 days; a lapse collapses to
+within a week, because re-showing a forgotten problem a month later just repeats the
+forgetting. Research on who actually converts interviews points at ~150–175 problems *with*
+spaced repetition — not raw volume.
+
+**A profile of your specific mistakes.** Claude reads your own defect tables and the patterns
+you misname, and tells you things like *"your most frequent defect is INVARIANT-BROKEN"* or
+*"you've called sliding-window problems two-pointers four times."* Built only from your
+sessions — no tool written for a general audience can know it.
+
+**Explain out loud, graded.** Narration is part of every stage, scored on precision,
+cost-awareness and tradeoff. Solving silently is how strong coders fail interviews.
+
 ## How it works
 
 Every problem runs through seven gated stages:

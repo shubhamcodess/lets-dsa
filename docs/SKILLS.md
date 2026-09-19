@@ -25,6 +25,9 @@ Nine skills at `skills/<name>/SKILL.md`. Claude reads all of them at session sta
 ### `teach-problem`
 **Trigger:** `teach X`, `how do I solve`, `hint`, `stuck`, a LeetCode URL
 **Does:** the 7-stage gated loop S0→S6, the 5-rung hint ladder, the four-utterance S4 rule
+**Faded worked examples:** at `beginner` only, and per pattern — 0 solved → DEMONSTRATE (fully worked, including code), 1 → COMPLETE (English algorithm with `<you decide: …>` holes), 2+ → SOCRATIC. Recorded as `teach_mode`; a demonstrated problem never counts as solved
+**Explain out loud:** narration required and graded at S1–S4 and S6 on precision / cost-awareness / tradeoff, recorded as `explanation`
+**Confusion capture:** wrong pattern names at S1 go to `s1_wrong_guesses`, which feeds `confusion.py`
 **Writes:** `questions/**`, `state/current.*`
 **Reference:** `references/loop.md` — full stage spec, gate scripts, question template
 **Agents:** `problem-scaffolder`, `explainer-drafter`, `dry-run-generator`
