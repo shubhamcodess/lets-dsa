@@ -25,6 +25,11 @@ This is structural, not willpower — the widget holds no compiler and makes no 
 | 1 | `get_problem` the slug. Pull `codeSnippets` for all four languages and the statement. |
 | 2 | Render the editor widget — statement, timer, language selector, stub pre-filled. |
 
+**No pre-submit affordances of any kind.** No brace counter, no bracket matching, no
+character count, no "looks unbalanced" nudge. Anything that tells the learner something
+about their code before they submit is the mode failing at its one job — an assessment
+gives you a blank box and silence. Compilation failing *at submit* is the feedback.
+
 **The timer must persist across re-renders.** A widget's script restarts whenever the chat
 re-renders it, so a `t0 = Date.now()` set at load resets to zero and every attempt after the
 first records a meaningless duration — silently corrupting the time-to-first-correct metric.
@@ -65,9 +70,21 @@ python3 scripts/oa-run.py --slug <slug> --lang <lang> --file <scratch>.<ext> \
 
 To know the expected output for a generated case you must solve the problem. That is allowed here **only at submit time**, the same position as S6. Write the reference into the scratchpad, use it as an oracle, and **never show it, quote it, or describe its approach.** Report only pass/fail and the failing input.
 
-## Reporting
+## Reporting — terse, no commentary
 
-Read the runner's output and relay it. Do not soften it and do not add hints.
+Relay the runner's output and **stop**. No encouragement, no progress notes, no "good, it
+compiles further than last time", no framing of what improved. An assessment prints a
+verdict and says nothing else, and commentary here is coaching wearing an OA costume.
+
+Forbidden in a verdict message: "progress", "good", "nearly", "that's movement", "still
+yours to fix", any comparison to a previous attempt beyond the bare `attempt N`, and any
+restatement of what the compiler already said.
+
+Permitted: the runner's output, the attempt number, and one line offering a retry.
+
+Explanation belongs **after** the loop, not here — `record-solve` at S6 is where the code
+gets reviewed, the canonical optimal is shown, and complexity is compared. Keeping OA mode
+silent is what makes that review worth having.
 
 ```
 COMPILED          yes
