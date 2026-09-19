@@ -36,24 +36,39 @@ Reading a solution feels like learning and isn't. The person who reads the answe
 
 ## Quick start
 
-**You need:** [Claude Code](https://claude.com/claude-code) with a [Claude account](https://claude.ai) · Python 3 · git
-*Optional:* `javac`, `clang++`, `node` — only for `oa` mode
+### 1. Get Claude Code
 
 ```bash
 npm install -g @anthropic-ai/claude-code
+```
+
+Claude Code needs a model behind it. Two ways:
+
+| | |
+|---|---|
+| **Claude subscription** *(recommended)* | Pro or Max — [claude.com/pricing](https://www.claude.com/pricing). This is a long-running project; Max is worth it if you'll practise daily. |
+| **Local models via Ollama** *(free)* | Ollama speaks the Anthropic API natively since v0.14 — no proxy. Setup: [docs.ollama.com/integrations/claude-code](https://docs.ollama.com/integrations/claude-code) |
+
+> **Honest note on local models.** This project's whole value is the tutor *refusing* under pressure, holding a seven-stage state machine, and following long instruction files exactly. That is demanding, and small local models tend to leak the answer when you push. It will run — it may not hold the line. Use a 64k+ context model and expect to re-state the rules more often.
+
+### 2. Clone this repo
+
+```bash
 git clone https://github.com/shubhamcodess/lets-dsa.git
 cd lets-dsa
 ```
 
-**Then pick why you're here:**
+### 3. Pick why you're here
 
 | | Learning DSA | Improving the framework |
 |---|---|---|
 | **`.env`** | `PERSONALIZE=true` | `PERSONALIZE=false` |
 | **Your data** | goes to a private repo of your own | none is created |
-| **Setup** | one command, below | `echo "PERSONALIZE=false" > .env` |
+| **Setup** | step 4 | `echo "PERSONALIZE=false" > .env`, then skip to step 5 |
 
-**Learning?** Create an empty **private** repo on GitHub, then:
+### 4. Learning? Point it at a private repo
+
+Your progress and notes must never land in a public repo. Create an **empty private repository** on GitHub, then:
 
 ```bash
 python3 scripts/dsa-git.py init-personal --remote git@github.com:YOU/lets-dsa-private.git
@@ -61,7 +76,7 @@ python3 scripts/dsa-git.py init-personal --remote git@github.com:YOU/lets-dsa-pr
 
 That writes `.env`, adds your private remote, and installs three git hooks that block a leak. It pushes nothing.
 
-**Start:**
+### 5. Start
 
 ```bash
 claude
@@ -79,6 +94,8 @@ bash scripts/sync-vault.sh -m "solve: two-sum (#1) — accepted, 0 hints"
 ```
 
 Using a different GitHub account than your machine default? Pass `--name` and `--email` to `init-personal` — it sets an identity for this repo only and leaves your global config alone.
+
+**Optional, for `oa` mode:** `javac`, `clang++` or `node`, depending on the language you want to write in. Python works out of the box.
 
 </details>
 
