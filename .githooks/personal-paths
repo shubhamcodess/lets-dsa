@@ -6,5 +6,7 @@ topics/
 state/current.json
 state/current.md
 state/stats.json
+state/oa-attempts.json
+state/confusion.json
 curriculum/track.md
 .env

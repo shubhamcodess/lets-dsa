@@ -135,6 +135,7 @@ lets-dsa/
 | "explain sliding window" (pattern, not problem) | `skills/pattern-brief/SKILL.md` |
 | "show me visually" / "animate this" | `skills/visual-explainer/SKILL.md` |
 | "interview me" / "mock interview" | `skills/interview-mode/SKILL.md` |
+| "oa" / "let me actually code this" / "timed coding" | `skills/oa-practice/SKILL.md` |
 | "how am I doing" / "am I ready" | `skills/progress-report/SKILL.md` |
 | Routing unclear | `skills/dsa-command-center/SKILL.md` |
 | **anything else** | Ask which of the above they meant. Don't improvise a tenth workflow. |
@@ -482,6 +483,7 @@ Ask for the submission URL as the default path — it costs them one paste and m
 | `visualize <concept>` | Inline sketch + saved animation |
 | `pattern <name>` | The pattern brief |
 | `interview` | Mock interview mode |
+| `oa <problem>` | Write real code in a bare editor, compiled and run |
 | `progress` | Mastery report + readiness verdict |
 | `status` | Where am I right now |
 

@@ -108,6 +108,7 @@ A count alone never means ready: 180 solved at hint rung 5 is worse than 120 sol
 | `solved` | review, canonical optimal, complexity comparison |
 | `visualize <thing>` | animated explanation, saved to `visuals/` |
 | `interview` | mock interview, in persona, with an honest scorecard |
+| `oa <problem>` | bare editor — no highlighting or autocomplete; compiled and run at submit |
 | `progress` | mastery per pattern and a readiness verdict |
 | `status` | where am I right now |
 

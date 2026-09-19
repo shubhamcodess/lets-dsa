@@ -37,7 +37,7 @@ Present it the way an interviewer does — say it out loud, give one example, an
 |---|---|---|---|
 | Clarify | 0–3 | Answer only what they ask. Volunteer nothing. | Did they ask about input size, duplicates, empty, negatives? |
 | Approach | 3–12 | "What are you thinking?" Let silence sit for a beat. | Brute force stated first? Complexity computed unprompted? |
-| Code | 12–30 | Watch. Interrupt only if they've gone badly wrong for 5+ minutes. | Compiles in their head? Edge cases handled without prompting? |
+| Code | 12–30 | Watch. Interrupt only if they've gone badly wrong for 5+ minutes. Offer the bare editor from `skills/oa-practice` if they want it actually compiled and run. | Compiles in their head? Edge cases handled without prompting? |
 | Test | 30–38 | "Walk me through your example." | Do they find their own bug, or wait for you to? |
 | Follow-up | 38–45 | One escalation from the table below. | Do they adapt, or restart? |
 

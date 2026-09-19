@@ -83,7 +83,8 @@ fi
 # .env is deliberately NOT in this list — it may hold your LeetCode session cookie
 # and is gitignored on every branch.
 PERSONAL_PATHS=("questions" "topics" "config/user.json" "curriculum/track.md" \
-                "state/current.json" "state/current.md" "state/stats.json")
+                "state/current.json" "state/current.md" "state/stats.json" \
+                "state/oa-attempts.json" "state/confusion.json")
 for path in "${PERSONAL_PATHS[@]}"; do
   src="$REPO_ROOT/$path"
   dst_dir="$(dirname "$WORKTREE/$path")"

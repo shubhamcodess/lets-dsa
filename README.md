@@ -74,6 +74,16 @@ sessions — no tool written for a general audience can know it.
 **Explain out loud, graded.** Narration is part of every stage, scored on precision,
 cost-awareness and tradeoff. Solving silently is how strong coders fail interviews.
 
+## Write code the way an assessment makes you
+
+`oa` opens a bare editor in the chat: no syntax highlighting, no autocomplete, no auto-indent, no red squiggles. You write only what LeetCode's own stub contains — no imports, no `main`. Nothing is checked while you type, and that is structural rather than a promise: the editor holds no compiler.
+
+On submit it is really compiled and really run — Java, C++, TypeScript or Python — against the examples plus edge cases. Only then do you find out.
+
+This exists because `interview` tests whether you can *talk* through a problem, and nothing tested whether you can produce correct code without an IDE. That is what breaks people in online assessments and Google-Doc rounds.
+
+Every attempt is recorded privately: did it compile first try, did it pass first submit, how long, which edge cases you missed. Those are the numbers an assessment actually measures.
+
 ## How it works
 
 Every problem runs through seven gated stages:
@@ -153,6 +163,7 @@ That's it. Setup asks about your level, your targets and how much time you actua
 | `solved` | review, canonical optimal, complexity comparison |
 | `visualize <thing>` | an animated explanation, saved to `visuals/` |
 | `interview` | mock interview, in persona, with an honest scorecard |
+| `oa <problem>` | bare editor, real compile and run, verdict only at submit |
 | `progress` | mastery per pattern and a readiness verdict |
 
 ## Where the content comes from

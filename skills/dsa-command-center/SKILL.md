@@ -33,6 +33,7 @@ Nothing else. Don't load the curriculum or pattern briefs to route.
 | "explain <pattern>", "what is sliding window" | `skills/pattern-brief` |
 | "show me", "visualize", "animate", "I can't picture it" | `skills/visual-explainer` |
 | "interview me", "mock", "practice interview" | `skills/interview-mode` |
+| "oa", "timed coding", "let me actually code this" | `skills/oa-practice` |
 | "progress", "how am I doing", "am I ready" | `skills/progress-report` |
 | "park", "stop", "later" | `skills/teach-problem` (park path) |
 | **anything else** | Ask which of the above they meant. Offer the three most likely. Do not improvise a new workflow. |

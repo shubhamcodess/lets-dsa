@@ -61,6 +61,13 @@ Nine skills at `skills/<name>/SKILL.md`. Claude reads all of them at session sta
 **Does:** timed in-persona interview, one nudge maximum, escalating follow-up, scored rubric
 **Writes:** `questions/**` with `mode: interview`
 
+### `oa-practice`
+**Trigger:** `oa`, `timed coding`, `let me actually code this`, or interview-mode's coding phase
+**Does:** renders a bare in-chat editor (no highlighting, no autocomplete, no auto-indent, no feedback), then compiles and runs the submission against real tests
+**Writes:** `state/oa-attempts.json` (gitignored, private)
+**Scripts:** `oa-run.py`
+**Languages:** java, cpp, typescript, python3. Refuses design problems and `ListNode`/`TreeNode` rather than mis-harnessing them
+
 ### `progress-report`
 **Trigger:** `progress`, `am I ready`
 **Does:** mastery bands per pattern, largest gap by blast radius, honest readiness verdict
@@ -97,6 +104,7 @@ Nine skills at `skills/<name>/SKILL.md`. Claude reads all of them at session sta
 | `build-track.py` | materializes the ladder into `curriculum/track.md`: pattern tiers from the dependency graph, per-tier advancement counts with a required difficulty mix, and problems ordered by ramp then sheet consensus | `curriculum/track.md` |
 | `schedule.py {grade,next,due}` | FSRS-inspired spaced repetition. Derives a grade from hints/attempts (never self-report), grows intervals 5→8→12→19→29d on clean recall, collapses to ≤7d on a lapse | question frontmatter `srs_*` |
 | `confusion.py` | builds a personal error profile from the learner's own defect tables, wrong S1 pattern guesses and hint counts | `state/confusion.json` |
+| `oa-run.py --slug S --lang L --file F [--tests T] [--record]` | fetches `metaData` live, generates a test harness for that problem, compiles and runs the learner's code, remaps compile-error line numbers to their own file, and appends the attempt to the ledger | `state/oa-attempts.json` |
 | `roll-stats.py` | aggregates question + topic frontmatter into mastery bands and open foundation gates | `state/stats.json` |
 | `status.py` | read-only session-start snapshot, reports failing setup gates | nothing |
 
