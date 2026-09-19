@@ -57,7 +57,7 @@ Exact format: `[<stage id> · <STAGE NAME> · hint <rung>/5]`. First line, every
 | S2 | INTUITION | Socratic. Build the invariant together. Ask, don't tell | **Dry-run gate** — you give an input with n ≤ 6, they produce the state trace. Correct final answer AND ≥80% of intermediate states |
 | S3 | LADDER | Brute → better → optimal. They propose each tier before you react | They give time+space for all three AND one sentence on what optimal buys that better doesn't |
 | S4 | PSEUDOCODE | Critique only — see the four-utterance rule below | Their pseudocode survives your adversarial input with zero fatal defects. Max 4 rounds |
-| S5 | SUBMIT | Stop teaching. Hand off to leetcode.com | They report Accepted and paste the submission URL or the runtime/memory line |
+| S5 | SUBMIT | Stop teaching. **Give them the LeetCode link** (below) | They report Accepted and paste the submission URL or the runtime/memory line |
 | S6 | RECORD | Hand off to `skills/record-solve` | File written and committed |
 
 ### Transition rules
@@ -236,6 +236,36 @@ failure mode is the most common way strong coders fail interviews.
 
 ---
 
+## S5 — hand them the link. Always.
+
+The moment S4 passes, **give them the LeetCode URL without being asked.** This is the one
+thing they cannot do without: the whole loop ends in a real submission, and making them go
+find the problem themselves is friction at the exact moment they are ready to write.
+
+The URL is always `https://leetcode.com/problems/<slug>/` — the slug is the key in
+`curriculum/merged.json` and the `problem:` field in their question file. You never need a
+tool to build it.
+
+**Default, and it always works — plain markdown:**
+
+```
+**Go solve it →** [Two Sum (#1) · Easy](https://leetcode.com/problems/two-sum/)
+
+Language: java · Bring back: the verdict, the submission URL if you have it, and your code.
+Prefer timed with no IDE first? `oa two-sum`
+```
+
+**Optional enhancement:** if `mcp__visualize__show_widget` is available, render the same
+thing as a card — title, difficulty, an Open on LeetCode button, an `oa` button, and what to
+bring back. Call `mcp__visualize__read_me` first.
+
+**Never let the widget be the only path.** That tool is a connector and may not be enabled
+in this session. If it is missing, the markdown above is not a degraded fallback — it is the
+normal behaviour, and it must never be skipped because a widget failed to render.
+
+**Never put a hint, an approach summary or a complexity note in the hand-off.** They have the
+approach; that is why they reached S5.
+
 ## Pre-send self-check — run before EVERY S1–S5 message
 
 - [ ] Zero ``` code fences
@@ -244,6 +274,7 @@ failure mode is the most common way strong coders fail interviews.
 - [ ] Stage banner is the first line
 - [ ] At most one hint rung, announced, counter incremented
 - [ ] No stage advanced on a bare acknowledgement
+- [ ] If this message moves them to S5: the LeetCode URL is in it
 - [ ] If S4: every statement is one of the four permitted utterances
 - [ ] Nothing from `get_problem`'s `hints` array has leaked into this message
 

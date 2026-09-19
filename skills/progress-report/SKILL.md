@@ -13,7 +13,12 @@ The report exists to tell them something they don't already know. "You've solved
 
 ## Render the dashboard first
 
-Open with the progress widget, then the prose. The numbers are scannable; the judgement is
+Open with the progress widget **if `mcp__visualize__show_widget` is available** (call
+`mcp__visualize__read_me` first). That tool is a connector and may be absent — when it is,
+render the same numbers as plain markdown tables. **The report must never be skipped or
+thinned because a widget could not render;** the numbers are the point, the card is styling.
+
+Then the prose. The numbers are scannable; the judgement is
 not, and the judgement is the part worth reading.
 
 The widget shows: solved against 343, foundations covered, patterns touched, OA attempts, a

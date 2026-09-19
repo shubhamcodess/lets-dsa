@@ -167,9 +167,20 @@ Zero fatal defects, and their pseudocode survives one adversarial input you choo
 
 **Goal:** get out of the way.
 
-Render the hand-off widget: the problem title and difficulty, a button opening
-`https://leetcode.com/problems/<slug>/`, their language, and one line of what to bring back.
-No hints in it, no approach summary — they have the approach, that is why they are here.
+**Give them the link, unprompted, the moment S4 passes.** Plain markdown is the default and
+needs no tool:
+
+```
+**Go solve it →** [Two Sum (#1) · Easy](https://leetcode.com/problems/two-sum/)
+
+Language: java · Bring back: the verdict, the submission URL if you have it, and your code.
+Prefer timed with no IDE first? `oa two-sum`
+```
+
+The URL is always `https://leetcode.com/problems/<slug>/`. If `mcp__visualize__show_widget`
+is available you may render the same content as a card instead — but that tool is a
+connector and may be absent, so it is an enhancement, never the only path. No hints in the
+hand-off, no approach summary — they have the approach, that is why they are here.
 
 Then say a version of:
 

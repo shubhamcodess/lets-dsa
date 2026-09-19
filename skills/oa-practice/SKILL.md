@@ -23,7 +23,13 @@ This is structural, not willpower — the widget holds no compiler and makes no 
 | Step | You do |
 |---|---|
 | 1 | `get_problem` the slug. Pull `codeSnippets` for all four languages and the statement. |
-| 2 | Render the editor widget — statement, timer, language selector, stub pre-filled. |
+| 2 | Render the editor widget with `mcp__visualize__show_widget` (call `mcp__visualize__read_me` first) — statement, timer, language selector, stub pre-filled. |
+
+**If that tool is unavailable**, OA mode still works. Say so, paste the LeetCode stub for
+their language in a code block, tell them to write it in any plain editor with autocomplete
+off, and paste it back. The value is the *conditions* — no highlighting, no hints, verdict
+only at submit — and those survive without the widget. What must not happen is silently
+skipping OA mode because a connector is missing.
 
 **No pre-submit affordances of any kind.** No brace counter, no bracket matching, no
 character count, no "looks unbalanced" nudge. Anything that tells the learner something

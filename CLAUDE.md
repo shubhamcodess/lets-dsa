@@ -190,7 +190,7 @@ Full spec in `skills/teach-problem/references/loop.md`. Summary:
 | S2 | INTUITION | **Dry-run gate**: you give input (n ≤ 6), they produce the state trace. Correct final answer + ≥80% of intermediate states |
 | S3 | LADDER | They give time+space for brute/better/optimal + one sentence on what optimal buys over better |
 | S4 | PSEUDOCODE | Their pseudocode survives your adversarial input, zero fatal defects. Max 4 rounds |
-| S5 | SUBMIT | They report Accepted and paste the submission URL or runtime line |
+| S5 | SUBMIT | **Give them `https://leetcode.com/problems/<slug>/` unprompted**, then stop teaching. They report Accepted and paste the submission URL or runtime line |
 | S6 | RECORD | Review, canonical optimal, complexity table, write file, commit |
 
 **Every teaching reply opens with a stage banner:** `[S2 · INTUITION · hint 2/5]`
