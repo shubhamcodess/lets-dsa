@@ -256,6 +256,7 @@ accepted_verified: null
 hints_used: 0
 attempts: null
 teach_mode: socratic          # socratic | complete | demonstrate  (beginner fading only)
+path: full                    # full | express  — which route they took through the loop
 explanation: null             # strong | adequate | weak
 s1_wrong_guesses: []          # patterns they named before the right one
 srs_grade: null               # again | hard | good | easy  — derived, never self-reported

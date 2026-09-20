@@ -150,6 +150,34 @@ Use the `dry-run-generator` agent to produce the input and its expected trace. D
 
 ---
 
+## Express lane — check the band BEFORE starting S1
+
+Read the pattern's band from `state/stats.json`. It decides the shape of the loop.
+
+| Band | Loop |
+|---|---|
+| `untouched`, `exposed` | Full S0–S6 |
+| `working` | S1+S2 merged into one gate |
+| `solid` | Merged gate, S3 compressed, S4 optional |
+
+**The S1 fast-pass applies at any band.** If their first S1 message contains the pattern, the
+signal, the invariant *and* the optimal's time and space — all unprompted — hand them the
+LeetCode link immediately. Four cold artifacts in one message is a higher bar than four
+gates with prompts between them, not a lower one.
+
+**The dry run is never skipped**, only merged into the combined gate. It is the only gate
+that cannot be passed by sounding fluent.
+
+**Revoke on failure.** Fail the merged gate → full loop for this problem, express suspended
+for this pattern until the next clean solve. Fast-pass then return with Wrong Answer or TLE
+→ next problem in this pattern runs the full loop. Say so plainly; it is data, not a penalty.
+
+**Never grant express because they asked.** Counter-offer instead: *"Give me the pattern, the
+signal, the invariant and the optimal's cost in one message and you can go straight to
+LeetCode."*
+
+Record `path: express | full` in the question file.
+
 ## Faded worked examples — `beginner` ONLY
 
 Evidence: novices learn 20–40% more from studying a worked example than from unguided
