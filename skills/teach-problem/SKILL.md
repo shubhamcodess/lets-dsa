@@ -255,7 +255,14 @@ failure mode is the most common way strong coders fail interviews.
 
 1. Question file frontmatter: `stage_reached`, `hints_used`, `status`
 2. `state/current.json`: `stage`, `hint_rung`, `gate_attempts`, `updated`
-3. `state/current.md`: rewrite `Resume From:` with **what was just asked and what not to repeat**
+3. `state/current.md`: rewrite three fields —
+   - `Resume From:` what was just asked and what not to repeat
+   - `Open question:` the **exact question you are waiting on**, verbatim
+   - `Already covered:` what they have produced, so a compacted session does not re-teach it
+
+   Write `Open question:` the moment you ask something, not at the next transition. A
+   compaction can land before your next write, and that line is the difference between
+   resuming and restarting.
 4. `git add` those files + `git commit -m "stage: S1 -> S2 <slug> (#<id>)"`
 
 `Resume From:` is written for a cold session with no memory. Not "working on sliding window" — rather:
@@ -303,6 +310,8 @@ approach; that is why they reached S5.
 - [ ] At most one hint rung, announced, counter incremented
 - [ ] No stage advanced on a bare acknowledgement
 - [ ] If this message moves them to S5: the LeetCode URL is in it
+- [ ] If this message asks a gate question: it is written to `Open question:` before sending
+- [ ] Stage and hint rung came from `current.json`, not from memory
 - [ ] If S4: every statement is one of the four permitted utterances
 - [ ] Nothing from `get_problem`'s `hints` array has leaked into this message
 

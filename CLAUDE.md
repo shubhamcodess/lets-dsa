@@ -369,6 +369,20 @@ Two scripts turn past sessions into what happens next. Neither is optional.
 
 `state/current.json` is authoritative and machine-owned. `state/current.md` is the human mirror and is never parsed for control flow.
 
+**Write state more often than you think you need to.** A compaction can land between any
+two messages, and anything not on disk is gone. Write on **every one** of these, not just
+stage changes:
+
+| Event | Write |
+|---|---|
+| Stage transition | all four files below |
+| **A hint rung emitted** | `hint_rung` in `current.json`, `hints_used` in the question file |
+| **A gate opened** (dry run given, adversarial input posed) | `dry_run_open: true` and the question itself into `Open question:` |
+| **A gate attempt failed** | `gate_attempts` in `current.json` |
+| **They produce an artifact** (the signal, the invariant, pseudocode) | into the question file, in their words, immediately |
+
+The cost is a few hundred bytes. The alternative is asking them to repeat work they already did.
+
 **Write order on every stage transition — all four, in this order:**
 
 1. Question file frontmatter (`stage_reached`, `hints_used`, `status`)
@@ -378,7 +392,18 @@ Two scripts turn past sessions into what happens next. Neither is optional.
 
 `Resume From:` must contain **what was just asked and what not to repeat.** Not "working on sliding window." Write it for a cold session that has no memory of this conversation:
 
-> `Resume From: S2 dry run is OPEN. Input given: "abcabcbb". They traced correctly to index 3, then lost the left-pointer update. Re-ask from index 3. Do NOT restate the invariant — they had it at S1.`
+```
+Resume From: S2 dry run is OPEN. They traced "abcabcbb" correctly to index 3, then lost
+the left-pointer update. Do NOT restate the invariant — they had it at S1.
+
+Open question: "From index 3: what's in the window, and where are both pointers?"
+Already covered: pattern name, the signal (contiguous + repair-by-dropping-from-front),
+the invariant. Do not re-teach these.
+```
+
+`Open question:` is the single most valuable line after a compaction — it is the exact thing
+you asked and are waiting on. Without it you will ask something slightly different and they
+will have to re-derive. `Already covered:` is what stops you re-teaching.
 
 **One writer per file.** `teach-problem` owns `current.*`. `roll-stats.py` owns `stats.json`. `record-solve` owns the question file at S6. Never write another skill's file.
 
@@ -476,8 +501,37 @@ Ask for the submission URL as the default path — it costs them one paste and m
 | `oa <problem>` | Write real code in a bare editor, compiled and run |
 | `progress` | Mastery report + readiness verdict |
 | `status` | Where am I right now |
+| `resync` | Force a re-read of the state files — use after a compaction, or if Claude seems to have lost the thread |
 
 ---
+
+## After a compaction — treat it as a cold start
+
+A long session gets compacted: most of the conversation is replaced by a summary. You will
+not be told clearly, and on a smaller model the first symptoms are subtle — the stage banner
+drifts, the hint count resets, you re-explain something they already have.
+
+**Assume you have been compacted if any of these is true:**
+
+- you cannot state the current stage and hint rung **without guessing**
+- you are about to re-explain the pattern or the invariant and cannot remember whether you already did
+- the conversation seems to start mid-problem with no memory of the gate you opened
+- the learner says "you already told me that" or "we did this"
+
+**Recovery is exactly the cold-start protocol. Do it before replying, not after:**
+
+1. Read `state/current.json` — stage, hint rung, gate attempts, mode, `dry_run_open`
+2. Read `state/current.md` — `Resume From:` and `Open question:`
+3. Read the active question file — their words are in it: the signal, the invariant, their pseudocode
+4. Resume from the open question. **Do not re-teach anything `Resume From:` says they have.**
+5. Say one line so they know: `Picking up at S2, hint 2/5 — re-reading where we were.`
+
+**Never restart the problem.** Never re-run a gate they already passed. Never reset the hint
+rung — the file is authoritative, not your memory of it. If the file says hint 3 and you
+think it was 1, it was 3.
+
+If the state files and your memory disagree, **the files win, always.** They were written at
+the moment it happened; your summary is a lossy reconstruction.
 
 ## Running on a smaller model
 

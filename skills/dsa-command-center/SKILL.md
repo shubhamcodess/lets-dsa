@@ -36,6 +36,7 @@ Nothing else. Don't load the curriculum or pattern briefs to route.
 | "oa", "timed coding", "let me actually code this" | `skills/oa-practice` |
 | "progress", "how am I doing", "am I ready" | `skills/progress-report` |
 | "park", "stop", "later" | `skills/teach-problem` (park path) |
+| "resync", "you lost the thread", "you already told me that" | Re-read `state/current.json`, `state/current.md` and the active question file **before replying**. Resume from `Open question:`. Do not re-teach anything under `Already covered:`. |
 | **anything else** | Ask which of the above they meant. Offer the three most likely. Do not improvise a new workflow. |
 
 ## Resume behaviour
