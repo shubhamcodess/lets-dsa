@@ -19,11 +19,14 @@ problem statement — that is the transferable part.
 
 | Sub-pattern | Recognize it when | What you do |
 |---|---|---|
+| **2-D Prefix Sum** | Repeated sum over a RECTANGLE of a grid — 'sum of submatrix', 'matrix block sum', many queries on a static matrix | Build a cumulative grid where each cell holds the sum of everything above-and-left, then any rectangle is four lookups by inclusion-exclusion |
+| **Difference Array** | Many range UPDATES then one final read — 'add val to every index in [l, r]', 'car pooling', 'corporate flight bookings' | Record only the boundaries of each update (+val at l, -val at r+1), then one prefix-sum pass at the end turns the boundary marks into the final array. O(1) per update instead of O(r-l) |
 | **Frequency Map / Counting** | Problem mentions frequency, duplicates, top-k, or counting occurrences | Count elements to find majority, top-k frequent, or sort by frequency |
 | **HashMap Design (implementation)** | Problem says “design” or “implement” a map/set without using the language’s built-in one | Back the structure with a bucket array plus chaining, then implement hash, put, get, and remove on top of it |
-| **LinkedList with Stack / HashMap** | Problem mentions reverse order processing or “next greater” style operations | Use a stack to handle backward traversal, carry logic, or next greater node |
-| **LinkedList with Stack/HashMap** | Problem mentions reverse order processing or “next greater” style operations | Use a stack to handle backward traversal, carry logic, or next greater node |
 | **Prefix Sum** | Problem talks about range sum, subarray sum, cumulative sum, or prefix-based queries | Precompute cumulative sums so any subarray or range sum can be answered in O(1) |
+| **Prefix-Sum with Map** | Problem involves subarray sums, cumulative sums, or “sum equals K” | Track cumulative sums; map stores first occurrence → solve subarray sum problems |
+| **Prefix XOR** | Range query over XOR instead of sum — 'xor of subarray', 'subarrays with xor equal to k' | XOR is its own inverse, so the same prefix trick works with XOR in place of subtraction: xor[i..j] = pre[j] ^ pre[i-1] |
+| **Suffix Sum / Suffix Max** | The answer at index i depends on everything to its RIGHT — 'product of all except self', 'can I reach the end', 'best trade after this day' | Sweep right-to-left accumulating the running total or running max into a suffix array, then combine with the prefix sweep in a second pass. Two passes, O(n), no nested loop |
 
 ## The invariant
 The table always holds a summary (presence, count, or last-seen position) of every element processed so far, and nothing else.

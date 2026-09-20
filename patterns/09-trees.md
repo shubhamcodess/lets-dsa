@@ -19,10 +19,14 @@ problem statement — that is the transferable part.
 
 | Sub-pattern | Recognize it when | What you do |
 |---|---|---|
+| **BFS / Level-Order** | Problem mentions “level-order, breadth-first, zigzag, right-side view, or level sum/average.” | Use queue → traverse level by level → calculate sums, averages, or side views |
 | **BST** | Problem mentions “BST operations, validate BST, insert/delete nodes, or sum/range queries.” | Leverage BST property (left < root < right) for search, insertion, deletion, and range queries |
 | **BST Operations** | Problem mentions “BST operations, validate BST, insert/delete nodes, or sum/range queries.” | Leverage BST property (left < root < right) for search, insertion, deletion, and range queries |
-| **DP on Trees / DAGs** | Problem mentions “trees, DAGs, path sums, node coverage, or ways to traverse dependent nodes” | Recursion + memoization → track states along tree paths → post-order traversal |
 | **Decision Tree / Sequence Generation** | Problems where you recursively build sequences, combinations of digits/letters, or expressions | Generate sequences or strings recursively by making a choice at each step |
+| **DFS Traversals** | Problem mentions “visit all nodes recursively, max depth/path/subtree sum.” | Standard DFS → used for max depth, path sums, subtree calculations |
+| **DP on Trees / DAGs** | Problem mentions “trees, DAGs, path sums, node coverage, or ways to traverse dependent nodes” | Recursion + memoization → track states along tree paths → post-order traversal |
+| **Lowest Common Ancestor** | Problem mentions “find common ancestor, distance between nodes, or lowest node covering two nodes.” | DFS recursion or parent-pointer mapping → find common ancestor efficiently |
+| **Serialization / Construction** | Problem mentions “serialize tree, flatten tree to list, next pointers, or reconstruct tree.” | Preorder / level-order encode-decode → reconstruct tree or flatten |
 
 ## The invariant
 Each recursive call returns a correct answer for its whole subtree, on the assumption that the calls it made on its children already did.

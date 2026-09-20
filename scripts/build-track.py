@@ -126,6 +126,10 @@ def main():
     w("This is the ladder. Patterns are ordered so a pattern never appears before the ones it\n"
       "depends on. Inside a pattern, problems run Easy → Medium → Hard, and within a difficulty\n"
       "the problem in the most curated sheets comes first.\n")
+    w("**How to read `Technique`:** the sub-pattern \u2014 the transferable label for what the\n"
+      "problem actually teaches (Kadane's Algorithm, Prefix Sum, Binary Search on Answers).\n"
+      "`\u2014` means no sheet named one. Each pattern brief carries the full table with the\n"
+      "recognition signal for every sub-pattern in that family.\n")
     w("**How to read `sheets`:** how many of the 7 curated lists contain that problem. 5+ means\n"
       "five independent curators picked it. 1 means one did.\n")
 
@@ -170,11 +174,16 @@ def main():
                 take = quota + 2 if quota else (2 if diff == "Hard" else 0)
                 shown += buckets.get(diff, [])[:take]
             shown.sort(key=rank)
-            w("| ✓ | Problem | Difficulty | Sheets | Link |")
-            w("|---|---|---|---|---|")
+            # Technique column: the sub-pattern is the transferable label ("Kadane's
+            # Algorithm", "Prefix Sum"). It lived only in merged.json and the briefs, so
+            # the ladder looked like it had no such topics at all.
+            w("| ✓ | Problem | Difficulty | Technique | Sheets | Link |")
+            w("|---|---|---|---|---|---|")
             for pr in shown:
                 paid = " 🔒" if pr.get("paid_only") else ""
-                w(f"| [ ] | {pr['title']}{paid} | {pr['difficulty']} | {len(pr['lists'])} | "
+                tech = (pr.get("subpattern") or "—").replace("|", "/")
+                w(f"| [ ] | {pr['title']}{paid} | {pr['difficulty']} | {tech} | "
+                  f"{len(pr['lists'])} | "
                   f"[#{pr['leetcode_id']}](https://leetcode.com/problems/{pr['slug']}/) |")
             if avail > len(shown):
                 w(f"\n_+{avail - len(shown)} more in this pattern once these are done._")

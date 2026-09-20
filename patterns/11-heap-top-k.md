@@ -20,6 +20,8 @@ problem statement — that is the transferable part.
 | Sub-pattern | Recognize it when | What you do |
 |---|---|---|
 | **Implementation of Heap** | Design Priority Queue | Design heap |
+| **Merge K Sorted** | Problem mentions merging sorted arrays/lists or finding K smallest/largest pairs across arrays | Use min-heap to merge multiple sorted arrays/lists efficiently |
+| **Top-K Elements** | Problem mentions top k, kth largest/smallest, median, or maintaining running extremes | Use min-heap for top-k largest, max-heap for top-k smallest → maintain heap of size k |
 
 ## The invariant
 The heap holds the best k candidates seen so far, and its root (top) is always the weakest of those k — the one that gets evicted the instant something better shows up.

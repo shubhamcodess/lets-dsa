@@ -105,7 +105,7 @@ Nine skills at `skills/<name>/SKILL.md`. Claude reads all of them at session sta
 | `schedule.py {grade,next,due}` | FSRS-inspired spaced repetition. Derives a grade from hints/attempts (never self-report), grows intervals 5→8→12→19→29d on clean recall, collapses to ≤7d on a lapse | question frontmatter `srs_*` |
 | `confusion.py` | builds a personal error profile from the learner's own defect tables, wrong S1 pattern guesses and hint counts | `state/confusion.json` |
 | `oa-run.py --slug S --lang L --file F [--tests T] [--record]` | fetches `metaData` live, generates a test harness for that problem, compiles and runs the learner's code, remaps compile-error line numbers to their own file, and appends the attempt to the ledger | `state/oa-attempts.json` |
-| `augment-briefs.py` | adds RisingBrain's sub-pattern recognition signals into `patterns/*.md`, filtering marketing filler | `patterns/*.md` |
+| `augment-briefs.py` | adds sub-pattern recognition signals into `patterns/*.md` — RisingBrain's, plus the curated ones in `config/subpatterns-extra.json`. Drops marketing filler and topic-level noise, and **exits non-zero listing any sub-pattern it could not map**, so a technique can never vanish silently again | `patterns/*.md` |
 | `roll-stats.py` | aggregates question + topic frontmatter into mastery bands and open foundation gates | `state/stats.json` |
 | `status.py` | read-only session-start snapshot, reports failing setup gates | nothing |
 

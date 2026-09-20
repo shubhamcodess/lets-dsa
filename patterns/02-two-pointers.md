@@ -19,6 +19,8 @@ problem statement — that is the transferable part.
 
 | Sub-pattern | Recognize it when | What you do |
 |---|---|---|
+| **Cyclic Sort** | The values are a permutation of 1..n or 0..n-1 and the problem asks for a missing, duplicate, or misplaced number — and wants O(1) extra space | Each value has exactly one correct home index. Repeatedly swap the current element to its home until the position is settled, then a single scan reveals whichever index disagrees with its value |
+| **Dutch National Flag / 3-Way Partition** | Sort or group into exactly THREE categories in one pass, in place — 'sort colors', 'partition around a pivot value' | Three pointers: a low boundary, a high boundary, and a scanner. Swap the scanned element to whichever boundary it belongs to and move only the pointers that are safe to move |
 | **Two-Pointer** | Problem involves pairs, sorted arrays, triplets, or opposite-end traversal | Use two indices that move towards or away from each other to reduce redundant comparisons |
 | **Two-Pointer (Palindrome)** | Problem talks about palindrome checks, symmetric comparison, or reversing from both ends | Compare characters from both ends and move inward until the condition fails |
 

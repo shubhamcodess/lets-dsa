@@ -150,7 +150,7 @@ Seven stages. You can't skip one, and **nothing advances because you said "got i
 |---|---|
 | **Foundations first** | 8 prerequisite topics, ~16 hours, **61 free article and video links**. Complexity analysis gates *all twenty* patterns; recursion gates five. |
 | **Theory per pattern** | A written brief for each: how to recognize it from a problem *statement*, the invariant, **30 named algorithms** (Dijkstra, Kadane, Boyer–Moore, KMP, Sieve…), a traced micro-example, where it breaks. |
-| **68 sub-patterns** | Finer cuts inside the 20 — "Binary Search on Answers", "DP on Stocks", "Constraint-Based Backtracking" — each with what to look for in a statement. Recognition is the transferable skill. |
+| **77 sub-patterns** | Finer cuts inside the 20 — "Kadane's Algorithm", "Prefix Sum", "Suffix Sum", "Difference Array", "Binary Search on Answers", "DP on Stocks" — each with what to look for in a statement. Recognition is the transferable skill, and the ladder shows the technique next to every problem. |
 | **A ladder that can't skip** | Patterns topologically sorted into 6 tiers — none appears before its prerequisites. Inside a pattern: Easy → Medium → Hard, highest-consensus problem first. |
 | **Real code, no IDE** | `oa` opens a bare editor and actually compiles and runs your code in Java, C++, TypeScript or Python. Nothing is checked while you type — the editor holds no compiler. |
 | **Spaced repetition** | Intervals come from hints and attempts, never self-report. Clean recall grows 5→8→12→19→29 days; a lapse collapses to within a week. |

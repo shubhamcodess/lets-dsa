@@ -85,6 +85,28 @@ RB_SUBPATTERN_TO_PATTERN = {
     "bst": "09-trees", "tree": "09-trees", "traversal": "09-trees",
     "level-order": "09-trees", "recursion": "12-backtracking",
     "stack": "05-stack", "queue": "05-stack", "parenthes": "05-stack",
+    # --- added after an audit found 22 sub-patterns silently unmapped (106 problems).
+    # Each destination is where that sub-pattern's problems ALREADY sit in merged.json,
+    # so these agree with the existing assignment rather than overriding it.
+    "linkedlist with stack": "07-linked-list",   # before the generic "hashmap"
+    "kadane": "17-1d-dp",                    # 3 of 4 in 17-1d-dp
+    "word break": "17-1d-dp", "segmentation": "17-1d-dp",
+    "serialization": "09-trees", "construction": "09-trees",   # 5 of 6 in 09-trees
+    "lowest common ancestor": "09-trees",
+    "merge k sorted": "11-heap-top-k",       # before the generic "merge / sort" below
+    "top k elements": "11-heap-top-k",
+    "expression evaluation": "05-stack",
+    "sorting / local choice": "16-greedy", "huffman": "16-greedy",
+    "lower / upper bound": "04-binary-search", "divide & conquer": "04-binary-search",
+    "subsequences": "12-backtracking",
+    "merge / sort": "07-linked-list",        # all 8 are linked-list problems
+    "basic operations": "07-linked-list",    # all 4 are Design/Intersection LinkedList
+}
+# Topic-level labels that are not sub-patterns at all. Dropped ON PURPOSE and reported,
+# never silently -- a brief padded with a row called "Array" is worse than one without it.
+RB_SUBPATTERN_NOISE = {
+    "array", "arrays", "strings", "string", "graph", "dynamic programming (dp)",
+    "dynamic programming", "strings - general", "general / math", "array - general",
 }
 RB_TOPIC_TO_PATTERN = {
     "array": "01-arrays-hashing", "strings": "01-arrays-hashing", "hashmap": "01-arrays-hashing",
@@ -333,12 +355,31 @@ def parse_risingbrain(html):
     return rows
 
 
+def rb_norm(text):
+    """Fold the spelling variants RisingBrain actually ships: smart vs straight
+    apostrophes, hyphens vs spaces, em dashes, and doubled whitespace. Without this,
+    "Kadane's Algorithm" and "Kadane\u2019s Algorithm" are two different sub-patterns and
+    neither matches a plain-ASCII fragment."""
+    t = (text or "").lower()
+    t = t.replace("\u2019", "'").replace("\u2018", "'")
+    t = t.replace("\u2014", "-").replace("\u2013", "-")
+    t = re.sub(r"[-_]+", " ", t)
+    t = re.sub(r"\s*/\s*", "/", t)
+    return re.sub(r"\s+", " ", t).strip()
+
+
 def rb_pattern_for(subpattern, topic=""):
     """Map a RisingBrain sub-pattern onto one of our 20. Sub-pattern first, topic as
     fallback, and None rather than a guess."""
-    sp = (subpattern or "").lower()
-    for frag, pid in RB_SUBPATTERN_TO_PATTERN.items():
-        if frag in sp:
+    sp = rb_norm(subpattern)
+    if sp in {rb_norm(n) for n in RB_SUBPATTERN_NOISE}:
+        return None
+    # Longest fragment first, so the most specific rule wins regardless of dict order:
+    # "linkedlist with stack" must beat the generic "hashmap", and "merge k sorted" must
+    # beat "merge/sort". Relying on insertion order here is how the specific ones lost.
+    for frag, pid in sorted(RB_SUBPATTERN_TO_PATTERN.items(),
+                            key=lambda kv: -len(kv[0])):
+        if rb_norm(frag) in sp:
             return pid
     t = (topic or "").lower()
     for frag, pid in RB_TOPIC_TO_PATTERN.items():

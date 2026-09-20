@@ -19,6 +19,10 @@ problem statement — that is the transferable part.
 | Sub-pattern | Recognize it when | What you do |
 |---|---|---|
 | **Basic DLL Operations** | Problem mentions insertion/deletion in DLL, printing forwards/backwards, or caching (LRU/MRU/frequency-based) | Maintain prev and next pointers carefully for insert, delete, traversal; use DLL + HashMap for O(1) cache operations |
+| **Basic Operations** | Problem mentions insertion, deletion at head/tail/Nth node or traversal | Directly manipulate pointers to insert, delete, traverse, and get length |
+| **LinkedList with Stack/HashMap** | Problem mentions reverse order processing or “next greater” style operations | Use a stack to handle backward traversal, carry logic, or next greater node |
+| **Merge / Sort** | Problem mentions merging, sorting, or reordering linked lists | Merge sorted lists, sort list using merge sort, or reorder using middle + reverse + merge |
+| **Merge / Sort / Reorder** | Problem involves multi-level DLL, sorting, alternating nodes, palindrome check, conversions, or pair sums | Use DLL properties (prev/next) to efficiently merge, sort, reorder, flatten, or perform pointer-based checks |
 | **Reversal Pattern** | Problem mentions reversing nodes or rearranging linked list order | Reverse entire list, partial list, or groups to reorder nodes |
 
 ## The invariant

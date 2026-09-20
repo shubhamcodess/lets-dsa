@@ -19,12 +19,13 @@ problem statement — that is the transferable part.
 
 | Sub-pattern | Recognize it when | What you do |
 |---|---|---|
-| **Choice-Based Backtracking** | Problem asks for all permutations or combinations reaching a target, where order or reuse of elements matters | At each level pick an unused candidate, recurse, then undo the pick; prune as soon as the partial answer overshoots the target |
+| **Choice-Based Backtracking** | This approach forms a recursion tree and is the backbone of backtracking problems | It is commonly used in problems that ask to generate all possible combinations, subsets, or permutations |
 | **Constraint-Based Backtracking** | Problem mentions “generate all subsets, combinations, parentheses, letters from digits, or selection without rearranging order.” | At each step, choose whether to include an element → explore all subsets/choices recursively |
 | **Grid / Path Backtracking** | Problem mentions “maze, grid, pathfinding, sudoku, word search in grid, Hamiltonian path, or max path gold.” | Move in grid recursively → explore all valid paths → backtrack after each move |
 | **Linear Recursion** | Problems requiring repetitive smaller tasks without splitting into multiple branches | Solve problems by reducing them to a simpler instance of the same problem |
 | **Non-Linear Recursion** | Problems where each step leads to multiple possibilities, such as Fibonacci sequences or finding unique paths on a grid | Make multiple recursive calls at each step to explore different branches and combine their results |
 | **Recursion on LinkedList/Stack** | Problems asking to reverse, delete, or merge standard linear data structures | Process data structures recursively by handling the first/last element and recursing on the rest |
+| **Subsequences** | Problems asking for subsets, combinations, or subsequences | Explore all possible subsets by choosing to include or exclude each element |
 
 ## The invariant
 On entering a node of the decision tree, the current state reflects exactly the sequence of choices made on the path from the root to here; on leaving that node, every one of those choices is undone, restoring the state to what it was before the node was entered.

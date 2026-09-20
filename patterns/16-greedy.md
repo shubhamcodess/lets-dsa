@@ -18,6 +18,8 @@ problem statement — that is the transferable part.
 
 | Sub-pattern | Recognize it when | What you do |
 |---|---|---|
+| **Huffman pattern** | Repeatedly combine the two smallest elements to minimize the total cost | Repeatedly combine the two smallest elements to minimize the total cost |
+| **Sorting / Local Choice** | Problem mentions “maximize/minimize sum, select elements optimally, assign/distribute resources, or custom order” | Sort array or select elements → make locally optimal choice → achieve global optimum |
 | **Stack + Greedy** | Problems asking for smallest/largest sequence, removing k elements | Combine stack properties with greedy choices to optimize strings or numbers |
 
 ## The invariant

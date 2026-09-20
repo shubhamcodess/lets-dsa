@@ -18,10 +18,11 @@ problem statement — that is the transferable part.
 
 | Sub-pattern | Recognize it when | What you do |
 |---|---|---|
+| **Expression Evaluation** | Problem involves evaluating arithmetic expressions, parentheses, or decoding strings | Use two stacks or postfix evaluation to handle numbers and operators efficiently |
 | **Parenthesis & Scoring** | Problem mentions parentheses, balanced brackets, scoring, or generation | Push opening symbols and validate closing ones; sometimes track count or score |
 | **Recursive Stack** | Problem mentions reverse/insert/delete recursively, sort stack, merge lists, or check palindrome recursively | Handle top/head element recursively → recurse on remaining stack/list → combine/insert results |
-| **Stack Simulation / Undo Operation** | Problem mentions “undo,” “remove duplicates,” or “backspace string” operations | Simulate operations using a stack → pop on undo, remove adjacent duplicates, collapse characters |
 | **Stack-Based Design** | Problem mentions designing stack/queue systems or custom operations | Use two stacks to implement another data structure or maintain extra info |
+| **Stack Simulation / Undo Operation** | Problem mentions “undo,” “remove duplicates,” or “backspace string” operations | Simulate operations using a stack → pop on undo, remove adjacent duplicates, collapse characters |
 
 ## The invariant
 The stack holds exactly the items that have been opened but not yet closed, with the innermost (most recently opened) one on top.

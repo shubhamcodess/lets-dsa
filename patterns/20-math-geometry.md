@@ -18,7 +18,6 @@ problem statement — that is the transferable part.
 | Sub-pattern | Recognize it when | What you do |
 |---|---|---|
 | **Array — General / Math** | Problem is a direct simulation or formula — Pascal’s triangle rows, spiral order, leaders — with no reusable pattern behind it | Work out the traversal order or recurrence by hand first, then translate it into index arithmetic with explicit boundary checks |
-| **General / Math** | Problem is pure number manipulation — digit extraction, reversal, divisibility — with no data structure involved | Work digit by digit with / and %, and guard against overflow, zero, and negative inputs |
 
 ## The invariant
 A specific mathematical property (a formula, a positional relationship, a parity or divisibility fact) holds true at every step of the process, and it is exactly this property that makes the shortcut valid instead of needing to simulate the full process.

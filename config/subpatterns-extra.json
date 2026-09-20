@@ -1,0 +1,50 @@
+{
+  "_comment": [
+    "Hand-authored sub-patterns that none of the seven curated sheets names, but that",
+    "interviewers do. Merged into patterns/<id>.md by scripts/augment-briefs.py alongside",
+    "the sheet-derived ones, so a hand edit to a brief is never silently regenerated away.",
+    "",
+    "Add an entry only when the technique has a distinct RECOGNITION SIGNAL. If the signal",
+    "is the same as an existing row, it is the same sub-pattern under another name."
+  ],
+  "01-arrays-hashing": [
+    {
+      "name": "Suffix Sum / Suffix Max",
+      "recognize": "The answer at index i depends on everything to its RIGHT — 'product of all except self', 'can I reach the end', 'best trade after this day'",
+      "strategy": "Sweep right-to-left accumulating the running total or running max into a suffix array, then combine with the prefix sweep in a second pass. Two passes, O(n), no nested loop",
+      "why": "The mirror of prefix sum, and the half people forget. Learners who only know prefix sum solve the left-to-right variants and stall on the rest."
+    },
+    {
+      "name": "Prefix XOR",
+      "recognize": "Range query over XOR instead of sum — 'xor of subarray', 'subarrays with xor equal to k'",
+      "strategy": "XOR is its own inverse, so the same prefix trick works with XOR in place of subtraction: xor[i..j] = pre[j] ^ pre[i-1]",
+      "why": "The identity that makes it work is not obvious, and it is the whole problem."
+    },
+    {
+      "name": "Difference Array",
+      "recognize": "Many range UPDATES then one final read — 'add val to every index in [l, r]', 'car pooling', 'corporate flight bookings'",
+      "strategy": "Record only the boundaries of each update (+val at l, -val at r+1), then one prefix-sum pass at the end turns the boundary marks into the final array. O(1) per update instead of O(r-l)",
+      "why": "The inverse of prefix sum, and the reason a range-update problem is not O(n*q)."
+    },
+    {
+      "name": "2-D Prefix Sum",
+      "recognize": "Repeated sum over a RECTANGLE of a grid — 'sum of submatrix', 'matrix block sum', many queries on a static matrix",
+      "strategy": "Build a cumulative grid where each cell holds the sum of everything above-and-left, then any rectangle is four lookups by inclusion-exclusion",
+      "why": "The inclusion-exclusion step is where this is got wrong, and it generalises the 1-D idea rather than replacing it."
+    }
+  ],
+  "02-two-pointers": [
+    {
+      "name": "Dutch National Flag / 3-Way Partition",
+      "recognize": "Sort or group into exactly THREE categories in one pass, in place — 'sort colors', 'partition around a pivot value'",
+      "strategy": "Three pointers: a low boundary, a high boundary, and a scanner. Swap the scanned element to whichever boundary it belongs to and move only the pointers that are safe to move",
+      "why": "The classic trap is advancing the scanner after a swap with the high boundary, which skips an unexamined element."
+    },
+    {
+      "name": "Cyclic Sort",
+      "recognize": "The values are a permutation of 1..n or 0..n-1 and the problem asks for a missing, duplicate, or misplaced number — and wants O(1) extra space",
+      "strategy": "Each value has exactly one correct home index. Repeatedly swap the current element to its home until the position is settled, then a single scan reveals whichever index disagrees with its value",
+      "why": "Recognising it from the CONSTRAINT ('values in range 1..n') rather than the wording is the transferable skill."
+    }
+  ]
+}

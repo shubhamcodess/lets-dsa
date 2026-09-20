@@ -18,7 +18,6 @@ problem statement — that is the transferable part.
 
 | Sub-pattern | Recognize it when | What you do |
 |---|---|---|
-| **DP on Intervals** | Problem mentions “intervals, subarray partitions, merging cost, or burst balloons” | Track optimal solutions for subarrays/intervals → matrix chain, merging, or balloon burst patterns |
 | **Intervals & Reach** | Problem mentions “maximum non-overlapping intervals, tasks, meetings, jump to end, minimum steps, or cover intervals” | Sort intervals or extend reach as far as possible from current position → maximize tasks done / minimize steps |
 
 ## The invariant

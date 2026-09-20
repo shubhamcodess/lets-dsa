@@ -20,6 +20,8 @@ problem statement — that is the transferable part.
 |---|---|---|
 | **Binary Search on Answers** | Problem mentions minimum/maximum feasible value or optimization over a range | Treat answer space as sorted → binary search to find minimum/maximum feasible value |
 | **Classic Binary Search** | Problem mentions a sorted array or “find element efficiently.” | Divide-and-conquer → narrow search space in sorted array |
+| **Divide & Conquer** | Sorting, searching in structured data, reducing complexity logarithmically | Divide the problem into smaller subproblems, solve them recursively, and combine results |
+| **Lower / Upper Bound** | Problem mentions first/last occurrence, bounds, or constraints on index | Find first/last occurrence or smallest/largest index satisfying a condition |
 
 ## The invariant
 The answer is always inside the current [lo, hi] range; every half discarded at each step has been proven not to contain it.
