@@ -12,6 +12,16 @@ A tree keyed by character, where every path down from the root spells out a pref
 - The task is explicitly to "design" a data structure that supports insert, search, and prefix-check operations on strings.
 - A grid or board is searched for many target words simultaneously, where the words share prefixes that would otherwise be re-scanned from scratch for each one.
 
+## Sub-patterns inside this family
+
+Finer cuts of the same idea. The **recognize** column is what to look for in a
+problem statement — that is the transferable part.
+
+| Sub-pattern | Recognize it when | What you do |
+|---|---|---|
+| **Basic Trie Operations** | Problem mentions “dictionary, prefix search, word lookup, autocomplete, or predictive text” | Build Trie → insert words → search full word or prefix efficiently → collect suggestions in lexicographic order |
+| **Bitwise Trie / XOR** | Problem mentions “maximize XOR, XOR queries, bit-level optimization, or subsets” | Use Trie for binary representation of numbers → efficiently find maximum/minimum XOR or subset XOR |
+
 ## The invariant
 Every path from the root spells a prefix of at least one word that was inserted, and a node is marked "end of word" exactly when some inserted word ends there.
 

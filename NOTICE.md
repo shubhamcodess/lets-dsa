@@ -28,6 +28,7 @@ is theirs:
 - [NeetCode 150](https://neetcode.io/) — Navdeep Singh
 - [Striver's A2Z, SDE, Blind 75 and 79 sheets](https://takeuforward.org/) — Raj Vikramaditya (takeuforward)
 - [CodingShuttle CS SDE Sheet](https://www.codingshuttle.com/)
+- [RisingBrain](https://risingbrain.org/sheet) — pattern taxonomy, sub-pattern identification signals, and company tags
 - [LeetCode](https://leetcode.com/) — problem data via its public GraphQL API and the
   [leetcode-mcp-server](https://github.com/jinzcdev/leetcode-mcp-server)
 

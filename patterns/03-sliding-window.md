@@ -11,6 +11,17 @@ A contiguous range that grows on the right and shrinks on the left, so each elem
 - The condition has a "breakable and repairable" quality: adding an element can violate it, and removing an element from the front can restore it.
 - You can imagine checking every contiguous range with two nested loops (outer = start, inner = end), and notice that as the start moves forward, most of the work from the previous range is still valid.
 
+## Sub-patterns inside this family
+
+Finer cuts of the same idea. The **recognize** column is what to look for in a
+problem statement — that is the transferable part.
+
+| Sub-pattern | Recognize it when | What you do |
+|---|---|---|
+| **Heap with Sliding Window** | Problem mentions sliding window maximum/minimum or frequency-based window queries | Maintain a heap of elements in the window → pop outdated elements → track maximum |
+| **Sliding Window** | Problem uses words like “window of size k”, “longest”, “shortest”, or “at most K” | Maintain a window of fixed size or expand/shrink it to satisfy a condition |
+| **Sliding Window (String)** | Problem uses words like longest, shortest, substring, at most K, exactly K | Maintain a moving window and adjust its size to satisfy character constraints |
+
 ## The invariant
 The window always satisfies the condition (or is the smallest/first violation of it), and the best window seen so far is remembered as the running answer.
 

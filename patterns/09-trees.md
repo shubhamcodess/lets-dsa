@@ -12,6 +12,18 @@ Recursion mirrors the tree's own structure: decide what each node needs from its
 - It asks to build a tree from a description (traversal orders, a string, a list) or to serialize one into a string.
 - It asks for something "level by level" — a strong signal for breadth-first traversal specifically, rather than depth-first.
 
+## Sub-patterns inside this family
+
+Finer cuts of the same idea. The **recognize** column is what to look for in a
+problem statement — that is the transferable part.
+
+| Sub-pattern | Recognize it when | What you do |
+|---|---|---|
+| **BST** | Problem mentions “BST operations, validate BST, insert/delete nodes, or sum/range queries.” | Leverage BST property (left < root < right) for search, insertion, deletion, and range queries |
+| **BST Operations** | Problem mentions “BST operations, validate BST, insert/delete nodes, or sum/range queries.” | Leverage BST property (left < root < right) for search, insertion, deletion, and range queries |
+| **DP on Trees / DAGs** | Problem mentions “trees, DAGs, path sums, node coverage, or ways to traverse dependent nodes” | Recursion + memoization → track states along tree paths → post-order traversal |
+| **Decision Tree / Sequence Generation** | Problems where you recursively build sequences, combinations of digits/letters, or expressions | Generate sequences or strings recursively by making a choice at each step |
+
 ## The invariant
 Each recursive call returns a correct answer for its whole subtree, on the assumption that the calls it made on its children already did.
 

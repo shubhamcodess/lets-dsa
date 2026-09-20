@@ -12,6 +12,19 @@ Trade space for time: a lookup table turns "have I seen this?" or "how many time
 - The order of the output does not matter, only which elements or how many.
 - The alphabet or value range is small and fixed (letters, digits), which hints that a table indexed by that range will work.
 
+## Sub-patterns inside this family
+
+Finer cuts of the same idea. The **recognize** column is what to look for in a
+problem statement — that is the transferable part.
+
+| Sub-pattern | Recognize it when | What you do |
+|---|---|---|
+| **Frequency Map / Counting** | Problem mentions frequency, duplicates, top-k, or counting occurrences | Count elements to find majority, top-k frequent, or sort by frequency |
+| **HashMap Design (implementation)** | Problem says “design” or “implement” a map/set without using the language’s built-in one | Back the structure with a bucket array plus chaining, then implement hash, put, get, and remove on top of it |
+| **LinkedList with Stack / HashMap** | Problem mentions reverse order processing or “next greater” style operations | Use a stack to handle backward traversal, carry logic, or next greater node |
+| **LinkedList with Stack/HashMap** | Problem mentions reverse order processing or “next greater” style operations | Use a stack to handle backward traversal, carry logic, or next greater node |
+| **Prefix Sum** | Problem talks about range sum, subarray sum, cumulative sum, or prefix-based queries | Precompute cumulative sums so any subarray or range sum can be answered in O(1) |
+
 ## The invariant
 The table always holds a summary (presence, count, or last-seen position) of every element processed so far, and nothing else.
 

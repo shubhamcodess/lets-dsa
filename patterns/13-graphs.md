@@ -12,6 +12,20 @@ A graph is a tree that's allowed to have cycles and multiple paths between nodes
 - It asks about cycles, or about ordering things so that dependencies come before what depends on them.
 - It asks whether every node can reach every other node, or how many separate groups the nodes fall into.
 
+## Sub-patterns inside this family
+
+Finer cuts of the same idea. The **recognize** column is what to look for in a
+problem statement — that is the transferable part.
+
+| Sub-pattern | Recognize it when | What you do |
+|---|---|---|
+| **BFS (Unweighted Path)** | Problem mentions “shortest path, level-order traversal, or unweighted distance” | Standard BFS → track distance/levels → queue-based traversal → multi-source if needed |
+| **BFS / Level-Order** | Problem mentions “level-order, breadth-first, zigzag, right-side view, or level sum/average.” | Use queue → traverse level by level → calculate sums, averages, or side views |
+| **BFS Pattern** | Problem mentions “shortest path, level-order traversal, or unweighted distance” | Standard BFS → track distance/levels → queue-based traversal → multi-source if needed |
+| **DFS (Connectivity)** | Problem mentions “connected components, islands, cycles, safe states, bipartite check, bridges, articulation points, or connectivity check” | DFS recursion or stack → track visited → identify connected components or detect cycles |
+| **DFS Traversals** | Problem mentions “visit all nodes recursively, max depth/path/subtree sum.” | Standard DFS → used for max depth, path sums, subtree calculations |
+| **Topological Sort** | Problem mentions “ordering tasks, course prerequisites, dependency chains, build order, or cycle in directed graph” | DFS postorder or BFS (Kahn’s algorithm) → order nodes respecting dependencies |
+
 ## The invariant
 Every node is enqueued (or recursed into) at most once — visited status is marked at the moment a node is *discovered* and scheduled for processing, not at the moment it's actually processed, or the same node can enter the frontier multiple times.
 

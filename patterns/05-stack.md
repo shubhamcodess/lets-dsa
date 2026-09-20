@@ -11,6 +11,18 @@ Last-in-first-out storage matches any structure where the most recently opened, 
 - The task is to parse or evaluate an expression, especially one with nested sub-expressions.
 - You notice the natural solution would be recursive, but the problem wants (or the constraints demand) an iterative version — recursion's call stack is itself a stack, and simulating it explicitly is the tell.
 
+## Sub-patterns inside this family
+
+Finer cuts of the same idea. The **recognize** column is what to look for in a
+problem statement — that is the transferable part.
+
+| Sub-pattern | Recognize it when | What you do |
+|---|---|---|
+| **Parenthesis & Scoring** | Problem mentions parentheses, balanced brackets, scoring, or generation | Push opening symbols and validate closing ones; sometimes track count or score |
+| **Recursive Stack** | Problem mentions reverse/insert/delete recursively, sort stack, merge lists, or check palindrome recursively | Handle top/head element recursively → recurse on remaining stack/list → combine/insert results |
+| **Stack Simulation / Undo Operation** | Problem mentions “undo,” “remove duplicates,” or “backspace string” operations | Simulate operations using a stack → pop on undo, remove adjacent duplicates, collapse characters |
+| **Stack-Based Design** | Problem mentions designing stack/queue systems or custom operations | Use two stacks to implement another data structure or maintain extra info |
+
 ## The invariant
 The stack holds exactly the items that have been opened but not yet closed, with the innermost (most recently opened) one on top.
 

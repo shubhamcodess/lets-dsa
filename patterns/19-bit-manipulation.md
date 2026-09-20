@@ -10,6 +10,17 @@ Treat an integer as a fixed-width array of independent bits, and use XOR to canc
 - It talks about counting set bits, finding a single number among duplicates or pairs, or flipping/toggling individual bits.
 - Subsets of a small set are being represented or enumerated as a bitmask, where each bit stands for "is this element included."
 
+## Sub-patterns inside this family
+
+Finer cuts of the same idea. The **recognize** column is what to look for in a
+problem statement — that is the transferable part.
+
+| Sub-pattern | Recognize it when | What you do |
+|---|---|---|
+| **Advanced XOR** | Problem mentions “maximize XOR, XOR queries, pairs, or range XOR” | Use XOR properties → maximize/minimize XOR over array/subarray or ranges |
+| **Basic Bit Operations** | Problem mentions “unique element, missing number, or bit counting” | Use XOR / AND / OR / shift operations → detect single/missing numbers or count bits efficiently |
+| **Subsets / Bitmask** | Problem mentions “generate subsets, combinations, or mask enumeration” | Iterate through all subsets using bits → solve combinatorial or DP counting problems |
+
 ## The invariant
 Each bit position can be reasoned about completely independently of every other bit position — operations on one bit never depend on the value of any other bit.
 

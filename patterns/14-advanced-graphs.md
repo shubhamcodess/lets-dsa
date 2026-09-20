@@ -12,6 +12,18 @@ Once edges carry weights or costs, plain BFS stops guaranteeing the shortest ans
 - It mentions a limit on the number of stops, edges, or hops allowed along the way, on top of minimizing cost.
 - It asks for an ordering with additional structure beyond a simple topological sort — for example, counting how many valid orderings exist, or finding the lexicographically smallest one.
 
+## Sub-patterns inside this family
+
+Finer cuts of the same idea. The **recognize** column is what to look for in a
+problem statement — that is the transferable part.
+
+| Sub-pattern | Recognize it when | What you do |
+|---|---|---|
+| **Bellman-Ford** | Problem mentions “negative weights, cycles, or cost minimization with negative edges” | Relax all edges V-1 times → detect negative cycles |
+| **Dijkstra (Weighted)** | Problem mentions “weighted edges, shortest path, or minimum distance in weighted graph” | Use priority queue → relax edges → track shortest distances |
+| **Floyd-Warshall** | Problem mentions “all-pairs shortest paths, matrix, or city connectivity between any two nodes” | DP over adjacency matrix → shortest paths between all pairs of nodes |
+| **MST / Union-Find** | Problem mentions “minimum cost to connect all nodes, redundant connections, union-find required” | Use Kruskal’s / Prim’s algorithm or Union-Find → find MST, minimum cost connections, or detect cycles |
+
 ## The invariant
 Once a node is finalized (its shortest distance is settled and will never be revisited), that distance is optimal and will never change again — everything explored afterward can only be equal or worse.
 

@@ -10,6 +10,15 @@ A stack kept sorted (increasing or decreasing) discards elements that can never 
 - The shape is a histogram, skyline, or "trapping rain water" style problem — bars or heights where you need to know what's bigger nearby.
 - You can describe the brute force as: for each element, scan forward (or backward) until you find the first element that's bigger (or smaller) than it — a nested loop where the inner loop is a directional search for a threshold crossing.
 
+## Sub-patterns inside this family
+
+Finer cuts of the same idea. The **recognize** column is what to look for in a
+problem statement — that is the transferable part.
+
+| Sub-pattern | Recognize it when | What you do |
+|---|---|---|
+| **Monotonic Stack** | Problem mentions “next greater/smaller element,” spans, or trapping area | Maintain a monotonic increasing/decreasing stack to find next/prev greater/smaller, histogram ranges, or collisions |
+
 ## The invariant
 The stack is always kept monotonic (strictly increasing or strictly decreasing from bottom to top); anything popped off was made irrelevant by the very element that popped it.
 

@@ -11,6 +11,16 @@ Pointer surgery: since you cannot index into the middle of a linked list, you ke
 - The problem explicitly demands O(1) extra space on a list, ruling out the shortcut of copying values into an array to solve it there.
 - The description mentions traversing "from the front only" — no indexing, no jumping backward without a stored reference.
 
+## Sub-patterns inside this family
+
+Finer cuts of the same idea. The **recognize** column is what to look for in a
+problem statement — that is the transferable part.
+
+| Sub-pattern | Recognize it when | What you do |
+|---|---|---|
+| **Basic DLL Operations** | Problem mentions insertion/deletion in DLL, printing forwards/backwards, or caching (LRU/MRU/frequency-based) | Maintain prev and next pointers carefully for insert, delete, traversal; use DLL + HashMap for O(1) cache operations |
+| **Reversal Pattern** | Problem mentions reversing nodes or rearranging linked list order | Reverse entire list, partial list, or groups to reorder nodes |
+
 ## The invariant
 At every step, the already-processed prefix of the list is fully and correctly rewired, and the not-yet-processed suffix is still intact and reachable from wherever the current pointer sits.
 

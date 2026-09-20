@@ -4,7 +4,7 @@
 
 ### A DSA tutor that refuses to give you the answer.
 
-[![problems](https://img.shields.io/badge/problems-343%20verified-2ea44f?style=flat-square)](curriculum/merged.json)
+[![problems](https://img.shields.io/badge/problems-428%20verified-2ea44f?style=flat-square)](curriculum/merged.json)
 [![patterns](https://img.shields.io/badge/patterns-20-1f6feb?style=flat-square)](patterns/)
 [![foundations](https://img.shields.io/badge/foundations-8%20topics-8957e5?style=flat-square)](config/foundations.json)
 [![languages](https://img.shields.io/badge/oa%20languages-java%20%7C%20c%2B%2B%20%7C%20ts%20%7C%20py-db6d28?style=flat-square)](skills/oa-practice/)
@@ -150,6 +150,7 @@ Seven stages. You can't skip one, and **nothing advances because you said "got i
 |---|---|
 | **Foundations first** | 8 prerequisite topics, ~16 hours, **61 free article and video links**. Complexity analysis gates *all twenty* patterns; recursion gates five. |
 | **Theory per pattern** | A written brief for each: how to recognize it from a problem *statement*, the invariant, **30 named algorithms** (Dijkstra, Kadane, Boyer–Moore, KMP, Sieve…), a traced micro-example, where it breaks. |
+| **68 sub-patterns** | Finer cuts inside the 20 — "Binary Search on Answers", "DP on Stocks", "Constraint-Based Backtracking" — each with what to look for in a statement. Recognition is the transferable skill. |
 | **A ladder that can't skip** | Patterns topologically sorted into 6 tiers — none appears before its prerequisites. Inside a pattern: Easy → Medium → Hard, highest-consensus problem first. |
 | **Real code, no IDE** | `oa` opens a bare editor and actually compiles and runs your code in Java, C++, TypeScript or Python. Nothing is checked while you type — the editor holds no compiler. |
 | **Spaced repetition** | Intervals come from hints and attempts, never self-report. Clean recall grows 5→8→12→19→29 days; a lapse collapses to within a week. |
@@ -220,7 +221,7 @@ Full detail and the honest limits: [`docs/MODES.md`](docs/MODES.md)
 
 ## 📚 Where the content comes from
 
-Seven curated sheets, merged by LeetCode slug into **343 unique problems** — 73 Easy · 209 Medium · 61 Hard.
+Eight curated sheets, merged by LeetCode slug into **428 unique problems** — 89 Easy · 261 Medium · 78 Hard.
 
 | Source | Problems | On LeetCode |
 |---|---|---|
@@ -231,6 +232,7 @@ Seven curated sheets, merged by LeetCode slug into **343 unique problems** — 7
 | [Striver's 79](https://takeuforward.org/dsa/strivers-79-last-moment-dsa-sheet-ace-interviews) | 79 | 55 |
 | [CodingShuttle CS SDE](https://www.codingshuttle.com/sheets/cs-sde-sheet/) | 169 | 169 |
 | [LeetCode "Striver SDE" list](https://leetcode.com/problem-list/eeudwo2i/) | 117 | 117 |
+| [RisingBrain pattern sheet](https://risingbrain.org/sheet) | 479 | 291 |
 
 Every slug is verified against LeetCode's public GraphQL. Live problem data comes through a pinned [MCP server](https://github.com/jinzcdev/leetcode-mcp-server).
 
@@ -243,7 +245,7 @@ Every slug is verified against LeetCode's public GraphQL. Live problem data come
 ## ⚠️ Honest limitations
 
 - **Claude can't verify you got Accepted.** Auth is off by default, so "solved" is what you say it is. Turn on `LEETCODE_SESSION` and it becomes a real check.
-- **Company tags cover 42 of 343**, from third-party research, each with its source URL. An empty list means *not searched*, not *nobody asks it* — and the data says so.
+- **Company tags cover 296 of 428**, from curated third-party sheets, each with its source. Not LeetCode Premium data. An empty list means *not tagged by any source*, not *nobody asks it*.
 - **`oa` can't harness every problem.** Design problems and `ListNode`/`TreeNode` are refused explicitly rather than mis-harnessed.
 - **The no-code rule is prompt-enforced.** What's mechanical is the MCP deny list, which stops Claude fetching a solution at all.
 - **19 problems are LeetCode Premium.** Setup offers free substitutes.

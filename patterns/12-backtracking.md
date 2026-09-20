@@ -12,6 +12,20 @@ Enumerate a decision tree of choices one branch at a time, and undo each choice 
 - The phrase "generate all ways to..." or "return all possible..." appears in the prompt.
 - Choices must be made in sequence, and a choice made early can make later choices invalid (so some branches must be abandoned partway through).
 
+## Sub-patterns inside this family
+
+Finer cuts of the same idea. The **recognize** column is what to look for in a
+problem statement — that is the transferable part.
+
+| Sub-pattern | Recognize it when | What you do |
+|---|---|---|
+| **Choice-Based Backtracking** | Problem asks for all permutations or combinations reaching a target, where order or reuse of elements matters | At each level pick an unused candidate, recurse, then undo the pick; prune as soon as the partial answer overshoots the target |
+| **Constraint-Based Backtracking** | Problem mentions “generate all subsets, combinations, parentheses, letters from digits, or selection without rearranging order.” | At each step, choose whether to include an element → explore all subsets/choices recursively |
+| **Grid / Path Backtracking** | Problem mentions “maze, grid, pathfinding, sudoku, word search in grid, Hamiltonian path, or max path gold.” | Move in grid recursively → explore all valid paths → backtrack after each move |
+| **Linear Recursion** | Problems requiring repetitive smaller tasks without splitting into multiple branches | Solve problems by reducing them to a simpler instance of the same problem |
+| **Non-Linear Recursion** | Problems where each step leads to multiple possibilities, such as Fibonacci sequences or finding unique paths on a grid | Make multiple recursive calls at each step to explore different branches and combine their results |
+| **Recursion on LinkedList/Stack** | Problems asking to reverse, delete, or merge standard linear data structures | Process data structures recursively by handling the first/last element and recursing on the rest |
+
 ## The invariant
 On entering a node of the decision tree, the current state reflects exactly the sequence of choices made on the path from the root to here; on leaving that node, every one of those choices is undone, restoring the state to what it was before the node was entered.
 

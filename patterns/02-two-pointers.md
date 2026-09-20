@@ -12,6 +12,16 @@ On sorted or symmetric data, two indices moving toward each other (or one chasin
 - The task asks to partition the array in place, remove elements in place, or de-duplicate in place without extra space.
 - You can describe a brute force as checking every pair with a nested loop, and the sorted order would let you rule out whole ranges of pairs at once.
 
+## Sub-patterns inside this family
+
+Finer cuts of the same idea. The **recognize** column is what to look for in a
+problem statement — that is the transferable part.
+
+| Sub-pattern | Recognize it when | What you do |
+|---|---|---|
+| **Two-Pointer** | Problem involves pairs, sorted arrays, triplets, or opposite-end traversal | Use two indices that move towards or away from each other to reduce redundant comparisons |
+| **Two-Pointer (Palindrome)** | Problem talks about palindrome checks, symmetric comparison, or reversing from both ends | Compare characters from both ends and move inward until the condition fails |
+
 ## The invariant
 Everything outside the current [left, right] window has already been decided (included, excluded, or ruled out) and will never need revisiting.
 

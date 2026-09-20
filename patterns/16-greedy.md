@@ -11,6 +11,15 @@ At every step, take the choice that looks best right now, and trust — because 
 - You can imagine an exchange argument: if an optimal solution didn't make the locally-best choice at some step, you could swap it for the locally-best choice without making things worse.
 - The decision at each step does not need to be revisited later — once made, it's final, and no combination of future decisions would make you regret it.
 
+## Sub-patterns inside this family
+
+Finer cuts of the same idea. The **recognize** column is what to look for in a
+problem statement — that is the transferable part.
+
+| Sub-pattern | Recognize it when | What you do |
+|---|---|---|
+| **Stack + Greedy** | Problems asking for smallest/largest sequence, removing k elements | Combine stack properties with greedy choices to optimize strings or numbers |
+
 ## The invariant
 The partial solution built so far, using only locally-best choices, can always be extended into a solution that is at least as good as any other valid extension.
 

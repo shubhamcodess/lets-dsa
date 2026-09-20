@@ -11,6 +11,16 @@ Halve a search space that has a monotonic yes/no property — the array itself n
 - The problem asks for the minimum value that satisfies some property, or the maximum value that still satisfies it ("smallest X such that...", "largest capacity such that...").
 - You can imagine writing a yes/no check for a candidate value, and that check is false for small candidates and becomes true for large candidates (or vice versa) without flipping back and forth.
 
+## Sub-patterns inside this family
+
+Finer cuts of the same idea. The **recognize** column is what to look for in a
+problem statement — that is the transferable part.
+
+| Sub-pattern | Recognize it when | What you do |
+|---|---|---|
+| **Binary Search on Answers** | Problem mentions minimum/maximum feasible value or optimization over a range | Treat answer space as sorted → binary search to find minimum/maximum feasible value |
+| **Classic Binary Search** | Problem mentions a sorted array or “find element efficiently.” | Divide-and-conquer → narrow search space in sorted array |
+
 ## The invariant
 The answer is always inside the current [lo, hi] range; every half discarded at each step has been proven not to contain it.
 

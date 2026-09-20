@@ -12,6 +12,15 @@ Two pointers walk the same sequence at different speeds, and the gap between the
 - A number range is dressed up as an implicit linked list: values in `[1, n]` used as indices into an array of length `n+1`, where following "value at index" repeatedly is really walking a chain.
 - "Without extra space" or "in O(1) memory" is emphasized, ruling out the obvious hash-set solution.
 
+## Sub-patterns inside this family
+
+Finer cuts of the same idea. The **recognize** column is what to look for in a
+problem statement — that is the transferable part.
+
+| Sub-pattern | Recognize it when | What you do |
+|---|---|---|
+| **Fast and Slow Pointers** | Problem involves loops, cycle detection, or middle node operations | Use two pointers at different speeds to detect cycles, middle node, or duplicates |
+
 ## The invariant
 Fast has always travelled exactly twice slow's distance, so if a cycle exists, fast eventually laps slow and they occupy the same node.
 

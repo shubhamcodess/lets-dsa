@@ -96,7 +96,7 @@ Nine skills at `skills/<name>/SKILL.md`. Claude reads all of them at session sta
 
 | Script | Does | Writes |
 |---|---|---|
-| `build-curriculum.py [--verify] [--refresh]` | fetches 5 curated sheets (NeetCode 150 + Striver A2Z / SDE / Blind 75 / Striver 79), merges them by LeetCode slug, verifies every slug against LeetCode's public GraphQL, and infers a pattern for anything NeetCode didn't already categorize | `curriculum/merged.json` |
+| `build-curriculum.py [--verify] [--refresh] [--union] [--force-write]` | fetches 8 curated sheets (NeetCode 150 + Striver A2Z / SDE / Blind 75 / Striver 79), merges them by LeetCode slug, verifies every slug against LeetCode's public GraphQL, and infers a pattern for anything NeetCode didn't already categorize | `curriculum/merged.json` |
 | `build-foundations.py` | builds the 8 prerequisite topics and their gates from Striver A2Z steps 1–2 | `config/foundations.json` |
 | `apply-research.py [--dry-run]` | merges model/web research into the curriculum, re-verifying every proposed pattern against real LeetCode tags and discarding any company list with no source URL | `curriculum/merged.json` |
 | `sync-vault.sh -m "..."` | merges main into personal-main in `.personal-worktree`, copies learning data in, commits and pushes `personal-main:main` to the private repo. The only correct path to the `personal` remote | private repo |
@@ -105,6 +105,7 @@ Nine skills at `skills/<name>/SKILL.md`. Claude reads all of them at session sta
 | `schedule.py {grade,next,due}` | FSRS-inspired spaced repetition. Derives a grade from hints/attempts (never self-report), grows intervals 5→8→12→19→29d on clean recall, collapses to ≤7d on a lapse | question frontmatter `srs_*` |
 | `confusion.py` | builds a personal error profile from the learner's own defect tables, wrong S1 pattern guesses and hint counts | `state/confusion.json` |
 | `oa-run.py --slug S --lang L --file F [--tests T] [--record]` | fetches `metaData` live, generates a test harness for that problem, compiles and runs the learner's code, remaps compile-error line numbers to their own file, and appends the attempt to the ledger | `state/oa-attempts.json` |
+| `augment-briefs.py` | adds RisingBrain's sub-pattern recognition signals into `patterns/*.md`, filtering marketing filler | `patterns/*.md` |
 | `roll-stats.py` | aggregates question + topic frontmatter into mastery bands and open foundation gates | `state/stats.json` |
 | `status.py` | read-only session-start snapshot, reports failing setup gates | nothing |
 

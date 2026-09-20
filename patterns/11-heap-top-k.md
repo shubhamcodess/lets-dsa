@@ -12,6 +12,15 @@ You rarely need the whole thing sorted — a heap of size k keeps only the candi
 - It involves scheduling or repeatedly picking "the best available option right now" and putting it back with a changed priority afterward (like a cooldown or a task queue).
 - The phrase "k" appears attached to a comparison ("kth largest", "top k", "k closest") rather than needing every element ranked.
 
+## Sub-patterns inside this family
+
+Finer cuts of the same idea. The **recognize** column is what to look for in a
+problem statement — that is the transferable part.
+
+| Sub-pattern | Recognize it when | What you do |
+|---|---|---|
+| **Implementation of Heap** | Design Priority Queue | Design heap |
+
 ## The invariant
 The heap holds the best k candidates seen so far, and its root (top) is always the weakest of those k — the one that gets evicted the instant something better shows up.
 

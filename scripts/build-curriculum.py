@@ -51,6 +51,50 @@ UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/
 
 NEETCODE_URL = "https://raw.githubusercontent.com/krmanik/Anki-NeetCode/main/neetcode-150-list.json"
 CODINGSHUTTLE_URL = "https://www.codingshuttle.com/sheets/cs-sde-sheet/"
+RISINGBRAIN_URL = "https://risingbrain.org/sheet"
+
+# RisingBrain names 91 distinct sub-patterns. They are NOT new top-level patterns -- they
+# are finer cuts inside the 20, and that is exactly their value: "DP on Stocks" and
+# "Binary Search on Answers" are recognition signals, not new families. Adding them as
+# top-level patterns would wreck the dependency tiers and the ladder.
+RB_SUBPATTERN_TO_PATTERN = {
+    "two-pointer": "02-two-pointers", "sliding window": "03-sliding-window",
+    "fast and slow": "08-fast-slow-pointers", "fast & slow": "08-fast-slow-pointers",
+    "cycle detection": "08-fast-slow-pointers",
+    "monotonic stack": "06-monotonic-stack", "monotonic": "06-monotonic-stack",
+    "binary search on answers": "04-binary-search", "classic binary search": "04-binary-search",
+    "binary search": "04-binary-search",
+    "prefix sum": "01-arrays-hashing", "hashmap": "01-arrays-hashing",
+    "hashing": "01-arrays-hashing", "frequency": "01-arrays-hashing",
+    "trie": "10-tries", "bitwise trie": "10-tries",
+    "backtracking": "12-backtracking", "constraint-based backtracking": "12-backtracking",
+    "choice-based backtracking": "12-backtracking",
+    "bfs": "13-graphs", "dfs": "13-graphs", "topological": "13-graphs",
+    "union find": "14-advanced-graphs", "union-find": "14-advanced-graphs",
+    "dijkstra": "14-advanced-graphs", "bellman-ford": "14-advanced-graphs",
+    "floyd": "14-advanced-graphs", "mst": "14-advanced-graphs",
+    "heap": "11-heap-top-k", "top k": "11-heap-top-k", "priority queue": "11-heap-top-k",
+    "greedy": "16-greedy", "interval": "15-intervals",
+    "1d": "17-1d-dp", "linear dp": "17-1d-dp", "dp on stocks": "17-1d-dp",
+    "knapsack": "17-1d-dp", "dp on subsequences": "17-1d-dp",
+    "2d": "18-2d-dp", "grid dp": "18-2d-dp", "dp on strings": "18-2d-dp",
+    "dp on intervals": "18-2d-dp", "matrix chain": "18-2d-dp",
+    "bit": "19-bit-manipulation", "xor": "19-bit-manipulation",
+    "math": "20-math-geometry", "geometry": "20-math-geometry",
+    "linked list": "07-linked-list", "dll": "07-linked-list", "reversal": "07-linked-list",
+    "bst": "09-trees", "tree": "09-trees", "traversal": "09-trees",
+    "level-order": "09-trees", "recursion": "12-backtracking",
+    "stack": "05-stack", "queue": "05-stack", "parenthes": "05-stack",
+}
+RB_TOPIC_TO_PATTERN = {
+    "array": "01-arrays-hashing", "strings": "01-arrays-hashing", "hashmap": "01-arrays-hashing",
+    "binary search": "04-binary-search", "stack": "05-stack", "recursion": "12-backtracking",
+    "linked list": "07-linked-list", "double linked list": "07-linked-list",
+    "binary tree": "09-trees", "tree": "09-trees", "graph": "13-graphs",
+    "heap": "11-heap-top-k", "backtracking": "12-backtracking", "greedy": "16-greedy",
+    "dynamic programming": "17-1d-dp", "trie": "10-tries",
+    "bit manipulation": "19-bit-manipulation",
+}
 LC_LISTS = {"lc_striver_sde": "eeudwo2i"}
 
 _SSL_CTX = None
@@ -175,8 +219,14 @@ def cached(name, url, refresh):
     path = os.path.join(SOURCES, name)
     if refresh or not os.path.exists(path):
         print(f"  fetching {url}")
+        body = fetch(url)
+        if os.path.exists(path):   # keep the last good copy; upstream pages change shape
+            try:
+                os.replace(path, path + ".prev")
+            except OSError:
+                pass
         with open(path, "w") as f:
-            f.write(fetch(url))
+            f.write(body)
     else:
         print(f"  cache    {name}")
     with open(path) as f:
@@ -232,6 +282,69 @@ def extract_array(payload, key, start=0):
 
 def extract_sections(payload):
     return extract_array(payload, "sections")
+
+
+def parse_risingbrain(html):
+    """RisingBrain nests topic -> pattern -> problems, and each pattern carries an
+    `identification` line -- what to look for in a statement. That text is the most
+    valuable thing in the sheet, because recognition is the skill the whole project is
+    trying to build."""
+    payload = flight_payload(html)
+    if payload is None:
+        raise ValueError("no flight payload — page shape changed")
+
+    topics, pos = [], 0
+    while True:
+        arr = extract_array(payload, "patterns", pos)
+        i = payload.find('"patterns":', pos)
+        if i == -1:
+            break
+        pos = i + 11
+        if arr:
+            topics.append(arr)
+    if not topics:
+        raise ValueError('no "patterns" arrays — page shape changed')
+
+    seen, rows = set(), []
+    for group in topics:
+        for pat in group:
+            if not isinstance(pat, dict):
+                continue
+            pname = (pat.get("name") or "").strip()
+            for q in pat.get("problems", []):
+                if not isinstance(q, dict):
+                    continue
+                url = q.get("leetcodeUrl")
+                key = (url, pname)
+                if key in seen:
+                    continue
+                seen.add(key)
+                rows.append({
+                    "name": q.get("title"), "step_no": 1, "step": "", "substep": pname,
+                    "difficulty": (q.get("difficulty") or "").capitalize(),
+                    "leetcode": url,
+                    "article": q.get("gfgUrl"), "youtube": q.get("youtubeUrl"),
+                    "_subpattern": pname,
+                    "_identification": (pat.get("identification") or "").strip() or None,
+                    "_strategy": (pat.get("strategy") or "").strip() or None,
+                    "_companies": [c.get("name") for c in (q.get("companies") or [])
+                                   if isinstance(c, dict) and c.get("name")],
+                })
+    return rows
+
+
+def rb_pattern_for(subpattern, topic=""):
+    """Map a RisingBrain sub-pattern onto one of our 20. Sub-pattern first, topic as
+    fallback, and None rather than a guess."""
+    sp = (subpattern or "").lower()
+    for frag, pid in RB_SUBPATTERN_TO_PATTERN.items():
+        if frag in sp:
+            return pid
+    t = (topic or "").lower()
+    for frag, pid in RB_TOPIC_TO_PATTERN.items():
+        if frag in t:
+            return pid
+    return None
 
 
 def parse_codingshuttle(html):
@@ -298,35 +411,76 @@ def fetch_leetcode_list(fav_slug):
 
 
 def parse_tuf(html):
-    """Normalize both shapes: nested (category -> subcategories -> problems) as in A2Z,
-    and flat (category -> problems) as in the SDE sheet."""
+    """takeuforward's sheets.
+
+    They shipped nested {"sections": [{subcategories: [{problems: [...]}]}]} until
+    Sept 2026, then moved to positional RSC rows:
+
+        [8, 376, "reverse-a-number", "item", "practice", "Reverse a number", "7 min",
+         {"layoutType":..., "itemSlug":..., "category":"basic-maths"},
+         "<youtube>", "<article>", "<leetcode>", true, "unsolved", ...]
+
+    Both are handled. The old path stays because a cached page may still use it, and a
+    parser that only knows today's shape breaks silently on the next change.
+    """
     payload = flight_payload(html)
     if payload is None:
-        raise ValueError("no flight payload — page shape changed")
-    sections = extract_sections(payload)
-    if sections is None:
-        raise ValueError('no "sections" key — page shape changed')
+        raise ValueError("no flight payload -- page shape changed")
 
-    rows = []
-    for n, cat in enumerate(sections, 1):
-        cname = cat.get("category_name", "")
-        groups = cat.get("subcategories")
-        if groups is None:
-            groups = [{"subcategory_name": None, "problems": cat.get("problems", [])}]
-        for grp in groups:
-            for p in grp.get("problems", []):
-                def clean(v):
-                    return v if isinstance(v, str) and v.startswith("http") else None
-                rows.append({
-                    "name": p.get("problem_name"),
-                    "step_no": n,
-                    "step": cname,
-                    "substep": grp.get("subcategory_name"),
-                    "difficulty": p.get("difficulty"),
-                    "leetcode": clean(p.get("leetcode")),
-                    "article": clean(p.get("article")),
-                    "youtube": clean(p.get("youtube")),
-                })
+    sections = extract_sections(payload)
+    if sections:
+        rows = []
+        for n, cat in enumerate(sections, 1):
+            cname = cat.get("category_name", "")
+            groups = cat.get("subcategories")
+            if groups is None:
+                groups = [{"subcategory_name": None, "problems": cat.get("problems", [])}]
+            for grp in groups:
+                for q in grp.get("problems", []):
+                    def clean(v):
+                        return v if isinstance(v, str) and v.startswith("http") else None
+                    rows.append({
+                        "name": q.get("problem_name"), "step_no": n, "step": cname,
+                        "substep": grp.get("subcategory_name"),
+                        "difficulty": q.get("difficulty"),
+                        "leetcode": clean(q.get("leetcode")),
+                        "article": clean(q.get("article")),
+                        "youtube": clean(q.get("youtube"))})
+        if rows:
+            return rows
+
+    row_re = re.compile(
+        r'\[\d+,\d+,"(?P<slug>[^"]+)","item","practice","(?P<title>[^"]*)","[^"]*",'
+        r'\{"layoutType":"[^"]*","subjectSlug":"[^"]*","contentType":"[^"]*",'
+        # `category` is present on the A2Z sheet and absent on Blind 75 -- optional.
+        r'"itemSlug":"[^"]*"(?:,"category":"(?P<category>[^"]*)")?\},'
+        r'(?P<a>"[^"]*"|\$undefined|false|null),'
+        r'(?P<b>"[^"]*"|\$undefined|false|null),'
+        r'(?P<c>"[^"]*"|\$undefined|false|null)')
+
+    def unq(v):
+        if not v or not v.startswith('"'):
+            return None
+        v = v[1:-1]
+        return v if v.startswith("http") else None
+
+    rows, seen = [], set()
+    for m in row_re.finditer(payload):
+        slug = m.group("slug")
+        if slug in seen:
+            continue
+        seen.add(slug)
+        urls = [unq(m.group(k)) for k in ("a", "b", "c")]
+        lc = next((u for u in urls if u and "leetcode.com" in u), None)
+        yt = next((u for u in urls if u and "youtu" in u), None)
+        art = next((u for u in urls if u and u not in (lc, yt)), None)
+        cat = (m.group("category") or "").replace("-", " ").strip()
+        rows.append({"name": m.group("title") or slug.replace("-", " ").title(),
+                     "step_no": 1, "step": cat.title(), "substep": cat.title() or None,
+                     "difficulty": None, "leetcode": lc, "article": art, "youtube": yt})
+    if not rows:
+        raise ValueError("neither the nested nor the positional shape matched -- "
+                         "takeuforward changed again; update parse_tuf")
     return rows
 
 
@@ -367,6 +521,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--verify", action="store_true")
     ap.add_argument("--refresh", action="store_true")
+    ap.add_argument("--force-write", action="store_true",
+                    help="write even if this build lost sources or problems")
+    ap.add_argument("--union", action="store_true",
+                    help="merge this build INTO the existing merged.json instead of "
+                         "replacing it. Use when an upstream page has degraded: sources "
+                         "gate content over time, and a verified older snapshot is worth "
+                         "more than a thinner fresh fetch.")
     args = ap.parse_args()
 
     with open(PATTERNS) as f:
@@ -438,6 +599,20 @@ def main():
                                 "substep": r["substep"]}
             if r.get("avg_time_mins") and not p.get("avg_time_mins"):
                 p["avg_time_mins"] = r["avg_time_mins"]
+            # RisingBrain: sub-pattern, its identification signal, and company tags
+            if r.get("_subpattern") and not p.get("subpattern"):
+                p["subpattern"] = r["_subpattern"]
+                if r.get("_identification"):
+                    p["identification"] = r["_identification"]
+                if r.get("_strategy"):
+                    p["strategy"] = r["_strategy"]
+            if r.get("_companies") and not p.get("companies"):
+                p["companies"] = r["_companies"][:8]
+                p["companies_meta"] = {
+                    "source": RISINGBRAIN_URL,
+                    "confidence": "medium",
+                    "provenance": "third-party curated sheet, not LeetCode Premium data",
+                }
             # A LeetCode list already carries authoritative fields.
             if r.get("_id"):
                 p["leetcode_id"] = p["leetcode_id"] or r["_id"]
@@ -474,6 +649,25 @@ def main():
         source_report["codingshuttle"] = {"url": CODINGSHUTTLE_URL, "status": "failed",
                                           "error": str(e)}
         print(f"  ! codingshuttle FAILED: {e}")
+
+    # --- RisingBrain pattern sheet ---
+    try:
+        rows = parse_risingbrain(cached("risingbrain.raw.html", RISINGBRAIN_URL, args.refresh))
+        on_lc = absorb("risingbrain", rows)
+        subs = len({r["_subpattern"] for r in rows if r.get("_subpattern")})
+        comp = sum(1 for r in rows if r.get("_companies"))
+        source_report["risingbrain"] = {
+            "url": RISINGBRAIN_URL, "status": "fetched", "problems": len(rows),
+            "on_leetcode": on_lc, "not_on_leetcode": len(rows) - on_lc,
+            "subpatterns": subs, "with_companies": comp,
+            "note": "Only sheet carrying per-pattern 'identification' text and broad "
+                    "company tags. Sub-patterns map INTO the existing 20, never alongside."}
+        print(f"           {'risingbrain':15s} {len(rows)} problems, {on_lc} on leetcode, "
+              f"{subs} sub-patterns, {comp} with companies")
+    except Exception as e:
+        source_report["risingbrain"] = {"url": RISINGBRAIN_URL, "status": "failed",
+                                        "error": str(e)}
+        print(f"  ! risingbrain FAILED: {e}")
 
     # --- public LeetCode problem lists ---
     for key, fav in LC_LISTS.items():
@@ -539,6 +733,10 @@ def main():
                 p["paid_only"] = q.get("isPaidOnly")
                 p["topic_tags"] = [t["name"] for t in q.get("topicTags", [])]
                 p["verified"] = True
+                if not p["pattern"] and p.get("subpattern"):
+                    guess = rb_pattern_for(p["subpattern"])
+                    if guess in valid_patterns:
+                        p["pattern"], p["pattern_source"] = guess, "risingbrain:subpattern"
                 if not p["pattern"]:
                     p["pattern"], p["pattern_source"] = infer_pattern(
                         p["topic_tags"], pattern_tags)
@@ -589,6 +787,96 @@ def main():
         "problems": dict(sorted(problems.items())),
         "non_leetcode": sorted(non_leetcode, key=lambda r: (r["list"], r["step_no"], r["name"] or "")),
     }
+
+    if args.union and os.path.exists(MERGED):
+        try:
+            prev = json.load(open(MERGED))
+        except (json.JSONDecodeError, OSError):
+            prev = None
+        if prev:
+            kept = added = enriched = 0
+            merged_probs = dict(prev["problems"])
+            for slug, new_p in out["problems"].items():
+                old_p = merged_probs.get(slug)
+                if old_p is None:
+                    merged_probs[slug] = new_p
+                    added += 1
+                    continue
+                kept += 1
+                # "existing wins" is right for CURATION (which sheets list it, what
+                # resources it has) but wrong for FACTS. If the new record was verified
+                # against LeetCode and the old one was not, the verified facts win --
+                # otherwise an earlier unverified build locks in nulls forever.
+                if new_p.get("verified") and not old_p.get("verified"):
+                    for f in ("leetcode_id", "title", "difficulty", "topic_tags",
+                              "paid_only", "verified", "pattern", "pattern_source"):
+                        if new_p.get(f) is not None:
+                            old_p[f] = new_p[f]
+                    enriched += 1
+                # union list membership, and fill only what the old record lacks
+                old_p["lists"] = sorted(set(old_p.get("lists", [])) | set(new_p.get("lists", [])))
+                for f in ("subpattern", "identification", "strategy", "avg_time_mins"):
+                    if new_p.get(f) and not old_p.get(f):
+                        old_p[f] = new_p[f]
+                        enriched += 1
+                if new_p.get("companies") and not old_p.get("companies"):
+                    old_p["companies"] = new_p["companies"]
+                    old_p["companies_meta"] = new_p.get("companies_meta")
+                    enriched += 1
+                for k, v in (new_p.get("resources") or {}).items():
+                    old_p.setdefault("resources", {}).setdefault(k, v)
+            out["problems"] = dict(sorted(merged_probs.items()))
+            seen = {(r.get("list"), r.get("name")) for r in prev.get("non_leetcode", [])}
+            out["non_leetcode"] = prev.get("non_leetcode", []) + [
+                r for r in out["non_leetcode"] if (r.get("list"), r.get("name")) not in seen]
+            src = dict(prev.get("sources", {}))
+            src.update(out["sources"])
+            out["sources"] = src
+            out["union_note"] = (
+                "Built with --union: merged into the previous snapshot rather than replacing "
+                "it. Upstream sheets gate content over time, so a verified older fetch can be "
+                "richer than a fresh one. Existing records win on conflict; new sources only "
+                "add problems and fill empty fields.")
+            # recount
+            bl, bp, bs = {}, {}, {}
+            for pp in out["problems"].values():
+                bp[pp.get("pattern") or "UNASSIGNED"] = bp.get(pp.get("pattern") or "UNASSIGNED", 0) + 1
+                bs[pp.get("pattern_source", "?")] = bs.get(pp.get("pattern_source", "?"), 0) + 1
+                for l in pp.get("lists", []):
+                    bl[l] = bl.get(l, 0) + 1
+            out["counts"].update({
+                "total": len(out["problems"]), "non_leetcode": len(out["non_leetcode"]),
+                "by_pattern": dict(sorted(bp.items())), "by_list": dict(sorted(bl.items())),
+                "by_pattern_source": dict(sorted(bs.items())),
+                "with_companies": sum(1 for pp in out["problems"].values() if pp.get("companies")),
+                "with_subpattern": sum(1 for pp in out["problems"].values() if pp.get("subpattern"))})
+            print(f"\n  UNION: kept {kept} existing · added {added} new · "
+                  f"enriched {enriched} fields")
+
+    # A source that previously contributed and now fails means an upstream build changed
+    # shape. Writing anyway would silently delete everything it had contributed -- which
+    # is exactly what happened when takeuforward moved to positional RSC rows and a
+    # --refresh overwrote the working cache. Refuse instead, and say what to do.
+    if os.path.exists(MERGED):
+        try:
+            prev = json.load(open(MERGED))
+        except (json.JSONDecodeError, OSError):
+            prev = None
+        if prev:
+            had = set(prev.get("counts", {}).get("by_list", {}))
+            now = set(out["counts"]["by_list"])
+            lost = sorted(had - now)
+            shrink = prev["counts"]["total"] - out["counts"]["total"]
+            if (lost or shrink > prev["counts"]["total"] * 0.1) and not args.force_write:
+                print("\n  REFUSING TO WRITE -- this build is worse than what is on disk.")
+                if lost:
+                    print(f"    sources that vanished : {', '.join(lost)}")
+                if shrink > 0:
+                    print(f"    problems lost         : {shrink} "
+                          f"({prev['counts']['total']} -> {out['counts']['total']})")
+                print("    An upstream page probably changed shape. merged.json is unchanged.")
+                print("    Fix the parser, or pass --force-write if the loss is intended.")
+                return 3
 
     os.makedirs(os.path.dirname(MERGED), exist_ok=True)
     with open(MERGED, "w") as f:

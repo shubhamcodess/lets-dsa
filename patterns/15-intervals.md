@@ -11,6 +11,16 @@ Sort the intervals by one endpoint, then walk through them once, deciding overla
 - The scenario is phrased as scheduling: meeting rooms, calendars, bookings, flight times, or "can a person attend both."
 - There is no need to look more than one interval back at a time — the problem is about pairwise overlap along a line, not about relationships between far-apart ranges.
 
+## Sub-patterns inside this family
+
+Finer cuts of the same idea. The **recognize** column is what to look for in a
+problem statement — that is the transferable part.
+
+| Sub-pattern | Recognize it when | What you do |
+|---|---|---|
+| **DP on Intervals** | Problem mentions “intervals, subarray partitions, merging cost, or burst balloons” | Track optimal solutions for subarrays/intervals → matrix chain, merging, or balloon burst patterns |
+| **Intervals & Reach** | Problem mentions “maximum non-overlapping intervals, tasks, meetings, jump to end, minimum steps, or cover intervals” | Sort intervals or extend reach as far as possible from current position → maximize tasks done / minimize steps |
+
 ## The invariant
 After sorting and processing up through the current interval, every interval before it in the scan is already fully merged, finalized, and will never change again.
 
