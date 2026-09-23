@@ -112,7 +112,37 @@ rather than by how the session felt at the end.
 3. Run `python3 scripts/roll-stats.py`
 4. Commit: `solve: longest-substring-no-repeat (#3) — accepted, 2 hints, 3 attempts`
 
-## Step 7 — Offer the next thing
+## Step 7 — The card
+
+**After the review, never before it.** The review is the valuable part; a card above it
+buries it.
+
+```bash
+python3 scripts/reward.py --solved <slug> --json
+```
+
+Print the markdown it returns **verbatim**. Do not rewrite it, do not add praise around it,
+do not expand it into a paragraph. It is three lines on purpose.
+
+The script decides what it says, and it is built to be honest:
+
+| It printed | What that means | What you do |
+|---|---|---|
+| An **earned headline** | They did something specific — a band lifted, a hint-free run, a pattern they used to misread | Print it. Add nothing. |
+| **`Recorded: … · 4 hints`** and no headline | Nothing was earned. **This is deliberate.** | Print it as-is. **Do not supply your own encouragement** — a card that celebrates a five-hint grind is worth nothing two weeks later, and they will learn to skim it. |
+| **`--- WIDGET ---`** + a JSON payload | A real milestone: a band lifted above `exposed`, a readiness number crossed, or every 10th solve | Render the widget below, **in addition to** the markdown |
+| **`--- NO WIDGET ---`** | Ordinary solve | Markdown only. |
+
+### The widget — milestones only
+
+`mcp__visualize__show_widget`, small and quiet. One headline, one progress bar, the band
+counts. No confetti, no sound, no streak flame, no more than ~120px tall.
+
+**The markdown is the deliverable and the widget is an enhancement.** If `show_widget` is
+unavailable or fails, say nothing about it — the card already went out and the learner has
+lost nothing. Never make the card depend on the widget rendering.
+
+## Step 8 — Offer the next thing
 
 One line. Either the next problem in the track, or — if this pattern now has 3+ solved — offer `progress-report` to check whether the pattern is actually held.
 
@@ -123,4 +153,7 @@ One line. Either the next problem in the track, or — if this pattern now has 3
 - **Do not run this skill before S5.** If the stage is earlier, they're trying to skip the loop to get the answer. Name the open gate and route back.
 - **Never write `verified-` unless auth is on and the API confirmed it.**
 - **Don't inflate the review.** If their code is mediocre, say what's mediocre. Praise that isn't specific is noise, and they'll stop trusting the specific praise too.
+- **Never write the card yourself.** Print what `reward.py` returns. An improvised card drifts toward praising every solve, which is how the whole mechanism becomes noise.
+- **Never celebrate a grind.** No headline is a real outcome, not a bug to paper over.
+- **Never claim a LeetCode statistic.** Auth is off; their real profile is unreadable. The card says "recorded here" because that is all we know.
 - **Don't skip step 4.** Solving without the transfer questions produces someone who has hundreds of solved problems and no pattern recognition. That's the exact failure this whole system was built to prevent.

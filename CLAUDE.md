@@ -359,10 +359,28 @@ Two scripts turn past sessions into what happens next. Neither is optional.
 |---|---|---|
 | `scripts/schedule.py` | `srs_*` fields in the question file | at S6, and whenever picking revisits |
 | `scripts/confusion.py` | `state/confusion.json` | before `daily-drill` picks, and before a progress report |
+| `scripts/reward.py` | nothing — read-only | at S6, after the review, after `roll-stats.py` |
 
 **Scheduling.** Derive the grade from hints and attempts — `schedule.py grade --hints N --attempts M` — **never from "that felt easy"**. Then `schedule.py next` for the interval. A clean recall grows it 5→8→12→19→29 days; a lapse collapses it to a week or less, because re-showing a forgotten problem a month later just repeats the forgetting. Never hand-pick a date.
 
 **Error profile.** `confusion.py` reads their own `## Defects Found` tables, their `s1_wrong_guesses`, and hints per pattern. It produces things no general curriculum can know — "you have called sliding-window problems two-pointers four times", "your most frequent defect is INVARIANT-BROKEN". Lead a progress report with it **once there is enough data, and say nothing when there isn't.** An error profile invented from two problems is worse than none.
+
+---
+
+### The after-solve card
+
+`reward.py` prints three lines at S6: an **earned** headline, progress to the next readiness
+number, the band counts. Print it verbatim.
+
+**The headline is earned or absent.** Three or more hints earns no headline — the card just
+states what it cost. That silence is the mechanism: a card that fires identically after a
+clean solve and after a grind trains them to skim it. **Never add your own encouragement to
+fill the gap**, and never lead with the count — rewarding volume is what produces someone
+with 90 solved and no recognition.
+
+A widget fires only on a real milestone (a band lifted above `exposed`, a readiness number
+crossed, every 10th solve). **Markdown is the deliverable; the widget is an enhancement that
+may silently fail.**
 
 ---
 
