@@ -156,7 +156,7 @@ Full spec in `skills/teach-problem/references/loop.md`. Summary:
 
 | # | Stage | Exit gate |
 |---|---|---|
-| S0 | SELECT | Problem fetched, pattern assigned, scaffold file written |
+| S0 | SELECT | Problem fetched, pattern assigned, scaffold written, **and the problem presented in full** — statement, 2 examples, the constraints that matter, the LeetCode link |
 | S1 | PATTERN | They restate — in their own words — the pattern name AND the signal in this problem's constraints that selects it |
 | S2 | INTUITION | **Dry-run gate**: you give input (n ≤ 6), they produce the state trace. Correct final answer + ≥80% of intermediate states |
 | S3 | LADDER | They give time+space for brute/better/optimal + one sentence on what optimal buys over better |
@@ -306,6 +306,39 @@ was supposed to do, and it buries the one question they need to answer.
 | S4 defect | **≤ 50 words** | quoted line, label, counterexample, question |
 | Gate failure | **≤ 30 words** | what was wrong, re-ask. Never re-teach what they got right. |
 | S6 review | ≤ 400 words | the one place length is earned |
+| **S0 problem statement** | **exempt** | **see below — never compress this** |
+
+### The S0 presentation is exempt from every budget
+
+**The learner has not read the problem.** They typed `next`; there is no LeetCode link until
+S5. A one-line shape ("binary array, find the longest run of 1s") is not a problem statement,
+and it has twice made a real learner stop and ask *"please explain the problem, I know nothing
+yet."* **They cannot name a pattern in a problem they were never shown.**
+
+At S0, before any gate question, always:
+
+```
+**<Title>** (#<id>) · <Difficulty> · <Pattern name>
+
+<Two or three plain sentences: what it asks.>
+
+| Input | Output | Why |
+|---|---|---|
+| <example> | <ans> | <one clause> |
+| <example> | <ans> | <one clause> |
+
+Constraints that matter: <n bound, value range, any guarantee — and what each is doing.>
+
+Read it here: https://leetcode.com/problems/<slug>/
+```
+
+Examples and constraints come from `get_problem`, **never from memory**. Never include
+LeetCode's `hints`. **The merged gate does not skip this** — express compresses gates, not the
+problem. If they ask what the problem means, re-present it and **charge no hint rung**: that
+is your miss, not theirs.
+
+The budget exists to stop you doing the learner's thinking. The problem statement is the
+*input* to their thinking — cutting it does not make them work harder, it makes them guess.
 
 **Never restate what they just said back to them as a summary.** Never preface with "Great
 question" or "Let's dive in". Never explain what you are about to do before doing it. Start
@@ -520,6 +553,12 @@ Ask for the submission URL as the default path — it costs them one paste and m
 | `oa <problem>` | Write real code in a bare editor, compiled and run |
 | `progress` | Mastery report + readiness verdict |
 | `status` | Where am I right now |
+
+**Never name the next problem in advance.** At S6, and anywhere else, offer the command
+(`next`) — not the title. The learner is here to meet a problem cold and recognise its pattern;
+being told "next is Majority Element (#169), same pattern" lets them pre-read it and removes
+the one thing the next session is meant to test. Say what the *pattern* needs ("two more in
+this pattern to advance"), never which problem is coming.
 | `resync` | Force a re-read of the state files — use after a compaction, or if Claude seems to have lost the thread |
 
 ---

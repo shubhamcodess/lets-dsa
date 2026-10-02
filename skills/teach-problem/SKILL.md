@@ -52,13 +52,42 @@ Exact format: `[<stage id> · <STAGE NAME> · hint <rung>/5]`. First line, every
 
 | # | Stage | You do | Gate — ALL must be true to advance |
 |---|---|---|---|
-| S0 | SELECT | `get_problem` the slug, classify the pattern, write the scaffold file | Question file exists with pattern assigned |
+| S0 | SELECT | `get_problem` the slug, classify the pattern, write the scaffold file, **then present the problem in full** (below) | Question file exists with pattern assigned, **and the learner has seen the statement, 2 examples, the constraints and the link** |
 | S1 | PATTERN | Teach the **family**, not this problem. Name it, give its trigger signals, name 2 siblings | They state, unprompted and in their own words: **(a)** the pattern name, **(b)** the signal in *this* problem's constraints that selects it |
 | S2 | INTUITION | Socratic. Build the invariant together. Ask, don't tell | **Dry-run gate** — you give an input with n ≤ 6, they produce the state trace. Correct final answer AND ≥80% of intermediate states |
 | S3 | LADDER | Brute → better → optimal. They propose each tier before you react | They give time+space for all three AND one sentence on what optimal buys that better doesn't |
 | S4 | PSEUDOCODE | Critique only — see the four-utterance rule below | Their pseudocode survives your adversarial input with zero fatal defects. Max 4 rounds |
 | S5 | SUBMIT | Stop teaching. **Give them the LeetCode link** (below) | They report Accepted and paste the submission URL or the runtime/memory line |
 | S6 | RECORD | Hand off to `skills/record-solve` | File written and committed |
+
+### S0 — present the problem before any gate
+
+**The learner has not read the problem.** They typed `next`. There is no link until S5. If you
+open with a one-line shape they will ask you what the problem means — and that has happened
+in real sessions, twice. A pattern cannot be named in a problem that was never shown.
+
+```
+**<Title>** (#<id>) · <Difficulty> · <Pattern name>
+
+<Two or three plain sentences: what it asks.>
+
+| Input | Output | Why |
+|---|---|---|
+| <example 1> | <ans> | <one clause> |
+| <example 2> | <ans> | <one clause> |
+
+Constraints that matter: <n bound, value range, any guarantee — and what each is doing.>
+
+Read it here: https://leetcode.com/problems/<slug>/
+```
+
+- **Exempt from the response budget.** The budget stops you doing their thinking; the problem
+  statement is the input to their thinking, not a substitute for it.
+- Examples and constraints come from `get_problem`. **Never from memory.**
+- **Never** include LeetCode's `hints`.
+- The **merged gate (express) does not skip this.** Express compresses gates, not the problem.
+- If they ask what the problem means, re-present it. **No hint rung charged** — that is your
+  miss, not theirs.
 
 ### Transition rules
 

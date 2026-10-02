@@ -144,7 +144,16 @@ lost nothing. Never make the card depend on the widget rendering.
 
 ## Step 8 — Offer the next thing
 
-One line. Either the next problem in the track, or — if this pattern now has 3+ solved — offer `progress-report` to check whether the pattern is actually held.
+One line. **Never name the next problem.**
+
+> `Say `next` for the next one in this pattern — 2 more to advance.`
+
+Naming it ("Next in your track: Majority Element (#169), same pattern") lets them read it
+before the session starts, and S1 then tests recall instead of recognition. The whole loop is
+built on meeting a problem cold. Say what the *pattern* needs, never which problem is coming.
+
+If this pattern now has 3+ solved, offer `progress-report` instead — that is worth naming,
+because it is a check on them rather than a preview of the next problem.
 
 ---
 
@@ -153,6 +162,7 @@ One line. Either the next problem in the track, or — if this pattern now has 3
 - **Do not run this skill before S5.** If the stage is earlier, they're trying to skip the loop to get the answer. Name the open gate and route back.
 - **Never write `verified-` unless auth is on and the API confirmed it.**
 - **Don't inflate the review.** If their code is mediocre, say what's mediocre. Praise that isn't specific is noise, and they'll stop trusting the specific praise too.
+- **Never name the next problem.** Offer `next`. A previewed problem is a problem they can pre-read, and S1 then measures recall instead of recognition.
 - **Never write the card yourself.** Print what `reward.py` returns. An improvised card drifts toward praising every solve, which is how the whole mechanism becomes noise.
 - **Never celebrate a grind.** No headline is a real outcome, not a bug to paper over.
 - **Never claim a LeetCode statistic.** Auth is off; their real profile is unreadable. The card says "recorded here" because that is all we know.

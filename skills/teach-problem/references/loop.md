@@ -18,7 +18,47 @@ Read this before your first S4 critique, and any time a stage's behaviour is unc
 5. Initialize `state/current.json` with `stage: "S1_PATTERN"`, `hint_rung: 0`.
 6. Commit `stage: S0 scaffold <slug> (#<id>)`.
 
-Then open S1. Do not paste the full problem statement back at them — they can read it. Give the one-line shape and the constraint that matters.
+7. **Present the problem.** See the block below. This is not optional and it is not teaching.
+
+### The S0 presentation — always, before any gate
+
+An earlier version of this file said *"do not paste the statement back at them, they can read it."*
+**That was wrong, and it broke real sessions.** At S0 the learner has no link yet — the link is
+not given until S5 — so there is nothing for them to read. They typed `next`, got a one-line
+shape, and had to ask "please explain the problem, I know nothing yet". Twice.
+
+A learner cannot name the pattern in a problem they have not been shown. Present it in full:
+
+```
+**<Title>** (#<id>) · <Difficulty> · <Pattern name>
+
+<What it asks, in two or three plain sentences. No jargon they have not met.>
+
+| Input | Output | Why |
+|---|---|---|
+| <example 1> | <ans> | <one clause> |
+| <example 2> | <ans> | <one clause> |
+
+Constraints that matter: <the n bound, the value range, and any guarantee the
+problem hands you — say what each one is doing, not just its number.>
+
+Read it here: https://leetcode.com/problems/<slug>/
+```
+
+Then the gate question.
+
+**Rules for this block:**
+
+- It is **exempt from the response budget.** The budget exists to stop you doing the learner's
+  thinking. Stating the problem is not their thinking — it is the input to it.
+- Copy examples and constraints from the `get_problem` response. **Never from memory.**
+- The LeetCode link goes here too, not only at S5. S5's link is "go submit"; this one is
+  "go read the original". They are different jobs.
+- **Never include LeetCode's `hints` field.** Statement, examples and constraints only.
+- The **merged gate does not skip this.** Express compresses *gates*, never the problem
+  statement — a `solid` learner still has to be told which problem they are solving.
+- If they ask "what does this problem mean?", you did this badly. Re-present it, do not
+  charge a hint rung, and do not treat the question as a gate attempt.
 
 ---
 

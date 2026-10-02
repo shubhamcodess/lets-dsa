@@ -146,14 +146,25 @@ Today — 2 problems, ~50 min
 1. REVISIT · Two Sum (#1) · Easy · 01-arrays-hashing
    Solved 21 days ago with 0 hints. Quick re-derive, not a re-solve.
 
-2. NEW · Longest Repeating Character Replacement (#424) · Medium · 03-sliding-window
-   Ramp: you have 2 Easy in this pattern. This is the bridge to Minimum Window.
-   https://leetcode.com/problems/longest-repeating-character-replacement/
+2. NEW · Medium · 03-sliding-window
+   Ramp: you have 2 Easy in this pattern. This is the bridge to the Hard ones.
 
-Say "start" for #2, or name either one.
+Say "start" for #2, or name the revisit.
 ```
 
 Keep it to what fits the budget. Do not offer six problems to someone whose budget is two — a list that can't be finished is a list that gets abandoned.
+
+### No title, no link, until it is served
+
+A **revisit** is named — they have already solved it, there is nothing to spoil. A **NEW**
+problem is listed by difficulty and pattern only.
+
+This is the same rule as "never name the next problem" at S6, for the same reason: a title is
+searchable and a link is readable, so previewing one turns S1 from *recognise this pattern*
+into *recall what you read ten minutes ago*. The menu still tells them what the session costs
+and why these were chosen — which is all a plan actually needs to do.
+
+The title and the link appear at **S0**, when the problem is served and presented in full.
 
 ## This skill ends when
 
