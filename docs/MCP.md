@@ -33,3 +33,41 @@ Verified against the running server (v1.4.0, auth off, 9 tools exposed): `list_p
 Don't route around a denied tool by searching the web for the same content — that is the same violation with extra steps.
 
 ---
+
+## Connector hygiene — the cheapest token saving available
+
+Every MCP tool definition is injected into the system prompt **at session start**, whether or
+not it is ever called. A session with many connectors enabled pays for all of them on every
+single message.
+
+Measured on a real session here: **175 MCP tools, 73.8k tokens — 37% of a 200k window, gone
+before the first word.** Slack alone was 27 tools with long descriptions; nothing in lets-dsa
+touches it.
+
+**lets-dsa needs exactly two:**
+
+| Connector | Why |
+|---|---|
+| `leetcode` | `get_problem` at S0, `search_problems` for siblings, `get_daily_challenge` |
+| `visualize` | `visual-explainer`, the OA editor, the milestone card widget |
+
+Everything else is overhead for a learning session. Turn the rest off in the composer's
+**+ menu → Connectors**, or ask Claude to do it — the change applies to the session and
+becomes the default for new ones, and nothing is uninstalled, so re-enabling takes one click
+when you want Slack or a job board back.
+
+**Not everything is a connector.** Plugins (`/plugin`) and built-in servers like
+`scheduled-tasks` are managed in their own settings, not the Connectors menu.
+
+### What you cannot do
+
+**There is no lazy-loading.** Claude Code has no setting — project, user or `.mcp.json` — that
+loads a tool index first and the full definition on demand. The harness decides what is in the
+prompt, and a project cannot defer it. Choosing which servers are enabled is the entire lever.
+
+### Why this matters more here than elsewhere
+
+A teaching session is long: S0 through S6 with gates, hints and dry runs, on Sonnet or Haiku.
+Context spent on tool definitions is context not spent on the learner's own words — their
+invariant, their pseudocode, their defects — which is exactly what `Resume From:` exists to
+rescue after a compaction. **Fewer connectors means fewer compactions means less re-asking.**
