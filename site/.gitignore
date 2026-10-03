@@ -1,0 +1,4 @@
+node_modules/
+dist/
+# Generated from personal markdown at build time — never committed, anywhere.
+public/data/

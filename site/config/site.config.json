@@ -1,0 +1,119 @@
+{
+  "$comment": "UI is rendered from this file. Reorder arrays to reorder the page; remove an entry to hide it.",
+  "title": "lets-dsa",
+  "subtitle": "A working notebook of patterns, problems and the reasoning behind them.",
+  "owner": "Shubham Prakash",
+  "source": {
+    "$comment": "Paths are relative to DSA_ROOT (env), which defaults to the folder above site/. Point DSA_ROOT elsewhere when this folder moves to its own repo.",
+    "questions": "questions",
+    "patternBriefs": "patterns",
+    "patternsConfig": "config/patterns.json",
+    "foundationsConfig": "config/foundations.json",
+    "topics": "topics",
+    "stats": "state/stats.json",
+    "curriculum": "curriculum/merged.json"
+  },
+  "readiness": [
+    {
+      "at": 90,
+      "label": "Floor",
+      "note": "every pattern met once"
+    },
+    {
+      "at": 180,
+      "label": "Interview-ready",
+      "note": "breadth with repetition"
+    },
+    {
+      "at": 250,
+      "label": "Strong",
+      "note": "depth across the map"
+    }
+  ],
+  "nav": [
+    {
+      "route": "",
+      "label": "Overview"
+    },
+    {
+      "route": "problems",
+      "label": "Problems"
+    },
+    {
+      "route": "patterns",
+      "label": "Patterns"
+    },
+    {
+      "route": "revise",
+      "label": "Revise"
+    },
+    {
+      "route": "sheet",
+      "label": "Cheat sheet"
+    },
+    {
+      "route": "foundations",
+      "label": "Foundations"
+    }
+  ],
+  "overview": [
+    "readiness",
+    "due",
+    "patternMap",
+    "errorProfile",
+    "activity",
+    "recent"
+  ],
+  "problemPage": {
+    "meta": [
+      "difficulty",
+      "status",
+      "hints",
+      "attempts",
+      "solvedOn",
+      "due",
+      "language",
+      "sheets"
+    ],
+    "sections": [
+      "problem",
+      "examples",
+      "signal",
+      "intuition",
+      "ladder",
+      "pseudocode",
+      "defects",
+      "solution",
+      "canonical",
+      "complexity",
+      "notes",
+      "revisitLog",
+      "sessionLog",
+      "other"
+    ]
+  },
+  "patternPage": [
+    "idea",
+    "recognize",
+    "invariant",
+    "shape",
+    "subpatterns",
+    "algorithms",
+    "example",
+    "complexity",
+    "breaks",
+    "confusable",
+    "traps"
+  ],
+  "sheet": [
+    "signal",
+    "intuition",
+    "complexity"
+  ],
+  "bands": {
+    "untouched": "Not yet met",
+    "exposed": "Exposed",
+    "working": "Working",
+    "solid": "Solid"
+  }
+}

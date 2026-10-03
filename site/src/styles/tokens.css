@@ -1,0 +1,89 @@
+/* Design tokens. Paper and ink, one oxblood accent. Every colour in app.css comes from here. */
+
+:root {
+  --serif: 'Newsreader Variable', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --sans: 'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --paper: #f5f1e8;
+  --paper-2: #ede7da;
+  --paper-3: #e4dccb;
+  --card: #fbf9f4;
+  --ink: #1d1b17;
+  --ink-2: #4b463d;
+  --ink-3: #8a8374;
+  --rule: #d8cfbd;
+  --rule-2: #c6bba5;
+  --accent: #7a2e22;
+  --accent-2: #9c4434;
+  --accent-wash: #efdcd3;
+  --select: #e9d7c0;
+
+  --easy: #56744f;
+  --medium: #9a742a;
+  --hard: #9b3a2c;
+
+  --heat-0: #e8e1d2;
+  --heat-1: #d9b9a6;
+  --heat-2: #b9705c;
+  --heat-3: #7a2e22;
+
+  --shadow: 0 1px 0 rgba(60, 45, 20, 0.04), 0 8px 28px -12px rgba(60, 45, 20, 0.18);
+  --radius: 3px;
+  --measure: 42rem;
+  --wide: 72rem;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #151410;
+    --paper-2: #1c1a15;
+    --paper-3: #24211b;
+    --card: #1a1814;
+    --ink: #ece5d6;
+    --ink-2: #bcb3a1;
+    --ink-3: #7f7868;
+    --rule: #2e2a22;
+    --rule-2: #3d382e;
+    --accent: #d98c73;
+    --accent-2: #e8a690;
+    --accent-wash: #3a2219;
+    --select: #4a2e22;
+    --easy: #9cba92;
+    --medium: #d8b46c;
+    --hard: #e48d7c;
+    --heat-0: #23201a;
+    --heat-1: #4d3026;
+    --heat-2: #8f4f3d;
+    --heat-3: #d98c73;
+    --shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 12px 32px -14px rgba(0, 0, 0, 0.7);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --paper: #151410;
+  --paper-2: #1c1a15;
+  --paper-3: #24211b;
+  --card: #1a1814;
+  --ink: #ece5d6;
+  --ink-2: #bcb3a1;
+  --ink-3: #7f7868;
+  --rule: #2e2a22;
+  --rule-2: #3d382e;
+  --accent: #d98c73;
+  --accent-2: #e8a690;
+  --accent-wash: #3a2219;
+  --select: #4a2e22;
+  --easy: #9cba92;
+  --medium: #d8b46c;
+  --hard: #e48d7c;
+  --heat-0: #23201a;
+  --heat-1: #4d3026;
+  --heat-2: #8f4f3d;
+  --heat-3: #d98c73;
+  --shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 12px 32px -14px rgba(0, 0, 0, 0.7);
+  color-scheme: dark;
+}

@@ -184,6 +184,10 @@ Each holds the problem, the signal *in your words*, the invariant *in your words
 
 After a few months that folder is your own pattern library. That's the actual output — the solved count is a side effect.
 
+### …and a dashboard to read it back
+
+`site/` turns that folder into a searchable notebook: every problem with its reasoning laid out, a recall mode that hides the answer and reveals it a step at a time, flashcard decks over what's due, a printable one-page cheat sheet, pattern briefs, and your error profile. It's parsed mechanically from the markdown at build time, with no model involved, and published by a GitHub Action from your private repo. See [`site/README.md`](site/README.md).
+
 ---
 
 ## ⌨️ Commands

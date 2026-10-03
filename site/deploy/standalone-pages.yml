@@ -1,0 +1,59 @@
+# Template for when site/ becomes its own repository.
+#
+# Copy to .github/workflows/pages.yml at the root of the new repo (where site/'s contents
+# now live at the root). It checks out the learning data from a second repo and points
+# DSA_ROOT at it, so the dashboard and the data can live — and be published — separately.
+#
+# Needs: a repo secret DATA_REPO_TOKEN (fine-grained PAT, read-only "Contents" on the
+# data repo) and a repo variable DATA_REPO, e.g. "shubhamcodess/lets-dsa-sp".
+name: pages
+
+on:
+  push:
+    branches: [main]
+  repository_dispatch:
+    types: [data-updated]   # fire from the data repo after a sync
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DSA_ROOT: ${{ github.workspace }}/.data
+      SITE_MODE: ${{ vars.SITE_MODE || 'private' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.DATA_REPO }}
+          token: ${{ secrets.DATA_REPO_TOKEN }}
+          path: .data
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -11,3 +11,6 @@ state/confusion.json
 curriculum/track.md
 .claude/CLAUDE.md
 .env
+# Dashboard build output: generated from the files above
+site/public/data/
+site/dist/

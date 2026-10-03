@@ -1,0 +1,62 @@
+# Builds site/ from the learning data and publishes it to GitHub Pages.
+#
+# Runs only where the personal data exists: the private repo (lets-dsa-sp), or any repo
+# that sets the Actions variable DSA_SITE_ENABLED=true. On the public framework repo
+# there is no questions/** to build from, and this job is skipped.
+name: site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'questions/**'
+      - 'topics/**'
+      - 'patterns/**'
+      - 'state/**'
+      - 'config/**'
+      - 'curriculum/merged.json'
+      - 'site/**'
+      - '.github/workflows/site.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: github.repository == 'shubhamcodess/lets-dsa-sp' || vars.DSA_SITE_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    env:
+      SITE_MODE: ${{ vars.SITE_MODE || 'private' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

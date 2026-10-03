@@ -1,0 +1,185 @@
+{
+  "$comment": "How a question file's '## ' headings map to structured fields. The parser is mechanical: first matching rule wins, unmatched headings land in 'other' and are reported at build time. Edit this when the markdown format drifts — never the parser.",
+  "sections": [
+    {
+      "key": "problem",
+      "match": "^problem",
+      "label": "Problem",
+      "kind": "prose",
+      "recall": "show"
+    },
+    {
+      "key": "examples",
+      "match": "^examples?",
+      "label": "Examples",
+      "kind": "table",
+      "recall": "show"
+    },
+    {
+      "key": "signal",
+      "match": "pattern signal|^signal",
+      "label": "Pattern signal",
+      "kind": "prose",
+      "recall": 1
+    },
+    {
+      "key": "intuition",
+      "match": "^intuition",
+      "label": "Intuition",
+      "kind": "prose",
+      "recall": 2
+    },
+    {
+      "key": "ladder",
+      "match": "ladder",
+      "label": "The ladder",
+      "kind": "table",
+      "recall": 3
+    },
+    {
+      "key": "pseudocode",
+      "match": "pseudocode",
+      "label": "My pseudocode",
+      "kind": "pre",
+      "recall": 4
+    },
+    {
+      "key": "defects",
+      "match": "defects",
+      "label": "Defects found",
+      "kind": "table",
+      "recall": 5,
+      "private": true
+    },
+    {
+      "key": "solution",
+      "match": "^my solution|^solution",
+      "label": "My solution",
+      "kind": "code",
+      "recall": 6
+    },
+    {
+      "key": "canonical",
+      "match": "canonical",
+      "label": "Canonical optimal",
+      "kind": "code",
+      "recall": 7
+    },
+    {
+      "key": "complexity",
+      "match": "^complexity",
+      "label": "Complexity",
+      "kind": "table",
+      "recall": 7
+    },
+    {
+      "key": "notes",
+      "match": "notes",
+      "label": "Notes to future me",
+      "kind": "prose",
+      "recall": 8
+    },
+    {
+      "key": "revisitLog",
+      "match": "revisit log",
+      "label": "Revisit log",
+      "kind": "table",
+      "recall": 9,
+      "private": true
+    },
+    {
+      "key": "sessionLog",
+      "match": "session log",
+      "label": "Session log",
+      "kind": "prose",
+      "recall": 9,
+      "private": true
+    }
+  ],
+  "searchFields": [
+    "title",
+    "slug",
+    "patternName",
+    "technique",
+    "tags",
+    "signal",
+    "intuition",
+    "notes"
+  ],
+  "excerptFields": [
+    "signal",
+    "intuition",
+    "notes"
+  ],
+  "publicStripFrontmatter": [
+    "accepted_verified",
+    "s1_wrong_guesses",
+    "explanation",
+    "srs_stability",
+    "srs_difficulty"
+  ],
+  "patternSections": [
+    {
+      "key": "idea",
+      "match": "one-sentence idea",
+      "label": "The idea"
+    },
+    {
+      "key": "recognize",
+      "match": "recogni",
+      "label": "How to recognise it"
+    },
+    {
+      "key": "subpatterns",
+      "match": "sub-patterns",
+      "label": "Sub-patterns"
+    },
+    {
+      "key": "invariant",
+      "match": "^the invariant",
+      "label": "The invariant"
+    },
+    {
+      "key": "shape",
+      "match": "^the shape",
+      "label": "The shape"
+    },
+    {
+      "key": "algorithms",
+      "match": "named algorithms",
+      "label": "Named algorithms"
+    },
+    {
+      "key": "example",
+      "match": "worked",
+      "label": "Worked micro-example"
+    },
+    {
+      "key": "complexity",
+      "match": "^complexity",
+      "label": "Complexity"
+    },
+    {
+      "key": "breaks",
+      "match": "where it breaks",
+      "label": "Where it breaks"
+    },
+    {
+      "key": "confusable",
+      "match": "confusable",
+      "label": "Confusable with"
+    },
+    {
+      "key": "traps",
+      "match": "traps",
+      "label": "Common traps"
+    },
+    {
+      "key": "curriculumList",
+      "match": "problems in this pattern",
+      "label": "Problems",
+      "skip": true
+    }
+  ],
+  "topicSections": "Every '## ' heading in a topic file is rendered in order; no mapping needed."
+}

@@ -1,0 +1,39 @@
+{
+  "name": "lets-dsa-site",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Static, config-driven dashboard for lets-dsa learning data. Parses the markdown mechanically at build time.",
+  "scripts": {
+    "data": "tsx scripts/build-data.ts",
+    "data:public": "SITE_MODE=public tsx scripts/build-data.ts",
+    "dev": "npm run data && vite",
+    "build": "npm run data && tsc --noEmit && vite build",
+    "build:public": "npm run data:public && tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/newsreader": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/ibm-plex-sans": "^5.3.0",
+    "minisearch": "^7.2.0",
+    "preact": "^11.0.0"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.10.6",
+    "@shikijs/rehype": "^4.5.0",
+    "@types/node": "^26.6.4",
+    "gray-matter": "^4.0.3",
+    "mdast-util-to-string": "^4.0.0",
+    "rehype-raw": "^7.0.0",
+    "rehype-stringify": "^10.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "shiki": "^4.5.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "unified": "^11.0.5",
+    "vite": "^8.3.2"
+  }
+}
