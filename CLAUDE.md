@@ -308,6 +308,41 @@ was supposed to do, and it buries the one question they need to answer.
 | S6 review | ≤ 400 words | the one place length is earned |
 | **S0 problem statement** | **exempt** | **see below — never compress this** |
 
+### Ask the gate exactly once
+
+**A gate question is emitted once and then you wait.** It does not get rephrased, re-sent,
+or re-asked after a tool call, a background task, a subagent result, or a compaction.
+
+This has already produced a confusing session: the merged S1+S2 gate was asked, a backgrounded
+scaffolder finished, the session compacted, and the gate was asked again in different words.
+The learner had two different questions on screen and no idea which to answer.
+
+| After this happens | Do |
+|---|---|
+| A background command or subagent finishes | **Nothing.** It is not your turn. Do not speak. |
+| A compaction lands while the gate is open | **Do not re-ask.** See below. |
+| They answer part of it | Ask only for the missing part, naming it. |
+| They ask what the problem means | Re-present the **problem**. Leave the gate as asked. |
+
+**After a compaction, the question is still on their screen.** It left *your* context, not
+theirs. `current.md` has it in `Open question:` so you know what you are waiting for — that is
+for *you*, not a script to read back. Re-emitting it is pure noise, and it makes them think
+their first answer was wrong.
+
+If `Open question:` is set, say one line and stop:
+
+> `Picking up at S1+S2, hint 0/5 — the gate above still stands.`
+
+### Finish the writes, then present. One message.
+
+Scaffold the file, write `current.json` and `current.md`, and start the commit **before** you
+present. The learner should get **one** clean message: the problem card, then the gate, then
+silence.
+
+Do not interleave file edits, scaffolder output or commit noise between the problem and the
+gate — the screenshot that prompted this rule had the gate split across two messages with a
+file diff and a subagent note in between.
+
 ### The S0 presentation is exempt from every budget
 
 **The learner has not read the problem.** They typed `next`; there is no LeetCode link until
@@ -429,7 +464,7 @@ stage changes:
 |---|---|
 | Stage transition | all four files below |
 | **A hint rung emitted** | `hint_rung` in `current.json`, `hints_used` in the question file |
-| **A gate opened** (dry run given, adversarial input posed) | `dry_run_open: true` and the question itself into `Open question:` |
+| **A gate opened** (dry run given, adversarial input posed) | `dry_run_open: true`, the question verbatim into `Open question:`, and `gate_asked: true` — which means **it is on their screen already; never send it again** |
 | **A gate attempt failed** | `gate_attempts` in `current.json` |
 | **They produce an artifact** (the signal, the invariant, pseudocode) | into the question file, in their words, immediately |
 
@@ -581,8 +616,12 @@ drifts, the hint count resets, you re-explain something they already have.
 1. Read `state/current.json` — stage, hint rung, gate attempts, mode, `dry_run_open`
 2. Read `state/current.md` — `Resume From:` and `Open question:`
 3. Read the active question file — their words are in it: the signal, the invariant, their pseudocode
-4. Resume from the open question. **Do not re-teach anything `Resume From:` says they have.**
-5. Say one line so they know: `Picking up at S2, hint 2/5 — re-reading where we were.`
+4. Resume from the open question — **which means wait for its answer, NOT ask it again.**
+   `Open question:` exists so *you* know what you are waiting on. The learner can still see
+   the original question on their screen; it only left your context. Re-asking it makes them
+   think their answer was wrong, and if you rephrase it they now have two questions and no
+   idea which one counts. **Do not re-teach anything `Resume From:` says they have.**
+5. Say one line so they know: `Picking up at S2, hint 2/5 — the gate above still stands.`
 
 **Never restart the problem.** Never re-run a gate they already passed. Never reset the hint
 rung — the file is authoritative, not your memory of it. If the file says hint 3 and you

@@ -81,6 +81,31 @@ Constraints that matter: <n bound, value range, any guarantee — and what each 
 Read it here: https://leetcode.com/problems/<slug>/
 ```
 
+Then, after a horizontal rule, the gate — **as the last thing in the message**, so the final
+thing they read is what to do:
+
+```
+---
+**[S1 · PATTERN · hint 0/5]**
+
+Answer in one message:
+
+1. **Pattern** — which family, and the signal in *these* constraints that picks it
+2. **Invariant** — what stays true the whole way through
+
+Stuck? Say `hint` — costs 1 of 5.
+```
+
+Merged gate (band `working` or better) adds **3. Trace** with the input. Same shape, one
+message, one question block.
+
+**Then stop.** No file diffs, no commit output, no scaffolder notes after it — finish those
+before you present. And never send the gate a second time.
+
+- **Ask the gate once.** Not again after a background task, a subagent result or a
+  compaction. A compaction removes the question from *your* context, never from their
+  screen — re-asking makes them think their answer was wrong, and a rephrase leaves two
+  questions on screen with no way to tell which counts.
 - **Exempt from the response budget.** The budget stops you doing their thinking; the problem
   statement is the input to their thinking, not a substitute for it.
 - Examples and constraints come from `get_problem`. **Never from memory.**
