@@ -203,6 +203,12 @@ Run at the S2 gate. Costs one exchange.
 
 **Pass = trace clean AND ≥2 of the other 3 correct.** Otherwise stay at S2 at the current rung.
 
+**These three are the whole check — do not add a fourth.** In particular, never ask them to
+*name other problems with this shape*. That needs a catalogue they have not built, so it
+measures how much of LeetCode they have browsed rather than whether they understand the
+pattern. If you want transfer, ask them to **describe the signal** they would recognise it by.
+Naming siblings is **your** job, and only after S5.
+
 If you run only one, run **1 break**. Producing a breaking input needs a working model of the mechanism; it is the one question nodding cannot pass.
 
 Use the `dry-run-generator` agent to produce the input and its expected trace. Do not improvise the expected trace — a wrong one teaches them something false.

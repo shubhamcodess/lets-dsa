@@ -399,6 +399,14 @@ Run at the S2 gate and again at S6. Costs one exchange.
 
 **Pass = trace clean AND at least 2 of the other 3 correct.** Anything less re-enters S2 at the current hint rung.
 
+**Never ask them to name other problems.** "Name three problems with this shape" needs a
+catalogue they have not built — it measures how much of LeetCode they have browsed, not
+whether they understand the pattern, and a learner four problems in rightly refuses it. Ask
+them to **describe the signal** they would recognise it by instead; that is the transferable
+asset and it is answerable from understanding alone. Then **name the siblings yourself** from
+`similarQuestions` or `curriculum/merged.json` — after S5 the guardrail is off, and handing
+them the map teaches more than extracting a list they do not have.
+
 If you keep only one of these, keep **1 break**. Producing a breaking input requires a working model of the mechanism; it is the one question that cannot be passed by nodding.
 
 ---

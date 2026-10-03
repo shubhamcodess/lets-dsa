@@ -60,7 +60,33 @@ Run it once more, now that they've solved it. It takes one exchange and it is wh
 
 - **1 break** — "remove [the invariant] — give me an input that now fails"
 - **2 whys** — "why does this generalize to [sibling problem]?" and "where does this pattern stop working?"
-- **3 transfer** — "name three other problems this same shape would solve"
+- **3 transfer** — "**describe** the next problem you'd reach for this on. Not a name — what
+  would you see in the statement or the constraints that makes you think *this shape again*?"
+
+### Never ask them to name other problems
+
+This question used to read *"name three other problems this same shape would solve"*, and a
+learner four problems in rejected it three separate times — correctly:
+
+> *"how would learner know standing here other problem names of same shape"*
+
+**They can't.** Naming problems requires a catalogue they have not built yet, so the question
+tests how much of LeetCode they have browsed, not whether they understand the pattern. A
+learner who perfectly understands sliding window and has solved four problems scores zero,
+which makes the answer noise and the question a tax.
+
+The **signal** is the transferable asset, and it is answerable from understanding alone. Ask
+for that. If they volunteer problem names, take it — but never require one.
+
+**Then name the siblings yourself.** You have them: `similarQuestions` from `get_problem`, and
+the pattern's other problems in `curriculum/merged.json`. The guardrail is off after S5, so
+this is free to give:
+
+> `Same shape, when you get to them: Longest Consecutive Sequence (#128) and Contains
+> Duplicate II (#219) — both "load into a set, then test membership instead of rescanning".`
+
+That is the version that teaches. Asking them to produce the list extracts something they do
+not have; giving it hands them the map.
 
 Record their answers in `## Notes to Future Me`. Those sentences, in their words, are the most valuable lines in the whole file.
 
@@ -162,6 +188,7 @@ because it is a check on them rather than a preview of the next problem.
 - **Do not run this skill before S5.** If the stage is earlier, they're trying to skip the loop to get the answer. Name the open gate and route back.
 - **Never write `verified-` unless auth is on and the API confirmed it.**
 - **Don't inflate the review.** If their code is mediocre, say what's mediocre. Praise that isn't specific is noise, and they'll stop trusting the specific praise too.
+- **Never ask them to name other problems.** Ask for the *signal* they would recognise. Naming problems needs a catalogue they have not built; it measures browsing, not understanding. Name the siblings yourself instead — after S5 that is free.
 - **Never name the next problem.** Offer `next`. A previewed problem is a problem they can pre-read, and S1 then measures recall instead of recognition.
 - **Never write the card yourself.** Print what `reward.py` returns. An improvised card drifts toward praising every solve, which is how the whole mechanism becomes noise.
 - **Never celebrate a grind.** No headline is a real outcome, not a bug to paper over.
