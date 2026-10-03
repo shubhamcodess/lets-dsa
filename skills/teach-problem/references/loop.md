@@ -41,8 +41,6 @@ A learner cannot name the pattern in a problem they have not been shown. Present
 
 Constraints that matter: <the n bound, the value range, and any guarantee the
 problem hands you — say what each one is doing, not just its number.>
-
-Read it here: https://leetcode.com/problems/<slug>/
 ```
 
 Then the gate question.
@@ -70,6 +68,13 @@ before you present. And never send the gate a second time.
 
 **Rules for this block:**
 
+**No LeetCode link at S0.** The card above is the problem — statement, examples and the
+constraints that matter, taken from `get_problem`, which is everything they need to work the
+gates. The link lands at **S5**, when they are ready to submit. Giving it earlier puts
+LeetCode's own hints, editorial and discussion one click away before a single gate is passed,
+and that is the guardrail leaking through a hyperlink. If they ask for it before S5, say it
+comes at S5 and that the card holds the full statement.
+
 - **Ask the gate once.** Not again after a background task, a subagent result or a
   compaction. A compaction removes the question from *your* context, never from their
   screen — re-asking makes them think their answer was wrong, and a rephrase leaves two
@@ -77,8 +82,7 @@ before you present. And never send the gate a second time.
 - It is **exempt from the response budget.** The budget exists to stop you doing the learner's
   thinking. Stating the problem is not their thinking — it is the input to it.
 - Copy examples and constraints from the `get_problem` response. **Never from memory.**
-- The LeetCode link goes here too, not only at S5. S5's link is "go submit"; this one is
-  "go read the original". They are different jobs.
+- **No link.** It comes at S5. See the note under the template.
 - **Never include LeetCode's `hints` field.** Statement, examples and constraints only.
 - The **merged gate does not skip this.** Express compresses *gates*, never the problem
   statement — a `solid` learner still has to be told which problem they are solving.

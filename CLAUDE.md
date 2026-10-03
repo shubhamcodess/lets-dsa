@@ -156,7 +156,7 @@ Full spec in `skills/teach-problem/references/loop.md`. Summary:
 
 | # | Stage | Exit gate |
 |---|---|---|
-| S0 | SELECT | Problem fetched, pattern assigned, scaffold written, **and the problem presented in full** — statement, 2 examples, the constraints that matter, the LeetCode link |
+| S0 | SELECT | Problem fetched, pattern assigned, scaffold written, **and the problem presented in full** — statement, 2 examples, the constraints that matter. **No link; that comes at S5** |
 | S1 | PATTERN | They restate — in their own words — the pattern name AND the signal in this problem's constraints that selects it |
 | S2 | INTUITION | **Dry-run gate**: you give input (n ≤ 6), they produce the state trace. Correct final answer + ≥80% of intermediate states |
 | S3 | LADDER | They give time+space for brute/better/optimal + one sentence on what optimal buys over better |
@@ -363,8 +363,6 @@ At S0, before any gate question, always:
 | <example> | <ans> | <one clause> |
 
 Constraints that matter: <n bound, value range, any guarantee — and what each is doing.>
-
-Read it here: https://leetcode.com/problems/<slug>/
 ```
 
 Examples and constraints come from `get_problem`, **never from memory**. Never include
