@@ -30,7 +30,7 @@ shape, and had to ask "please explain the problem, I know nothing yet". Twice.
 A learner cannot name the pattern in a problem they have not been shown. Present it in full:
 
 ```
-**<Title>** (#<id>) · <Difficulty> · <Pattern name>
+**<Title>** (#<id>) · <Difficulty> · <Pattern name — or `Pattern: ?` in identify mode>
 
 <What it asks, in two or three plain sentences. No jargon they have not met.>
 
@@ -50,18 +50,28 @@ thing they read is what to do:
 
 ```
 ---
-**[S1 · PATTERN · hint 0/5]**
+**[S1 · PATTERN · hint 0/5]**                ← learn mode
 
-Answer in one message:
-
-1. **Pattern** — which family, and the signal in *these* constraints that picks it
-2. **Invariant** — what stays true the whole way through
+1. **Signal** — which line of this problem makes <Pattern> the right tool, and what goes
+   wrong if you try the obvious approach instead?
 
 Stuck? Say `hint` — costs 1 of 5.
 ```
 
-Merged gate (band `working` or better) adds **3. Trace** with the input. Same shape, one
-message, one question block.
+```
+---
+**[S1 · IDENTIFY · hint 0/5]**               ← identify mode, header shows `Pattern: ?`
+
+You've met: <menu from next-problem.py>
+
+1. **Pattern** — which of these fits?
+2. **Signal** — what in this problem tells you?
+
+Stuck? Say `hint` — costs 1 of 5.
+```
+
+Merged gate (band `working` or better) appends **Invariant** and **Trace** with the input to
+either shape. Same block, one message. Modes are specified in § S1 below.
 
 **Then stop.** No file diffs, no commit output, no scaffolder notes after it — finish those
 before you present. And never send the gate a second time.
@@ -93,30 +103,66 @@ comes at S5 and that the card holds the full statement.
 
 ## S1 — PATTERN
 
-**Goal:** they recognize the family this problem belongs to, before they think about this problem at all.
+**Goal:** they can say *why* this tool fits this problem — and, when the pattern is hidden,
+*which* tool it is.
 
-Teach the pattern, not the problem. From `patterns/<slug>.md` and `config/patterns.json`:
+### Two modes — `scripts/next-problem.py` decides, never you
 
-- The **name**.
-- The **core idea** in one sentence.
-- The **signals** — what in a problem statement selects this pattern. This is the transferable part.
-- **Two siblings** — ideally ones they've already solved (check `questions/<pattern>/`).
+`next` runs `python3 scripts/next-problem.py --json`. It returns `s1_mode`. Record it in
+`state/current.json` (`active.s1_mode`) and the question frontmatter (`s1_mode:`).
 
-Then ask the gate question:
+| | **learn** | **identify** |
+|---|---|---|
+| When | The problem is in the pattern they are working through | Interleaved from an earlier pattern (1 in 3 once 3+ patterns are `working`), or a revisit with 3+ patterns met |
+| S0 header | `· <Pattern name>` | `· Pattern: ?` |
+| You teach first? | Yes on their first problem in the pattern (the brief); otherwise no | **No.** Teaching it first is the answer. |
+| Gate asks | **The signal** | **The pattern + the signal**, from a menu of the patterns they have met |
 
-> Without looking at my message — what's the pattern here, and what in *this problem's constraints* told you that?
+**Why two modes.** An earlier version asked "what's the pattern here?" every time. In the
+blocked track the answer was printed in the S0 header, implied by `next` serving the same
+section, and taught a minute earlier at S1 — so the gate was either a giveaway or a parroting
+exercise. Recognition is only exercised when they *don't* know which section they are in.
 
-### Gate
+### learn mode
 
-Both parts, in their own words, unprompted.
+On the first problem in a pattern, teach the family from `patterns/<slug>.md`: the core idea in
+one sentence, the signals, two siblings. On later problems, skip straight to the gate.
+
+> Which line of this problem makes this the right tool — and what goes wrong if you try the
+> obvious approach instead?
+
+**Do not ask them to name the pattern.** It is in the header. Asking anyway measures whether
+they can read.
 
 | Their answer | Verdict |
 |---|---|
-| Names the pattern AND points at a real signal in the constraints | **Pass** → S2 |
-| Names the pattern, no signal | Fail. Ask only for the signal. Don't re-teach the pattern. |
-| Echoes your sentence verbatim | Fail. "That's my sentence. Say it as if you were explaining it to someone who hasn't read it." |
-| Names the wrong pattern but gives a coherent reason | Fail, but engage the reason — it's usually a near-miss worth naming. Then re-ask. **Append the wrong pattern id to `s1_wrong_guesses` in the question file.** |
-| "Got it" / "yes" / "makes sense" | **Not a pass.** Ask the gate question again. |
+| Points at a real line of the statement or constraints AND says what the obvious approach costs or breaks | **Pass** → S2 |
+| Points at a line, no reason | Fail. Ask only "what goes wrong without it?" |
+| Restates the pattern's general signal, nothing about *this* problem | Fail. "That's true of every problem in the family. Which line of *this* one?" |
+| Echoes your sentence verbatim | Fail. "That's my sentence — say it as if to someone who hasn't read it." |
+| "Got it" / "makes sense" | **Not a pass.** Re-ask. |
+
+Learn-mode slips are **not** written to `s1_wrong_guesses`. They were told the pattern; a wrong
+name there is not a confusion between two tools.
+
+### identify mode
+
+**Teach nothing first.** Show the menu `next-problem.py` returned — the patterns they have
+actually met, never all twenty:
+
+> Of the patterns you've met — Arrays & Hashing · Binary Search · Two Pointers — which fits,
+> and what in this problem tells you?
+
+| Their answer | Verdict |
+|---|---|
+| Right pattern AND a real signal from this problem | **Pass** → S2. Now reveal the header properly. |
+| Right pattern, no signal | Fail. Ask only for the signal. |
+| Wrong pattern with a coherent reason | Fail, but engage the reason — usually a near-miss worth naming (the sub-pattern table helps). **Append the wrong id to `s1_wrong_guesses`.** Re-ask. |
+| Wrong pattern, no reason | **Append to `s1_wrong_guesses`.** Ask what in the statement made them think of it. |
+| "No idea" | That is a hint request. Hint 1 is a reframe of the statement, as usual. |
+
+**These are the only `s1_wrong_guesses` that count.** `confusion.py` ignores learn-mode files,
+so the error profile is built from real confusions, not from questions they were handed.
 
 ---
 

@@ -28,7 +28,18 @@ Fill the daily budget in this priority:
 |---|---|---|
 | 1 | **Revisits due** — from `python3 scripts/schedule.py due` | Max 1 per day. More and it becomes revision instead of progress. A lapsed problem (`lapses > 0`) outranks a first revisit. |
 | 2 | **Parked problems** older than 3 days | Max 1. Parked work rots. |
-| 3 | **Next in track** | Fill the remaining budget |
+| 3 | **Next** — from `python3 scripts/next-problem.py --json`, never picked by hand | Fill the remaining budget. It returns the problem **and** its S1 mode; pass both to `teach-problem` |
+
+## Revisits and new problems run in identify mode when it means something
+
+Before serving a **revisit**, run `python3 scripts/next-problem.py --revisit <slug> --json`.
+With 3+ patterns met it returns `identify`: the header hides the pattern and S1 asks them to
+pick it from a menu. With fewer, it returns `learn` — a menu of one or two gives it away.
+
+New problems: `next-problem.py` interleaves an earlier pattern 1 in 3 once 3+ are `working`.
+That is deliberate. Recognition is only practised when they don't know which section they are
+in, and the track alone is blocked by pattern. **In the menu, an interleaved NEW problem shows
+as `NEW · <difficulty> · pattern hidden`** — listing its pattern would undo the point.
 
 ## Your own error profile
 

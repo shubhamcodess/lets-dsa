@@ -157,7 +157,7 @@ Full spec in `skills/teach-problem/references/loop.md`. Summary:
 | # | Stage | Exit gate |
 |---|---|---|
 | S0 | SELECT | Problem fetched, pattern assigned, scaffold written, **and the problem presented in full** — statement, 2 examples, the constraints that matter. **No link; that comes at S5** |
-| S1 | PATTERN | They restate — in their own words — the pattern name AND the signal in this problem's constraints that selects it |
+| S1 | PATTERN | **learn mode:** the **signal** — which line of *this* problem makes the tool fit, and what the obvious approach costs. **identify mode:** the **pattern**, from a menu of ones they've met, **and** the signal. See *S1 has two modes* |
 | S2 | INTUITION | **Dry-run gate**: you give input (n ≤ 6), they produce the state trace. Correct final answer + ≥80% of intermediate states |
 | S3 | LADDER | They give time+space for brute/better/optimal + one sentence on what optimal buys over better |
 | S4 | PSEUDOCODE | Their pseudocode survives your adversarial input, zero fatal defects. Max 4 rounds |
@@ -167,6 +167,25 @@ Full spec in `skills/teach-problem/references/loop.md`. Summary:
 **Every teaching reply opens with a stage banner:** `[S2 · INTUITION · hint 2/5]`
 
 **No stage advances on an acknowledgement.** "Got it", "yes", "makes sense", "I understand" are not gate passes. Only a produced artifact advances a stage — a trace, a complexity figure, a breaking input, a line of their own pseudocode.
+
+### S1 has two modes — `scripts/next-problem.py` decides
+
+| | **learn** | **identify** |
+|---|---|---|
+| When | The problem is in the pattern they're working through | 1 problem in 3 drawn from an earlier pattern, once 3+ patterns are `working` — or a revisit with 3+ patterns met |
+| S0 header | `· <Pattern name>` | `· Pattern: ?` |
+| Gate | The **signal** — never "name the pattern"; it is in the header | The **pattern** from a menu of patterns they have met, **and** the signal. Teach nothing first |
+| `s1_wrong_guesses` | **not** recorded | recorded — feeds `confusion.py` |
+
+"Name the pattern" used to be asked every time, while the answer was printed in the header,
+implied by `next` serving the same section, and taught a minute earlier. It tested nothing.
+**Recognition is only exercised when the learner doesn't know which section they are in** —
+blocked practice never builds it, and interviews are fully interleaved. So identify mode
+interleaves, and learn mode asks for the one thing a header cannot give away.
+
+`next` always runs `python3 scripts/next-problem.py --json` and serves its `slug` in its
+`s1_mode`. **Never choose the mode yourself.** A learner who names a problem (`teach X`) gets
+learn mode. Record `s1_mode` in `current.json` and the question frontmatter.
 
 Backward transitions are allowed and named. Forward skips are not, with one exception: they may declare "I've solved this before" at S0, which jumps to S5 in `mode: review-only`. Record the mode so the stats don't lie later.
 
@@ -250,8 +269,8 @@ answer to a demonstrated artifact is yes.
 
 **2. The S1 fast-pass, any pattern, any band.** If their *first* S1 message contains, unprompted:
 
-- the pattern name, **and**
-- the signal in these constraints that selects it, **and**
+- the signal in these constraints that selects the tool, **and**
+- in identify mode, the pattern name too, **and**
 - the invariant, **and**
 - the optimal's time and space
 
@@ -267,7 +286,7 @@ with no prompting, is harder than four gates with questions between them.
 
 One message, and it must contain all three:
 
-1. the pattern and the signal that selects it
+1. the signal that selects the tool — plus the pattern name, in identify mode
 2. the invariant, in their words
 3. a correct trace of an input you give them — **the dry run is never skipped**, only merged
 
@@ -353,7 +372,7 @@ yet."* **They cannot name a pattern in a problem they were never shown.**
 At S0, before any gate question, always:
 
 ```
-**<Title>** (#<id>) · <Difficulty> · <Pattern name>
+**<Title>** (#<id>) · <Difficulty> · <Pattern name — or `Pattern: ?` in identify mode>
 
 <Two or three plain sentences: what it asks.>
 
@@ -434,6 +453,7 @@ Two scripts turn past sessions into what happens next. Neither is optional.
 | `scripts/schedule.py` | `srs_*` fields in the question file | at S6, and whenever picking revisits |
 | `scripts/confusion.py` | `state/confusion.json` | before `daily-drill` picks, and before a progress report |
 | `scripts/reward.py` | nothing — read-only | at S6, after the review, after `roll-stats.py` |
+| `scripts/next-problem.py` | nothing — read-only | on every `next`: which problem, and `learn` or `identify` |
 
 **Scheduling.** Derive the grade from hints and attempts — `schedule.py grade --hints N --attempts M` — **never from "that felt easy"**. Then `schedule.py next` for the interval. A clean recall grows it 5→8→12→19→29 days; a lapse collapses it to a week or less, because re-showing a forgotten problem a month later just repeats the forgetting. Never hand-pick a date.
 
@@ -582,7 +602,7 @@ Ask for the submission URL as the default path — it costs them one paste and m
 | `setup` | First-run onboarding |
 | `basics` | The 8 foundation topics — what to learn before problems |
 | `today` | Today's drill set from your track |
-| `next` | The next problem in your track |
+| `next` | The next problem — from your track, or interleaved from an earlier pattern |
 | `teach <problem>` | Start the loop on a specific problem |
 | `hint` | The next rung. Costs one rung. |
 | `park` | Save state, step away |

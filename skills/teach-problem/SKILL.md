@@ -53,12 +53,21 @@ Exact format: `[<stage id> · <STAGE NAME> · hint <rung>/5]`. First line, every
 | # | Stage | You do | Gate — ALL must be true to advance |
 |---|---|---|---|
 | S0 | SELECT | `get_problem` the slug, classify the pattern, write the scaffold file, **then present the problem in full** (below) | Question file exists with pattern assigned, **and the learner has seen the statement, 2 examples and the constraints. No link — S5 gives that** |
-| S1 | PATTERN | Teach the **family**, not this problem. Name it, give its trigger signals, name 2 siblings | They state, unprompted and in their own words: **(a)** the pattern name, **(b)** the signal in *this* problem's constraints that selects it |
+| S1 | PATTERN | **learn mode:** pattern is told (header + brief on its first problem) · **identify mode:** pattern hidden, menu of patterns they've met. `next-problem.py` picks the mode | **learn:** the **signal** — which line of *this* problem makes the tool fit, and what the obvious approach costs. **identify:** the **pattern** from the menu **and** the signal |
 | S2 | INTUITION | Socratic. Build the invariant together. Ask, don't tell | **Dry-run gate** — you give an input with n ≤ 6, they produce the state trace. Correct final answer AND ≥80% of intermediate states |
 | S3 | LADDER | Brute → better → optimal. They propose each tier before you react | They give time+space for all three AND one sentence on what optimal buys that better doesn't |
 | S4 | PSEUDOCODE | Critique only — see the four-utterance rule below | Their pseudocode survives your adversarial input with zero fatal defects. Max 4 rounds |
 | S5 | SUBMIT | Stop teaching. **Give them the LeetCode link** (below) | They report Accepted and paste the submission URL or the runtime/memory line |
 | S6 | RECORD | Hand off to `skills/record-solve` | File written and committed |
+
+### Choosing the problem and the mode
+
+`next` → `python3 scripts/next-problem.py --json`. Serve the `slug` it returns, in the
+`s1_mode` it returns. **Never pick the mode yourself** — it is deterministic so it cannot drift.
+Write `s1_mode` to `active` in `state/current.json` and to the question frontmatter at S0.
+
+A learner naming a specific problem (`teach two-sum`) gets **learn** mode — they chose it, so
+they already know where it sits.
 
 ### S0 — present the problem before any gate
 
@@ -67,7 +76,7 @@ open with a one-line shape they will ask you what the problem means — and that
 in real sessions, twice. A pattern cannot be named in a problem that was never shown.
 
 ```
-**<Title>** (#<id>) · <Difficulty> · <Pattern name>
+**<Title>** (#<id>) · <Difficulty> · <Pattern name — or `Pattern: ?` in identify mode>
 
 <Two or three plain sentences: what it asks.>
 
@@ -82,20 +91,40 @@ Constraints that matter: <n bound, value range, any guarantee — and what each 
 Then, after a horizontal rule, the gate — **as the last thing in the message**, so the final
 thing they read is what to do:
 
+**learn mode** — the pattern is in the header, so never ask them to name it:
+
 ```
 ---
 **[S1 · PATTERN · hint 0/5]**
 
-Answer in one message:
-
-1. **Pattern** — which family, and the signal in *these* constraints that picks it
-2. **Invariant** — what stays true the whole way through
+1. **Signal** — which line of this problem makes <Pattern> the right tool, and what goes
+   wrong if you try the obvious approach instead?
 
 Stuck? Say `hint` — costs 1 of 5.
 ```
 
-Merged gate (band `working` or better) adds **3. Trace** with the input. Same shape, one
-message, one question block.
+**identify mode** — header says `Pattern: ?`, and you teach nothing first:
+
+```
+---
+**[S1 · IDENTIFY · hint 0/5]**
+
+You've met: <the menu from next-problem.py>
+
+1. **Pattern** — which of these fits?
+2. **Signal** — what in this problem tells you?
+
+Stuck? Say `hint` — costs 1 of 5.
+```
+
+Merged gate (band `working` or better) appends **Invariant** and **Trace** with the input to
+either shape. Same block, one message.
+
+**Why two modes:** "name the pattern" used to be asked every time — while the answer sat in the
+S0 header, `next` served the same section, and S1 had just taught it. A giveaway or a parrot.
+Recognition is only tested when they don't know which section they're in, so identify mode
+interleaves earlier patterns; learn mode asks for the signal, which can't be read off a header.
+Full spec: `references/loop.md` § S1. Only identify-mode misses go to `s1_wrong_guesses`.
 
 **Then stop.** No file diffs, no commit output, no scaffolder notes after it — finish those
 before you present. And never send the gate a second time.

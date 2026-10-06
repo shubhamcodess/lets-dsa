@@ -6,7 +6,8 @@ Every other DSA tool tells you what most people get wrong. This tells you what Y
 wrong, because it reads data only your own sessions could have produced:
 
   * `## Defects Found` tables    the defect classes your pseudocode actually contains
-  * `s1_wrong_guesses`           patterns you named before naming the right one
+  * `s1_wrong_guesses`           patterns you named before the right one -- identify
+                                mode only, where the pattern was hidden
   * hints per pattern            where you needed the most help
   * lapses                       what you solved and then forgot
 
@@ -107,10 +108,16 @@ def main():
                     defects[cell] += 1
                     defect_where[cell].append(slug)
 
-        # patterns they named before the right one
-        for wrong in (fm.get("s1_wrong_guesses") or []):
-            if wrong in pats and wrong != pid:
-                confusions[(pid, wrong)] += 1
+        # patterns they named before the right one -- but only when the pattern was HIDDEN.
+        # In learn mode the pattern is printed in the S0 header and taught at S1, so a
+        # "wrong guess" there is a slip, not a confusion between two tools. Counting it
+        # would build an error profile out of questions they were handed the answer to.
+        # Files from before s1_mode existed have no field; they are counted, because those
+        # guesses were made before the header showed the pattern.
+        if fm.get("s1_mode") != "learn":
+            for wrong in (fm.get("s1_wrong_guesses") or []):
+                if wrong in pats and wrong != pid:
+                    confusions[(pid, wrong)] += 1
 
         if fm.get("status") == "solved" and pid:
             hints_by_pattern[pid].append(fm.get("hints_used") or 0)

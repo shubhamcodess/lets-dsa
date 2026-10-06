@@ -84,6 +84,8 @@ Be honest in the verdict. "Would not pass" is more useful than a kind number —
 
 ## After
 
+**Never reveal the pattern** — no header, no menu. An interview is fully interleaved and naming the tool is half of what is being tested. Record `s1_mode: identify`.
+
 Write `questions/<pattern>/<slug>.md` with `mode: interview` in the frontmatter so it doesn't pollute the teaching stats. Commit `solve: <slug> — interview mode, 15/25`.
 
 Offer to re-run the same problem in teaching mode if they struggled. That is often the most valuable next step.
