@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rolling Hash — Longest Happy Prefix</title>
+<style>
+  :root {
+    --bg: #f8f9fa;
+    --surface: #ffffff;
+    --border: #dee2e6;
+    --text: #212529;
+    --text-muted: #6c757d;
+    --prefix-color: #3b82f6;
+    --suffix-color: #ef4444;
+    --overlap-color: #10b981;
+    --new-outline: #f59e0b;
+    --match-bg: #d1fae5;
+    --match-border: #10b981;
+    --match-text: #065f46;
+    --nomatch-bg: #fee2e2;
+    --nomatch-border: #ef4444;
+    --nomatch-text: #991b1b;
+    --neutral-bg: #f1f5f9;
+    --neutral-border: #94a3b8;
+    --neutral-text: #475569;
+    --btn-bg: #e9ecef;
+    --btn-hover: #dee2e6;
+    --btn-active-bg: #3b82f6;
+    --btn-active-text: #ffffff;
+    --panel-bg: #f8f9fa;
+    --hash-panel-bg: #ffffff;
+    --state-bg: #f1f5f9;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --border: #334155;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --prefix-color: #60a5fa;
+      --suffix-color: #f87171;
+      --overlap-color: #34d399;
+      --new-outline: #fbbf24;
+      --match-bg: #064e3b;
+      --match-border: #10b981;
+      --match-text: #6ee7b7;
+      --nomatch-bg: #7f1d1d;
+      --nomatch-border: #ef4444;
+      --nomatch-text: #fca5a5;
+      --neutral-bg: #1e293b;
+      --neutral-border: #475569;
+      --neutral-text: #94a3b8;
+      --btn-bg: #334155;
+      --btn-hover: #475569;
+      --btn-active-bg: #3b82f6;
+      --btn-active-text: #ffffff;
+      --panel-bg: #1e293b;
+      --hash-panel-bg: #0f172a;
+      --state-bg: #1e293b;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  /* Invariant banner */
+  #invariant-banner {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 2px solid var(--neutral-border);
+    background: var(--neutral-bg);
+    color: var(--neutral-text);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+    text-align: center;
+    transition: background 0.25s, border-color 0.25s, color 0.25s;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  }
+  #invariant-banner.match {
+    background: var(--match-bg);
+    border-color: var(--match-border);
+    color: var(--match-text);
+  }
+  #invariant-banner.nomatch {
+    background: var(--nomatch-bg);
+    border-color: var(--nomatch-border);
+    color: var(--nomatch-text);
+  }
+
+  /* String display */
+  .string-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 12px 10px;
+    margin-bottom: 12px;
+  }
+
+  .string-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+
+  .char-row {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+
+  .char-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .char-box {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: 2px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    transition: background 0.25s, border-color 0.25s, color 0.25s;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  }
+
+  .char-box.prefix-only {
+    background: var(--prefix-color);
+    border-color: var(--prefix-color);
+    color: #fff;
+  }
+  .char-box.suffix-only {
+    background: var(--suffix-color);
+    border-color: var(--suffix-color);
+    color: #fff;
+  }
+  .char-box.overlap {
+    background: var(--overlap-color);
+    border-color: var(--overlap-color);
+    color: #fff;
+  }
+  .char-box.new-char {
+    outline: 3px solid var(--new-outline);
+    outline-offset: 2px;
+  }
+
+  .char-idx {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    font-family: "SFMono-Regular", Consolas, monospace;
+  }
+
+  .legend {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+  }
+  .legend-dot.p { background: var(--prefix-color); }
+  .legend-dot.s { background: var(--suffix-color); }
+  .legend-dot.o { background: var(--overlap-color); }
+  .legend-dot.n { border: 2px solid var(--new-outline); background: transparent; }
+
+  /* Hash panels */
+  .hash-panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .hash-panel {
+    background: var(--hash-panel-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 10px;
+  }
+
+  .hash-panel-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .hash-panel.prefix-panel .hash-panel-title { color: var(--prefix-color); }
+  .hash-panel.suffix-panel .hash-panel-title { color: var(--suffix-color); }
+
+  .hash-string {
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    min-height: 1.4em;
+    word-break: break-all;
+  }
+  .prefix-panel .hash-string { color: var(--prefix-color); }
+  .suffix-panel .hash-string { color: var(--suffix-color); }
+
+  .hash-formula {
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    min-height: 2.4em;
+    line-height: 1.4;
+    word-break: break-all;
+  }
+
+  .hash-value {
+    font-size: 1.3rem;
+    font-weight: 800;
+    font-family: "SFMono-Regular", Consolas, monospace;
+  }
+  .prefix-panel .hash-value { color: var(--prefix-color); }
+  .suffix-panel .hash-value { color: var(--suffix-color); }
+
+  .hash-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* State tracker */
+  .state-tracker {
+    background: var(--state-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 0.85rem;
+  }
+
+  .state-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .state-val {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  .state-key {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* Match result */
+  #match-result {
+    text-align: center;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-muted);
+    transition: background 0.25s, border-color 0.25s, color 0.25s;
+  }
+  #match-result.match {
+    background: var(--match-bg);
+    border-color: var(--match-border);
+    color: var(--match-text);
+  }
+  #match-result.nomatch {
+    background: var(--nomatch-bg);
+    border-color: var(--nomatch-border);
+    color: var(--nomatch-text);
+  }
+
+  /* Narration */
+  #narration {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--neutral-border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text);
+    margin-bottom: 14px;
+    min-height: 60px;
+    transition: border-left-color 0.25s;
+  }
+  #narration.match { border-left-color: var(--match-border); }
+  #narration.nomatch { border-left-color: var(--nomatch-border); }
+
+  /* Controls */
+  .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .control-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--btn-bg);
+    color: var(--text);
+    font-size: 0.85rem;
+    font-family: var(--font);
+    cursor: pointer;
+    transition: background 0.15s;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    user-select: none;
+  }
+  .btn:hover { background: var(--btn-hover); }
+  .btn:active { opacity: 0.8; }
+  .btn.active-speed {
+    background: var(--btn-active-bg);
+    color: var(--btn-active-text);
+    border-color: var(--btn-active-bg);
+  }
+  .btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  #play-btn { min-width: 80px; }
+
+  .step-counter {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-align: center;
+    font-family: "SFMono-Regular", Consolas, monospace;
+  }
+
+  .speed-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  @media (max-width: 420px) {
+    .char-box { width: 38px; height: 38px; font-size: 1rem; }
+    .hash-panels { grid-template-columns: 1fr; }
+    body { padding: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Rolling Hash — Longest Happy Prefix</h1>
+<p class="subtitle">LeetCode #1392 · s = "ababab" · BASE=3 · mod=97</p>
+
+<div id="invariant-banner">
+  prefHash(L) == suffHash(L) &nbsp;↔&nbsp; s[0..L-1] == s[n-L..n-1]
+</div>
+
+<div class="string-section">
+  <div class="string-label">String s = "ababab"</div>
+  <div class="char-row" id="char-row"></div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot p"></div> prefix</div>
+    <div class="legend-item"><div class="legend-dot s"></div> suffix</div>
+    <div class="legend-item"><div class="legend-dot o"></div> overlap</div>
+    <div class="legend-item"><div class="legend-dot n"></div> newly added</div>
+  </div>
+</div>
+
+<div class="hash-panels">
+  <div class="hash-panel prefix-panel">
+    <div class="hash-panel-title">PREFIX — append →</div>
+    <div class="hash-string" id="pref-str">""</div>
+    <div class="hash-formula" id="pref-formula"></div>
+    <div class="hash-value" id="pref-hash">0</div>
+    <div class="hash-label">prefHash</div>
+  </div>
+  <div class="hash-panel suffix-panel">
+    <div class="hash-panel-title">← prepend — SUFFIX</div>
+    <div class="hash-string" id="suff-str">""</div>
+    <div class="hash-formula" id="suff-formula"></div>
+    <div class="hash-value" id="suff-hash">0</div>
+    <div class="hash-label">suffHash</div>
+  </div>
+</div>
+
+<div class="state-tracker">
+  <div class="state-item">
+    <div class="state-val" id="state-L">0</div>
+    <div class="state-key">L</div>
+  </div>
+  <div class="state-item">
+    <div class="state-val" id="state-power">1</div>
+    <div class="state-key">power</div>
+  </div>
+  <div class="state-item">
+    <div class="state-val" id="state-longest">0</div>
+    <div class="state-key">longestLen</div>
+  </div>
+</div>
+
+<div id="match-result">—</div>
+
+<div id="narration"></div>
+
+<div class="controls">
+  <div class="control-row">
+    <button class="btn" id="reset-btn" title="Reset (R)">↩ Reset</button>
+    <button class="btn" id="back-btn" title="Step back (←)">◀ Back</button>
+    <button class="btn" id="play-btn" title="Play/Pause (Space)">▶ Play</button>
+    <button class="btn" id="fwd-btn" title="Step forward (→)">Fwd ▶</button>
+  </div>
+  <div class="step-counter" id="step-counter">Step 0 of 6</div>
+  <div class="control-row">
+    <span class="speed-label">Speed:</span>
+    <button class="btn" id="speed-05" data-speed="0.5">0.5×</button>
+    <button class="btn active-speed" id="speed-1" data-speed="1">1×</button>
+    <button class="btn" id="speed-2" data-speed="2">2×</button>
+  </div>
+</div>
+
+<script>
+  // s = "ababab", n=6, BASE=3, mod=97, charVal: a=1, b=2
+  const S = "ababab";
+  const N = S.length;
+
+  const steps = [
+    {
+      L: 0,
+      prefix: "",
+      suffix: "",
+      prefHash: 0,
+      suffHash: 0,
+      power: 1,
+      longestLen: 0,
+      match: null,
+      prefFormula: "initial: prefHash = 0",
+      suffFormula: "initial: suffHash = 0",
+      newPrefIdx: -1,
+      newSuffIdx: -1,
+      note: "Both hashes = 0. power = 1 = BASE⁰. Prefix and suffix are both empty. Each step grows both by one character — prefix appends from the left end, suffix prepends from the right end."
+    },
+    {
+      L: 1,
+      prefix: "a",
+      suffix: "b",
+      prefHash: 1,
+      suffHash: 2,
+      power: 3,
+      longestLen: 0,
+      match: false,
+      prefFormula: "(0 × 3 + 1) % 97 = 1",
+      suffFormula: "(2 × 1 + 0) % 97 = 2  [power was 1 = BASE⁰]",
+      newPrefIdx: 0,
+      newSuffIdx: 5,
+      note: "'a' appended to prefix (right end of prefix = index 0); 'b' prepended to suffix (index 5, the last char). Suffix uses power=1=BASE⁰ because it's the first (rightmost) suffix character. prefHash=1 ≠ suffHash=2: 'a' ≠ 'b'."
+    },
+    {
+      L: 2,
+      prefix: "ab",
+      suffix: "ab",
+      prefHash: 5,
+      suffHash: 5,
+      power: 9,
+      longestLen: 2,
+      match: true,
+      prefFormula: "(1 × 3 + 2) % 97 = 5",
+      suffFormula: "(1 × 3 + 2) % 97 = 5  [power was 3 = BASE¹]",
+      newPrefIdx: 1,
+      newSuffIdx: 4,
+      note: "'b' appended to prefix (index 1); 'a' prepended to suffix (index 4) at power=3=BASE¹ — higher power means further left in the suffix. Both hash to 5: 'ab' == 'ab'. longestLen → 2."
+    },
+    {
+      L: 3,
+      prefix: "aba",
+      suffix: "bab",
+      prefHash: 16,
+      suffHash: 23,
+      power: 27,
+      longestLen: 2,
+      match: false,
+      prefFormula: "(5 × 3 + 1) % 97 = 16",
+      suffFormula: "(2 × 9 + 5) % 97 = 23  [power was 9 = BASE²]",
+      newPrefIdx: 2,
+      newSuffIdx: 3,
+      note: "'a' appended to prefix (index 2); 'b' prepended to suffix (index 3) at power=9=BASE². Hashes diverge: 16 ≠ 23. 'aba' ≠ 'bab'. longestLen stays at 2."
+    },
+    {
+      L: 4,
+      prefix: "abab",
+      suffix: "abab",
+      prefHash: 50,
+      suffHash: 50,
+      power: 81,
+      longestLen: 4,
+      match: true,
+      prefFormula: "(16 × 3 + 2) % 97 = 50",
+      suffFormula: "(1 × 27 + 23) % 97 = 50  [power was 27 = BASE³]",
+      newPrefIdx: 3,
+      newSuffIdx: 2,
+      note: "'b' appended to prefix (index 3); 'a' prepended to suffix (index 2) at power=27=BASE³. Both hash to 50: 'abab' == 'abab'. longestLen → 4. This is the longest prefix that is also a suffix."
+    },
+    {
+      L: 5,
+      prefix: "ababa",
+      suffix: "babab",
+      prefHash: 54,
+      suffHash: 18,
+      power: 49,
+      longestLen: 4,
+      match: false,
+      prefFormula: "(50 × 3 + 1) % 97 = 54",
+      suffFormula: "(2 × 81 + 50) % 97 = 212 % 97 = 18  [power was 81 = BASE⁴]",
+      newPrefIdx: 4,
+      newSuffIdx: 1,
+      note: "'a' appended to prefix (index 4); 'b' prepended to suffix (index 1) at power=81=BASE⁴. Hashes diverge: 54 ≠ 18. 'ababa' ≠ 'babab'. L=5 would be the full string minus nothing useful."
+    },
+    {
+      L: null,
+      prefix: "abab",
+      suffix: "abab",
+      prefHash: null,
+      suffHash: null,
+      power: null,
+      longestLen: 4,
+      match: null,
+      prefFormula: "—",
+      suffFormula: "—",
+      newPrefIdx: -1,
+      newSuffIdx: -1,
+      note: "Loop complete (i ran 0→4, L ran 1→5). longestLen = 4. Return s[0..3] = \"abab\". The longest proper prefix of 'ababab' that is also a suffix is 'abab'."
+    }
+  ];
+
+  const TOTAL = steps.length - 1; // 0-indexed last step index
+
+  let stepIdx = 0;
+  let playing = false;
+  let intervalId = null;
+  let speedMs = 1200; // 1× = 1.2s per step
+
+  // Build char row
+  const charRow = document.getElementById('char-row');
+  for (let i = 0; i < N; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'char-cell';
+    const box = document.createElement('div');
+    box.className = 'char-box';
+    box.id = 'cb-' + i;
+    box.textContent = S[i];
+    const idx = document.createElement('div');
+    idx.className = 'char-idx';
+    idx.textContent = i;
+    cell.appendChild(box);
+    cell.appendChild(idx);
+    charRow.appendChild(cell);
+  }
+
+  function render() {
+    const st = steps[stepIdx];
+    const isDone = st.L === null;
+
+    // Invariant banner
+    const banner = document.getElementById('invariant-banner');
+    if (st.match === true) {
+      banner.className = 'match';
+    } else if (st.match === false) {
+      banner.className = 'nomatch';
+    } else {
+      banner.className = '';
+    }
+
+    // Char boxes
+    const L = isDone ? 4 : (st.L || 0);
+    for (let i = 0; i < N; i++) {
+      const box = document.getElementById('cb-' + i);
+      const inPrefix = i < L;
+      const inSuffix = i >= N - L;
+      const isNewPref = i === st.newPrefIdx;
+      const isNewSuff = i === st.newSuffIdx;
+
+      box.className = 'char-box';
+      if (L > 0) {
+        if (inPrefix && inSuffix) {
+          box.classList.add('overlap');
+        } else if (inPrefix) {
+          box.classList.add('prefix-only');
+        } else if (inSuffix) {
+          box.classList.add('suffix-only');
+        }
+      }
+      if (isNewPref || isNewSuff) {
+        box.classList.add('new-char');
+      }
+    }
+
+    // Hash panels
+    const prefStr = document.getElementById('pref-str');
+    const suffStr = document.getElementById('suff-str');
+    prefStr.textContent = isDone ? '"abab"' : (st.prefix === "" ? '""' : '"' + st.prefix + '"');
+    suffStr.textContent = isDone ? '"abab"' : (st.suffix === "" ? '""' : '"' + st.suffix + '"');
+
+    document.getElementById('pref-formula').textContent = st.prefFormula;
+    document.getElementById('suff-formula').textContent = st.suffFormula;
+
+    document.getElementById('pref-hash').textContent = isDone ? '—' : st.prefHash;
+    document.getElementById('suff-hash').textContent = isDone ? '—' : st.suffHash;
+
+    // State tracker
+    document.getElementById('state-L').textContent = isDone ? '—' : st.L;
+    document.getElementById('state-power').textContent = isDone ? '—' : st.power;
+    document.getElementById('state-longest').textContent = st.longestLen;
+
+    // Match result
+    const matchEl = document.getElementById('match-result');
+    if (st.match === true) {
+      matchEl.className = 'match';
+      matchEl.textContent = '✓ prefHash == suffHash → "' + st.prefix + '" is a happy prefix · longestLen = ' + st.longestLen;
+    } else if (st.match === false) {
+      matchEl.className = 'nomatch';
+      matchEl.textContent = '✗ prefHash ≠ suffHash → "' + st.prefix + '" ≠ "' + st.suffix + '"';
+    } else if (isDone) {
+      matchEl.className = 'match';
+      matchEl.textContent = '✓ Done · Return s[0..3] = "abab"';
+    } else {
+      matchEl.className = '';
+      matchEl.textContent = '—';
+    }
+
+    // Narration
+    const narr = document.getElementById('narration');
+    narr.textContent = st.note;
+    if (st.match === true) narr.className = 'match';
+    else if (st.match === false) narr.className = 'nomatch';
+    else narr.className = '';
+
+    // Step counter
+    document.getElementById('step-counter').textContent = 'Step ' + stepIdx + ' of ' + TOTAL;
+
+    // Button states
+    document.getElementById('back-btn').disabled = stepIdx === 0;
+    document.getElementById('fwd-btn').disabled = stepIdx === TOTAL;
+    if (stepIdx === TOTAL && playing) stopPlay();
+  }
+
+  function stopPlay() {
+    playing = false;
+    clearInterval(intervalId);
+    intervalId = null;
+    document.getElementById('play-btn').textContent = '▶ Play';
+  }
+
+  function startPlay() {
+    if (stepIdx >= TOTAL) return;
+    playing = true;
+    document.getElementById('play-btn').textContent = '⏸ Pause';
+    intervalId = setInterval(() => {
+      if (stepIdx < TOTAL) {
+        stepIdx++;
+        render();
+      }
+      if (stepIdx >= TOTAL) stopPlay();
+    }, speedMs);
+  }
+
+  document.getElementById('play-btn').addEventListener('click', () => {
+    if (playing) stopPlay();
+    else startPlay();
+  });
+
+  document.getElementById('back-btn').addEventListener('click', () => {
+    stopPlay();
+    if (stepIdx > 0) { stepIdx--; render(); }
+  });
+
+  document.getElementById('fwd-btn').addEventListener('click', () => {
+    stopPlay();
+    if (stepIdx < TOTAL) { stepIdx++; render(); }
+  });
+
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    stopPlay();
+    stepIdx = 0;
+    render();
+  });
+
+  // Speed buttons
+  document.querySelectorAll('[data-speed]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-speed]').forEach(b => b.classList.remove('active-speed'));
+      btn.classList.add('active-speed');
+      const s = parseFloat(btn.dataset.speed);
+      speedMs = Math.round(1200 / s);
+      if (playing) {
+        stopPlay();
+        startPlay();
+      }
+    });
+  });
+
+  // Keyboard
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'ArrowLeft') {
+      stopPlay();
+      if (stepIdx > 0) { stepIdx--; render(); }
+    } else if (e.key === 'ArrowRight') {
+      stopPlay();
+      if (stepIdx < TOTAL) { stepIdx++; render(); }
+    } else if (e.key === ' ') {
+      e.preventDefault();
+      if (playing) stopPlay(); else startPlay();
+    } else if (e.key === 'r' || e.key === 'R') {
+      stopPlay();
+      stepIdx = 0;
+      render();
+    }
+  });
+
+  // Init
+  render();
+</script>
+</body>
+</html>
